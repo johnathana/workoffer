@@ -36,7 +36,7 @@ create table if not exists work_offers (
     requirements text,
     deliverables varchar(255),
     hours smallint unsigned,
-    deadline datetime,
+    deadline date,
     at_di boolean,
     academic_year_id int unsigned,
     winter_semester boolean,
