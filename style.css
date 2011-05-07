@@ -164,7 +164,7 @@ body.specs #main { font-size: 11px; line-height: 16px; }
 #globalfooter .gf-links { float: right; margin: 18px 3px 9px 0; }
 #globalfooter .gf-sosumi { clear: both; width: 100%; border-top: 1px solid #ddd; padding-top: 9px; }
 #globalfooter .gf-sosumi a { padding: 0 10px; }
-#globalfooter .gf-sosumi p { float: left; margin-left: 3px; }
+#globalfooter .gf-sosumi p { text-align: center }
 #globalfooter form { margin: 18px 10px; }
 #globalfooter .search-wrapper { margin: 0 auto; }
 #globalfooter .search-wrapper input.prettysearch { margin-left: 10px; }
