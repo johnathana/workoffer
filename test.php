@@ -14,8 +14,8 @@ if (!$link) {
     die('Could not connect: ' . mysql_error());
 }
 
-//mysql_query("set names 'utf8'", $link);
-//mysql_query("set character set 'utf8'", $link);
+mysql_query("set names 'utf8'", $link);
+mysql_query("set character set 'utf8'", $link);
 
 
 $db_selected = mysql_select_db('workoffer', $link);
