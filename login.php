@@ -35,7 +35,7 @@ function onSubmit($formValues) {
      echo "YES";
 
     //SQL and or other Server side checks go here
-    if($formValues->username == 'admin' && $formValues->password == '12345') {
+    if($formValues->username == 'admin@gmail.com' && $formValues->password == '12345') {
         // if they do not want to be remembered
         if(!empty($formValues->rememberMe)) {
             // Let them know they successfully logged in

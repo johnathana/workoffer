@@ -67,7 +67,9 @@ $registration->addJFormPage($jFormPage1);
 // Set the function for a successful form submission
 function onSubmit($formValues) {
     //return array('failureHtml' => json_encode($formValues));
-    $secondary = '';
+    $email = $formValues->registrationPage->registrationSection1->email;
+	$passwd = $formValues->registrationPage->registrationSection1->passwd;
+	
     if ($formValues->registrationPage->registrationSection1->updates[0] == 'signup') {
         $updates = 'yes';
         // type, and detail
@@ -82,11 +84,9 @@ function onSubmit($formValues) {
 
 
     return array(
-        'successPageHtml' => '<p>Thanks for Using jFormer</p>
-            <p>Username: ' . $formValues->registrationPage->registrationSection1->username . '</p>
+        'successPageHtml' => '<p></p>
             <p>E-mail: ' . $formValues->registrationPage->registrationSection1->email . '</p>
             <p>Updates</p>
-            <p>Receive Updates: ' . $updates . '</p>
             '.$secondary,
     );
 }

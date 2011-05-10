@@ -7,6 +7,7 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
 ?>
 
 <body id="overview"> 
@@ -71,8 +72,17 @@ function onSubmit($formValues) {
     $formValues = $formValues->loginFormPage->loginFormSection;
 
     echo $formValues->email . " ". $formValues->password;
+	
+	global $con;	
+	$sql = "select * from users where email = '". mysql_real_escape_string($formValues->email) . "'";
+		
+    mysql_query($sql, $con) || die('Error: ' . mysql_error());
+	
+	$result = mysql_query($sql, $con);
 
-    if($formValues->email == 'admin@admin.gr' && $formValues->password == '12345') {
+	$row = mysql_fetch_array($result);
+	
+    if($formValues->email == $row['email'] && sha1($formValues->password) == $row['passwd'] ) {
         if(!empty($formValues->rememberMe)) {
             $response = array('successPageHtml' => '<p>Login Successful</p><p>We\'ll keep you logged in on this computer.</p>');
         }
@@ -81,9 +91,11 @@ function onSubmit($formValues) {
         }
     }
     else {
-        $response = array('failureNoticeHtml' => 'Invalid username or password.', 'failureJs' => "$('#password').val('').focus();");
+        $response = array('failureNoticeHtml' => 'Invalid username or password.' , 'failureJs' => "$('#password').val('').focus();");
     }
-
+	
+	mysql_close($con);
+	
     return $response;
 }
 
