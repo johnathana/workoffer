@@ -7,6 +7,7 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
 ?>
 
 <body id="overview"> 
@@ -66,9 +67,22 @@ $registration->addJFormPage($jFormPage1);
 
 // Set the function for a successful form submission
 function onSubmit($formValues) {
-    //return array('failureHtml' => json_encode($formValues));
+	//return array('failureHtml' => json_encode($formValues));
     $email = $formValues->registrationPage->registrationSection1->email;
 	$passwd = $formValues->registrationPage->registrationSection1->passwd;
+	
+	global $con;
+	$sql = "select * from users where email = '". mysql_real_escape_string($email) . "'";
+	mysql_query($sql, $con) || die('Error: ' . mysql_error());
+	$result = mysql_query($sql, $con);
+	
+	if (mysql_num_rows($result) > 0) {
+		$response = array('failureNoticeHtml' => 'Email in use' , 'failureJs' => "$('#password').val('').focus();");
+		return $response;
+	}
+	
+    
+
 	
     if ($formValues->registrationPage->registrationSection1->updates[0] == 'signup') {
         $updates = 'yes';
