@@ -68,7 +68,7 @@ $registration->addJFormPage($jFormPage1);
 // Set the function for a successful form submission
 function onSubmit($formValues) {
 	//return array('failureHtml' => json_encode($formValues));
-    $email = $formValues->registrationPage->registrationSection1->email;
+    	$email = $formValues->registrationPage->registrationSection1->email;
 	$passwd = $formValues->registrationPage->registrationSection1->passwd;
 	
 	global $con;
@@ -77,31 +77,19 @@ function onSubmit($formValues) {
 	$result = mysql_query($sql, $con);
 	
 	if (mysql_num_rows($result) > 0) {
-		$response = array('failureNoticeHtml' => 'Email in use' , 'failureJs' => "$('#password').val('').focus();");
+		$response = array('failureNoticeHtml' => 'Το email ανήκει σε υπάρχον λογαριασμό');
 		return $response;
 	}
-	
-    
 
-	
-    if ($formValues->registrationPage->registrationSection1->updates[0] == 'signup') {
-        $updates = 'yes';
-        // type, and detail
-        $type = $formValues->registrationPage->registrationSection1->update_type;
-        $secondary = '<p>Update Type: ' . $type . '</p>';
-        if ($type == 'phone') {
-            $secondary .= '<p>Phone Number: ' . $formValues->registrationPage->registrationSection1->phone . '</p>';
-        }
-    } else {
-        $updates = 'no';
-    }
+    	$sql = "insert into users (email, passwd) values ('". mysql_real_escape_string($email) . "', '" . sha1($passwd) . "')";
 
+	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-    return array(
-        'successPageHtml' => '<p></p>
-            <p>E-mail: ' . $formValues->registrationPage->registrationSection1->email . '</p>
-            <p>Updates</p>
-            '.$secondary,
+	mail('$email', 'Δημιουρία λογαριασμού', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.', null, '-fwebmaster@di.uoa.gr');	
+
+    	return array(
+        	'successPageHtml' => '<p>Η δημιουργία ολοκληρώθηκε.</p>
+            	<p>E-mail: ' . $email . '</p>'
     );
 }
 
