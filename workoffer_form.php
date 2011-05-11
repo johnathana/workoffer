@@ -58,12 +58,10 @@
 				</select></td>
 			</tr>
 			<tr>
-				<td>Απαιτήσεις γνώσεων</td><td> <textarea name="requirements" cols="40" rows="3">
-					</textarea></td>
+				<td>Απαιτήσεις γνώσεων</td><td> <textarea name="requirements" cols="40" rows="3"></textarea></td>
 			</tr>
 			<tr>
-			<td>Παραδοτέα</td><td> <textarea name="deliverables" cols="40" rows="3">
-				</textarea></td>
+			<td>Παραδοτέα</td><td> <textarea name="deliverables" cols="40" rows="3"></textarea></td>
 			</tr>
 			<tr>
 			<td>Απαιτούμενες ώρες υλοποίησης</td><td> <input type="text" name="hours" size="10"/></td>
