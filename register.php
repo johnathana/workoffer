@@ -68,8 +68,8 @@ $registration->addJFormPage($jFormPage1);
 // Set the function for a successful form submission
 function onSubmit($formValues) {
 	//return array('failureHtml' => json_encode($formValues));
-    	$email = $formValues->registrationPage->registrationSection1->email;
-	$passwd = $formValues->registrationPage->registrationSection1->passwd;
+    $email = trim($formValues->registrationPage->registrationSection1->email);
+	$passwd = trim($formValues->registrationPage->registrationSection1->password);
 	
 	global $con;
 	$sql = "select * from users where email = '". mysql_real_escape_string($email) . "'";
@@ -81,11 +81,11 @@ function onSubmit($formValues) {
 		return $response;
 	}
 
-    	$sql = "insert into users (email, passwd) values ('". mysql_real_escape_string($email) . "', '" . sha1($passwd) . "')";
+    $sql = "insert into users (email, passwd) values ('". mysql_real_escape_string($email) . "', '" . sha1($passwd) . "')";
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	mail('$email', 'Δημιουρία λογαριασμού', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.', null, '-fwebmaster@di.uoa.gr');	
+	mail('$email', 'Δημιουρία λογαριασμού', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.', null, null);	
 
     	return array(
         	'successPageHtml' => '<p>Η δημιουργία ολοκληρώθηκε.</p>
