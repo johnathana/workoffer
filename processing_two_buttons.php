@@ -94,9 +94,9 @@
 		<aside class="column first" id="optimized">
 
 	<?php 
-		if (isset($_POST['sent']) && $_POST['sent'] == "yes")
+		if (isset($_POST['sent']) && $_POST['sent'] == "yes")//exei metavei se aftin tin selida apo to workoffer_list
 		{
-			if(isset($_POST['id']))
+			if(isset($_POST['id']))//exei epilexsei kapoia paroxi
 			{
 				if($_POST['submit_btn'] == "Επεξεργασία")//patithike to button tis epexsergasias
 				{
@@ -108,7 +108,7 @@
 					extract($row); ?>
 					
 					<h3>Επεξεργασία υπάρχουσας παροχής </h3>
-					<form action="after_update.php" method="post">
+					<form action="workoffer_update.php" method="post">
 					<input type="hidden" name="id" value="<?php echo $_POST['id'];?>" />
 					<table>
 						<tr>
@@ -170,7 +170,7 @@
 					$workapps = mysql_query("$query",$con);
 					confirm_query($workapps);?>
 					<div id="container">
-						<form id="myForm" action="something.php" method="POST" >
+						<form id="myForm" action="assign.php" method="POST" >
 						<div id="demo" ></div>
 							<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" >
 							<thead>

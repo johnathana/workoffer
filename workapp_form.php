@@ -10,7 +10,9 @@
 		@import "dataTables/css/demo_table.css";
 	</style>
 	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" charset="utf-8">
+		
+		
+		<script type="text/javascript" charset="utf-8">
 		var oTable;
 		
 		$(document).ready(function(){ 
@@ -40,24 +42,26 @@
 				$(this.nTr).removeClass('row_selected');
 			});
 			$(event.target.parentNode).addClass('row_selected');
-			var workid = (fnGetSelected(oTable));
-			var str = '<input type="hidden" name="id" value="'+workid+'"/>';
-			$('#demo').html(str);
 		});
 		
-		$('#myForm').submit(function()
+		$('input:button').click(function()
 		{
-			var workid = (fnGetSelected(oTable));
-			
-			if (workid != null)//έχει επιλεγεί κάποια παροχή
+		var workid = fnGetSelected(oTable);
+		if(workid!=null)
+		{
+			$.post(
+			'workapp_form_processing.php',
+			{ id : workid },
+			function(data)
 			{
-				return true;
-			}
-			else//δεν έχει επιλέξει κάποια παροχή 
-			{
-				alert("Πρέπει πρώτα να επιλέξετε μια παροχή έργου");
-				return false;
-			}
+			  alert(data);
+			//$('.spacer').html(data);
+			});
+		}
+		else//δεν έχει επιλέξει κάποια παροχή 
+		{
+			alert("Πρώτα πρέπει να επιλέξετε μια παροχή έργου");
+		}
 		});
 		
 		}); 
@@ -76,12 +80,14 @@
 					aRowData = oTable.fnGetData(aTrs[i]);
 
 					return aRowData[0];
+					//aReturn.push( aTrs[i] );
 				}
 			}
+			//return aReturn;
 			return null;
 		}
-
-	</script>
+		
+		</script>
 </head> 
 
 <body id="overview"> 
@@ -93,13 +99,15 @@
 
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
-
+		
 		<div id="container">
 			<div class="full_width big">
 				<i>Πίνακας Παροχών</i> 
 			</div>
-			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία</p>
-			<form id="myForm" action="processing_two_buttons.php" method="POST" >
+			
+			<p>Οι γραμμές με <label class="high">αυτό το χρώμα</label> υποδηλώνουν ότι έχετε κάνει αίτηση στο παρελθόν για τις συγκεκριμένες παροχές</p>
+			
+			<form name="myForm" >
 				<div id="demo" ></div>
 				
 				<?php
@@ -129,8 +137,20 @@
 				<tbody>	
 				<?php	while($row = mysql_fetch_assoc($result_set))
 						{
-							echo "<tr>";
 							extract($row);
+							$workoffer_id = $id;
+							$stud_id = 1;//tha pernei tin timi apo to session['id']
+							$query1 = "SELECT * FROM work_applications WHERE user_id='$stud_id' AND work_id='$workoffer_id'";
+							$result_set1 = mysql_query($query1,$con);
+							confirm_query($result_set1);
+							if(mysql_num_rows($result_set1)>0)//iparxei idi kataxwrimeni afti i aitisi
+							{
+								echo "<tr class = 'high'>";
+							}
+							else
+							{
+								echo "<tr>";
+							}
 							if($addressed_for==0)
 							{$student_type="Μη εργαζόμενο";}
 							elseif($addressed_for==1)
@@ -154,8 +174,11 @@
 							echo"<input type='checkbox' disabled='true' checked='true'>";
 							echo"</td><td>$student_type</td>";
 							echo "</tr>";
-						}			
+						}
+					
 				?>	
+
+
 				</tbody>
 				<tfoot>
 				<tr>
@@ -175,23 +198,19 @@
 				</tr>
 				</tfoot>
 				</table>
-				
-				<div>&nbsp;</div>
-				<div>&nbsp;</div>
-				<p><input type="submit" name="submit_btn" value="Επεξεργασία"  />
-				<input type="submit" name="submit_btn" value="Αιτήσεις για αυτήν την παροχή"  /></p>
-				<input type='hidden' name='sent' value='yes' />
-			
+				<input type="button" name="submit_btn" value="Καταχώρηση"  />
+					
 			</form>	
+			
 		</div>
 			<div class="spacer"></div>
+		
 
 	</aside> 
 	</div><!--/content--> 
- 
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'); ?>
- 
+	 
+		<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'); ?>
+	 
 	</div><!--/globalfooter--> 
 </body> 
-</html> 
-
+</html>
