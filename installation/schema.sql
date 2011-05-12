@@ -1,5 +1,5 @@
 
-create database if not exists workoffer;
+create database if not exists workoffer CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 use workoffer;
 
@@ -17,14 +17,14 @@ create table if not exists users (
     cv text, /* this type can hold a variable amount of data */
     created timestamp default now(), /* not changed during subsequent updates */
     last_login timestamp /* if null account is inactive */
-) character set 'utf8' collate 'utf8_bin';
+) character set 'utf8' collate 'utf8_general_ci';
 
 
 create table if not exists academic_year (
     id int unsigned not null auto_increment primary key,
     ayear varchar(10) not null,
     is_current boolean
-) character set 'utf8' collate 'utf8_bin';
+) character set 'utf8' collate 'utf8_general_ci';
 
 
 create table if not exists work_offers (
@@ -45,7 +45,7 @@ create table if not exists work_offers (
     addressed_for tinyint(1) unsigned not null, /* for working people: 1 partial time, 2 full time */
     foreign key (professor_id) references users(id),
     foreign key (academic_year_id) references academic_year(id)
-) character set 'utf8' collate 'utf8_bin';
+) character set 'utf8' collate 'utf8_general_ci';
 
 
 create table if not exists work_applications (
@@ -56,7 +56,7 @@ create table if not exists work_applications (
     accepted boolean default false,
     foreign key (user_id) references users(id),
     foreign key (work_id) references work_offers(id)
-) character set 'utf8' collate 'utf8_bin';
+) character set 'utf8' collate 'utf8_general_ci';
 
 
 
