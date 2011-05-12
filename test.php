@@ -35,6 +35,7 @@ while ($row = mysql_fetch_assoc($result))
 
 echo "</table>\n";
 
+//login test stergios
 
 // Free the resources associated with the result set
 // This is done automatically at the end of the script
