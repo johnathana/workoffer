@@ -8,8 +8,10 @@
 	<style type="text/css" title="currentStyle">
 		@import "dataTables/css/demo_page.css";
 		@import "dataTables/css/demo_table.css";
+		@import "media/css/TableTools.css";
 	</style>
 	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var oTable;
 		
@@ -17,6 +19,17 @@
 		/* Init the table */
 		oTable = $('#example').dataTable({
 		"bJQueryUI": true,
+		"sDom": '<"H"Tfr>t<"F"ip>',
+		"oTableTools": {
+			"aButtons": [
+				"copy", "csv", "xls", "pdf",
+				{
+					"sExtends":    "collection",
+					"sButtonText": "Save",
+					"aButtons":    [ "csv", "xls", "pdf" ]
+				}
+			]
+		},
 		"aoColumns": [
         /* WorkOfferId */{"bVisible": false },
         /* Product */null,
@@ -30,7 +43,7 @@
         /* Description */null,
         /* Rating */null,
 		/* Product */null,
-        /* Rating */null,
+        /* Rating */null
         ]
 		});
 		
@@ -98,7 +111,7 @@
 			<div class="full_width big">
 				<i>Πίνακας Παροχών</i> 
 			</div>
-			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία</p>
+			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</p>
 			<form id="myForm" action="processing_two_buttons.php" method="POST" >
 				<div id="demo" ></div>
 				
@@ -132,11 +145,11 @@
 							echo "<tr>";
 							extract($row);
 							if($addressed_for==0)
-							{$student_type="Μη εργαζόμενο";}
+								{$student_type="Μη εργαζόμενο";}
 							elseif($addressed_for==1)
-							{$student_type="Μερικώς εργαζόμενο";}
+								{$student_type="Μερικώς εργαζόμενο";}
 							else
-							{$student_type="Πλήρως εργαζόμενο";}
+								{$student_type="Πλήρως εργαζόμενο";}
 							/*Βρίσκουμε τις τιμές που θέλουμε μέσω των ξένων κλειδιών*/
 							$row1 = get_surname_from_professor_id($professor_id);
 							$row2 = get_ayear_from_academic_year_id($academic_year_id);
@@ -144,14 +157,14 @@
 								<td>$title</td><td>$lesson</td><td>$candidates</td><td>$requirements</td><td>$deliverables</td>
 								<td>$hours</td><td>$deadline</td><td>";
 							if($at_di==false)
-							echo "<input type='checkbox' disabled='true'>";
+								echo "<input type='checkbox' disabled='true'>";
 							else
-							echo"<input type='checkbox' disabled='true' checked='true'>";
+								echo"<input type='checkbox' disabled='true' checked='true'>";
 							echo "</td><td>$row2[ayear]</td><td>";
 							if($winter_semester==false)
-							echo "<input type='checkbox' disabled='true'>";
+								echo "<input type='checkbox' disabled='true'>";
 							else
-							echo"<input type='checkbox' disabled='true' checked='true'>";
+								echo"<input type='checkbox' disabled='true' checked='true'>";
 							echo"</td><td>$student_type</td>";
 							echo "</tr>";
 						}			

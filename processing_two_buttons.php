@@ -37,22 +37,22 @@
 				$(this.nTr).removeClass('row_selected');
 			});
 			$(event.target.parentNode).addClass('row_selected');
-			var workid = (fnGetSelected(oTable));
-			var str = '<input type="hidden" name="id" value="'+workid+'"/>';
+			var workapp_id = (fnGetSelected(oTable));
+			var str = '<input type="hidden" name="id" value="'+workapp_id+'"/>';
 			$('#demo').html(str);
 		});
 		
 		$('#myForm').submit(function()
 		{
-			var workid = (fnGetSelected(oTable));
+			var workapp_id = (fnGetSelected(oTable));
 			
-			if (workid != null)//έχει επιλεγεί κάποια παροχή
+			if (workapp_id != null)//έχει επιλεγεί κάποια παροχή
 			{
 				return true;
 			}
 			else//δεν έχει επιλέξει κάποια παροχή 
 			{
-				alert("Πρέπει πρώτα να επιλέξετε μια παροχή έργου");
+				alert("Πρέπει πρώτα να επιλέξετε μια αίτηση παροχής έργου");
 				return false;
 			}
 		});
@@ -171,6 +171,7 @@
 					confirm_query($workapps);?>
 					<div id="container">
 						<form id="myForm" action="assign.php" method="POST" >
+						<input type="hidden" name="workoffer_id" value="<?php echo $_POST['id'];?>" />
 						<div id="demo" ></div>
 							<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" >
 							<thead>
@@ -216,11 +217,10 @@
 							</tr>
 							</tfoot>
 							</table>
-							
 							<div>&nbsp;</div>
-							<div>&nbsp;</div>
-							<p><input type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  />
+							<p><input type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /></p>
 						</form>
+						<a href="workoffer_list.php">Πίσω στις παροχές μου</a>
 					</div>
 					<?php
 				}
