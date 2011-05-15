@@ -47,4 +47,17 @@
         return $user_info;
 		
     }
+		
+		/*Βρίσκει το email του χρήστη*/
+		function get_user_mail($mail_username)
+	{	
+		global $con;
+		$query_mail_user = "SELECT name, surname, email FROM users WHERE email='$mail_username'";
+		$result_mail_user = mysql_query($query_mail_user,$con);
+		confirm_query($result_mail_user);
+		$user_mail = mysql_fetch_assoc($result_mail_user);  //iparxei o user?
+		return $user_mail;
+	
+	}
+	
 ?>

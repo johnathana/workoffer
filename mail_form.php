@@ -37,7 +37,7 @@
 		<form id="myMailForm" action="mail_form_processing.php" method="post">
 		<table>
 		    <tr>
-				<td>ΑΠΟ(εισάγετε όνομα χρήστη)</td><td><input type="text" name="mail_subject" size="40"/></td>
+				<td>ΑΠΟ(εισάγετε e-mail χρήστη)</td><td><input type="text" name="mail_username" size="40"/></td>
 			</tr>
 			<tr>
 				<td>ΠΡΟΣ</td><td> <select name="receivers">
