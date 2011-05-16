@@ -18,8 +18,10 @@
 		$(document).ready(function(){ 
 		/* Init the table */
 		oTable = $('#example').dataTable({
+		"sScrollX": "100%",
 		"bJQueryUI": true,
 		"sDom": '<"H"Tfr>t<"F"ip>',
+		"sPaginationType": "full_numbers",
 		"oTableTools": {
 			"aButtons": [
 				"copy", "csv", "xls", "pdf",

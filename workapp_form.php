@@ -19,6 +19,7 @@
 		/* Init the table */
 		oTable = $('#example').dataTable({
 		"bJQueryUI": true,
+		"sScrollX": "100%",
 		"aoColumns": [
         /* WorkOfferId */{"bVisible": false },
         /* Product */null,

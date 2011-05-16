@@ -166,8 +166,15 @@
 				else//patithike to button gia tin emfanisi tvn aitisevn gia aftin tin paroxi
 				{
 					$workid = $_POST['id'];
+					$query1 = "SELECT is_available FROM work_offers WHERE id = '$workid'";
+					$res = mysql_query($query1,$con);
+					confirm_query($res);
+					$row = mysql_fetch_assoc($res);
+					if($row['is_available'] == 0)
+						echo "Η παροχή έχει ήδη ανατεθεί στον μέγιστο επιτρεπόμενο αριθμό φοιτητών"."<br />";
+					
 					$query = "SELECT * FROM work_applications WHERE work_id = '$workid'";
-					$workapps = mysql_query("$query",$con);
+					$workapps = mysql_query($query,$con);
 					confirm_query($workapps);?>
 					<div id="container">
 						<form id="myForm" action="assign.php" method="POST" >

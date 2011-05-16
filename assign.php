@@ -36,8 +36,9 @@
 			$row = mysql_fetch_assoc($result_set1);
 			$max_candidates = $row['candidates'];
 			
-			$query2 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id'";
-			$workapps = mysql_query("$query2",$con);
+			
+			$query2 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
+			$workapps = mysql_query($query2,$con);
 			confirm_query($workapps);
 			if (mysql_num_rows($workapps) == $max_candidates)
 			{
@@ -49,7 +50,17 @@
 				$query = "UPDATE work_applications SET accepted = '1' WHERE id='$workapp_id'";
 				$result_set = mysql_query($query,$con);
 				confirm_query($result_set);
-				echo "Επιτυχής καταχώρηση στη βάση δεδομένων";
+				if(mysql_num_affected_rows($result_set) > 0)
+					echo "Επιτυχής καταχώρηση στη βάση δεδομένων";
+				$query3 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
+				$workapps = mysql_query($query3,$con);
+				confirm_query($workapps);
+				if (mysql_num_rows($workapps) == $max_candidates)
+				{
+					$que = "UPDATE work_offers SET is_available = '0' WHERE id='$workoffer_id'";
+					$result_set = mysql_query($que,$con);
+					confirm_query($result_set);
+				}				
 			}
 			/*Ta parakatv hidden elements ta xreiazomai gia na fortwsei o pinakas me tis aitiseis sto processing_two_buttons*/
 			?>
