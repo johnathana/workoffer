@@ -4,13 +4,15 @@
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
-	<link type="text/css" href="jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
+	
 	<style type="text/css" title="currentStyle">
 		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table.css";
+		@import "dataTables/css/demo_table_jui.css";
+		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
 		@import "media/css/TableTools.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/ZeroClipboard.js"></script>
 	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var oTable;
@@ -18,36 +20,32 @@
 		$(document).ready(function(){ 
 		/* Init the table */
 		oTable = $('#example').dataTable({
-		"sScrollX": "100%",
-		"bJQueryUI": true,
-		"sDom": '<"H"Tfr>t<"F"ip>',
-		"sPaginationType": "full_numbers",
-		"oTableTools": {
-			"aButtons": [
-				"copy", "csv", "xls", "pdf",
-				{
-					"sExtends":    "collection",
-					"sButtonText": "Save",
-					"aButtons":    [ "csv", "xls", "pdf" ]
-				}
+			"bJQueryUI": true,
+			"sScrollX": "100%",
+			//"sScrollXInner": "850px",
+			"bScrollCollapse": true,
+			"aoColumns": [
+					/* WorkOfferId */{"bVisible": false },
+					/* Product */null,
+					/* Description */null,
+					/* Rating */null,
+					/* Price */null,
+					/* Product */null,
+					/* Description */null,
+					/* Rating */null,
+					/* Product */null,
+					/* Description */null,
+					/* Rating */null,
+					/* Product */null,
+					/* Rating */null
 			]
-		},
-		"aoColumns": [
-        /* WorkOfferId */{"bVisible": false },
-        /* Product */null,
-        /* Description */null,
-        /* Rating */null,
-        /* Price */null,
-		/* Product */null,
-        /* Description */null,
-        /* Rating */null,
-		/* Product */null,
-        /* Description */null,
-        /* Rating */null,
-		/* Product */null,
-        /* Rating */null
-        ]
 		});
+		
+		var oTableTools = new TableTools( oTable, {
+			"sSwfPath": "media/swf/copy_cvs_xls_pdf.swf"
+        } );
+		
+		$('#demo_jui').before( oTableTools.dom.container );		
 		
 		/* Add a click handler to the rows - this could be used as a callback */
 		$("#example tbody").click(function(event) {
@@ -123,6 +121,7 @@
 					confirm_query($result_set);
 				?>
 				
+				<div class="demo_jui" id="demo_jui">
 				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" >
 				<thead>
 					<tr>
