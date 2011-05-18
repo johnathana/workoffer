@@ -171,29 +171,13 @@
 						}			
 				?>	
 				</tbody>
-				<tfoot>
-				<tr>
-				<th>ID παροχής</th>
-				<th>Καθηγητής</th>
-				<th>Τίτλος παροχής</th>
-				<th>Τίτλος μαθήματος</th>
-				<th>Αριθμός υποψηφίων</th>
-				<th>Απαιτήσεις γνώσεων</th>
-				<th>Παραδοτέα </th>
-				<th>Απαιτούμενες ώρες υλοποίησης</th>
-				<th>Λήξη προθεσμίας</th>
-				<th>Στο χώρο του di</th>
-				<th>Ακαδημαϊκό έτος</th>
-				<th>Χειμερινού εξαμήνου</th>
-				<th>Απευθύνεται σε φοιτητή</th>
-				</tr>
-				</tfoot>
 				</table>
 				
-				<div>&nbsp;</div>
-				<div>&nbsp;</div>
-				<p><input type="submit" name="submit_btn" value="Επεξεργασία"  />
-				<input type="submit" name="submit_btn" value="Αιτήσεις για αυτήν την παροχή"  /></p>
+				<br>
+				<p>
+					<input class="button" type="submit" name="submit_btn" value="Επεξεργασία"  />
+					<input class="button" type="submit" name="submit_btn" value="Αιτήσεις για αυτήν την παροχή"  />
+				</p>
 				<input type='hidden' name='sent' value='yes' />
 			
 			</form>	
