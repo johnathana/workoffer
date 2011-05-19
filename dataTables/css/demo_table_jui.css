@@ -109,7 +109,7 @@ table.display thead th div.DataTables_sort_wrapper span {
 
 .dataTables_wrapper {
 	position: relative;
-	min-height: 302px;
+	min-height: 160px;
 	_height: 302px;
 	clear: both;
 }
@@ -286,7 +286,13 @@ tr.even {
 	background-color: white;
 }
 
+tr.high{
+	background-color: #FFCC33;
+}
 
+label.high{
+	background-color: #FFCC33;
+}
 
 
 

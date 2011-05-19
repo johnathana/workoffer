@@ -1,13 +1,15 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
-	<link type="text/css" href="jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
+	<?php 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); 
+	 ?>
 	<style type="text/css" title="currentStyle">
 		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table.css";
+		@import "dataTables/css/demo_table_jui.css";
+		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
 	</style>
 	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.js"></script>
 		
@@ -20,6 +22,8 @@
 		oTable = $('#example').dataTable({
 		"bJQueryUI": true,
 		"sScrollX": "100%",
+		//"sScrollXInner": "850px",
+		"bScrollCollapse": true,
 		"aoColumns": [
         /* WorkOfferId */{"bVisible": false },
         /* Product */null,
@@ -178,28 +182,9 @@
 						}
 					
 				?>	
-
-
 				</tbody>
-				<tfoot>
-				<tr>
-				<th>ID παροχής</th>
-				<th>Καθηγητής</th>
-				<th>Τίτλος παροχής</th>
-				<th>Τίτλος μαθήματος</th>
-				<th>Αριθμός υποψηφίων</th>
-				<th>Απαιτήσεις γνώσεων</th>
-				<th>Παραδοτέα </th>
-				<th>Απαιτούμενες ώρες υλοποίησης</th>
-				<th>Λήξη προθεσμίας</th>
-				<th>Στο χώρο του di</th>
-				<th>Ακαδημαϊκό έτος</th>
-				<th>Χειμερινού εξαμήνου</th>
-				<th>Απευθύνεται σε φοιτητή</th>
-				</tr>
-				</tfoot>
 				</table>
-				<input type="button" name="submit_btn" value="Καταχώρηση"  />
+				<input class="button" type="button" name="submit_btn" value="Καταχώρηση"  />
 					
 			</form>	
 			

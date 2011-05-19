@@ -2,15 +2,20 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
-	<link type="text/css" href="jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
+	<?php 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); 
+	 ?>
 	<style type="text/css" title="currentStyle">
 		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table.css";
+		@import "dataTables/css/demo_table_jui.css";
+		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
+		@import "media/css/TableTools.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/ZeroClipboard.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
 		
 		<script>
 		var oTable;
@@ -19,20 +24,10 @@
 			$( "#tabs" ).tabs();
 			/* Init the table */
 			oTable = $('#example').dataTable({
-			"sScrollX": "100%",
 			"bJQueryUI": true,
-			"sDom": '<"H"Tfr>t<"F"ip>',
-			"sPaginationType": "full_numbers",
-			"oTableTools": {
-				"aButtons": [
-					"copy", "csv", "xls", "pdf",
-					{
-						"sExtends":    "collection",
-						"sButtonText": "Save",
-						"aButtons":    [ "csv", "xls", "pdf" ]
-					}
-				]
-			},
+			"sScrollX": "100%",
+			//"sScrollXInner": "850px",
+			"bScrollCollapse": true,
 			"aoColumns": [
 			/* WorkOfferId */{"bVisible": false },
 			/* Proffesor */null,
@@ -49,6 +44,12 @@
 			/* Rating */null,
 			]
 			});
+			
+			var oTableTools = new TableTools( oTable, {
+			"sSwfPath": "media/swf/copy_cvs_xls_pdf.swf"
+			} );
+			
+			$('#demo_jui').before( oTableTools.dom.container );
 			
 			/* Add a click handler to the rows - this could be used as a callback */
 			$("#example tbody").click(function(event) {
@@ -124,7 +125,7 @@
 				?>
 				<form id="myForm" action="processing_two_buttons.php" method="POST" >
 					<div id="demo" ></div>
-					
+					<div class="demo_jui" id="demo_jui"></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" >
 					<thead>
 						<tr>
@@ -174,26 +175,8 @@
 							}			
 					?>	
 					</tbody>
-					<tfoot>
-					<tr>
-					<th>ID παροχής</th>
-					<th>Καθηγητής</th>
-					<th>Τίτλος παροχής</th>
-					<th>Τίτλος μαθήματος</th>
-					<th>Αριθμός υποψηφίων</th>
-					<th>Απαιτήσεις γνώσεων</th>
-					<th>Παραδοτέα </th>
-					<th>Απαιτούμενες ώρες υλοποίησης</th>
-					<th>Λήξη προθεσμίας</th>
-					<th>Στο χώρο του di</th>
-					<th>Ακαδημαϊκό έτος</th>
-					<th>Χειμερινού εξαμήνου</th>
-					<th>Απευθύνεται σε φοιτητή</th>
-					</tr>
-					</tfoot>
 					</table>
-					<div>&nbsp;</div>
-					<input type="submit" name="submit_btn" value="Επεξεργασία"  />
+					<input class="button" type="submit" name="submit_btn" value="Επεξεργασία"  />
 			
 				</form>
 			</div>

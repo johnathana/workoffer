@@ -1,4 +1,4 @@
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?> 
 <?php 
 	if (isset($_POST['id']))

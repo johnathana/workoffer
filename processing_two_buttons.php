@@ -1,16 +1,21 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
+	<?php 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); 
+	 ?>
 	<title>Πίνακας παροχών</title>
-	<link type="text/css" href="jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
 	<style type="text/css" title="currentStyle">
 		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table.css";
+		@import "dataTables/css/demo_table_jui.css";
+		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
+		@import "media/css/TableTools.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/ZeroClipboard.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var oTable;
 		
@@ -18,6 +23,9 @@
 		/* Init the table */
 		oTable = $('#example').dataTable({
 		"bJQueryUI": true,
+		"sScrollX": "100%",
+		//"sScrollXInner": "850px",
+		"bScrollCollapse": true,
 		"aoColumns": [
         /* WorkAppId */{"bVisible": false },
         /* Product */null,
@@ -30,6 +38,12 @@
 		/* Product */null,
         ]
 		});
+		
+		var oTableTools = new TableTools( oTable, {
+			"sSwfPath": "media/swf/copy_cvs_xls_pdf.swf"
+        } );
+		
+		$('#demo_jui').before( oTableTools.dom.container );
 		
 		/* Add a click handler to the rows - this could be used as a callback */
 		$("#example tbody").click(function(event) {
@@ -52,7 +66,7 @@
 			}
 			else//δεν έχει επιλέξει κάποια παροχή 
 			{
-				alert("Πρέπει πρώτα να επιλέξετε μια αίτηση παροχής έργου");
+				alert("Πρέπει πρώτα να επιλέξετε έναν φοιτητή για την ανάθεση");
 				return false;
 			}
 		});
@@ -156,7 +170,7 @@
 						<td><p>Ημερομηνία λήξης</p></td><td><p><input id="deadline" name="deadline" type="text" value="<?php echo $deadline?>"></p></td>
 						</tr>
 						<tr>
-						<td><input type="submit" name="submit" value="Καταχώρηση" /></td>
+						<td><input class="button" type="submit" name="submit" value="Καταχώρηση" /></td>
 						</tr>
 					</table>
 					</form>
@@ -166,10 +180,11 @@
 				else//patithike to button gia tin emfanisi tvn aitisevn gia aftin tin paroxi
 				{
 					$workid = $_POST['id'];
-					$query1 = "SELECT is_available FROM work_offers WHERE id = '$workid'";
+					$query1 = "SELECT is_available, title FROM work_offers WHERE id = '$workid'";
 					$res = mysql_query($query1,$con);
 					confirm_query($res);
 					$row = mysql_fetch_assoc($res);
+					echo "Παρακάτω φαίνεται ο πίνακας με τις αιτήσεις των φοιτητών για την παροχή με τίτλο ".$row['title'];
 					if($row['is_available'] == 0)
 						echo "Η παροχή έχει ήδη ανατεθεί στον μέγιστο επιτρεπόμενο αριθμό φοιτητών"."<br />";
 					
@@ -180,6 +195,7 @@
 						<form id="myForm" action="assign.php" method="POST" >
 						<input type="hidden" name="workoffer_id" value="<?php echo $_POST['id'];?>" />
 						<div id="demo" ></div>
+						<div class="demo_jui" id="demo_jui"></div>
 							<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" >
 							<thead>
 								<tr>
@@ -210,22 +226,8 @@
 						}
 						?>
 							</tbody>
-							<tfoot>
-							<tr>
-								<th>ID αίτησης</th>
-								<th>Ημερ/νια αίτησης</th>
-								<th>Του/Της έχει ανατεθεί</th>
-								<th>Όνομα</th>
-								<th>Επίθετο</th>
-								<th>Αριθμός μητρώου</th>
-								<th>Email</th>
-								<th>Βιογραφικό</th>
-								<th>Τηλέφωνο</th>
-							</tr>
-							</tfoot>
 							</table>
-							<div>&nbsp;</div>
-							<p><input type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /></p>
+							<p><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /></p>
 						</form>
 						<a href="workoffer_list.php">Πίσω στις παροχές μου</a>
 					</div>

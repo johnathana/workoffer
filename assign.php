@@ -1,9 +1,11 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
+	<?php 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); 
+	 ?>
 	<title>Πίνακας παροχών</title>
 	<link type="text/css" href="jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
 	<script>
@@ -50,7 +52,7 @@
 				$query = "UPDATE work_applications SET accepted = '1' WHERE id='$workapp_id'";
 				$result_set = mysql_query($query,$con);
 				confirm_query($result_set);
-				if(mysql_num_affected_rows($result_set) > 0)
+				if(mysql_affected_rows() > 0)
 					echo "Επιτυχής καταχώρηση στη βάση δεδομένων";
 				$query3 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
 				$workapps = mysql_query($query3,$con);
@@ -68,7 +70,7 @@
 			<input type='hidden' name='sent' value='yes' />
 			<input type='hidden' name='id' value='<?php echo $_POST['workoffer_id'];?>' />
 			<input type='hidden' name='submit_btn' value='Αιτήσεις για αυτήν την παροχή' />
-			<label>Πατήστε το παρακάτω κουμπί για επιστροφή στον πίνακα με τις αιτήσεις των φοιτητών <input type="submit" name="btn" value="Πίνακας αιτήσεων" /></label>
+			<label>Πατήστε το παρακάτω κουμπί για επιστροφή στον πίνακα με τις αιτήσεις των φοιτητών <input class="button" type="submit" name="btn" value="Πίνακας αιτήσεων" /></label>
 			</form>
 			<?php
 		}
