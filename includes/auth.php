@@ -55,7 +55,7 @@ class auth {
 
 		$sha1_password =  sha1($password);
 
-		if ($this->check_login($username, $sha1_password) {
+		if ($this->check_login($username, $sha1_password)) {
 
 			$_SESSION['auth']['email'] = $email;
 			$this->email = $email;
