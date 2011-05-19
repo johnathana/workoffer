@@ -1,5 +1,7 @@
 <?php
 
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
+
 class auth {
 
 	var $logged = false;

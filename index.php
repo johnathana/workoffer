@@ -7,7 +7,11 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
-	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
+
+
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
+
+	$auth = new auth;
 ?>
 
 <body id="overview"> 
@@ -69,35 +73,17 @@ $login->addJFormPage($jFormPage1);
 
 // Set the function for a successful form submission
 function onSubmit($formValues) {
-    $formValues = $formValues->loginFormPage->loginFormSection;
+	$formValues = $formValues->loginFormPage->loginFormSection;
 
-    echo $formValues->email . " ". $formValues->password;
+	if ($auth->login($formValues->email, $formValues->password, !empty($formValues->rememberMe))) {
+		$response = array('successPageHtml' => '<p>Login Successful</p>');
+	} else {
+		$response = array('failureNoticeHtml' => 'Invalid username or password.' , 'failureJs' => "$('#password').val('').focus();");
+	}
 	
-	global $con;	
-	$sql = "select * from users where email = '". mysql_real_escape_string($formValues->email) . "'";
-		
-    mysql_query($sql, $con) || die('Error: ' . mysql_error());
-	
-	$result = mysql_query($sql, $con);
-
-	$row = mysql_fetch_array($result);
-	
-    if($formValues->email == $row['email'] && sha1($formValues->password) == $row['passwd'] ) {
-        if(!empty($formValues->rememberMe)) {
-            $response = array('successPageHtml' => '<p>Login Successful</p><p>We\'ll keep you logged in on this computer.</p>');
-        }
-        else {
-            $response = array('successPageHtml' => '<p>Login Successful</p><p>We won\'t keep you logged in on this computer.</p>');
-        }
-    }
-    else {
-        $response = array('failureNoticeHtml' => 'Invalid username or password.' , 'failureJs' => "$('#password').val('').focus();");
-    }
-	
-	mysql_close($con);
-	
-    return $response;
+	return $response;
 }
+
 
 // Process any request to the form
 $login->processRequest();
