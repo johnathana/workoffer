@@ -52,10 +52,10 @@ class auth {
 
 	function login($email, $password, $save = false) {
 		$this->logout();
-
+		
 		$sha1_password =  sha1($password);
 
-		if ($this->check_login($username, $sha1_password)) {
+		if ($this->check_login($email, $sha1_password)) {
 
 			$_SESSION['auth']['email'] = $email;
 			$this->email = $email;
@@ -65,8 +65,8 @@ class auth {
 			$this->reset_visit();
 
 			if ($save) {
-				cookie('auth[email]', $email);
-				cookie('auth[passwd]', $sha1_password));
+				$this->cookie('auth[email]' , $email);
+				$this->cookie('auth[passwd]', $sha1_password);
 			}
 		}
 
@@ -76,12 +76,11 @@ class auth {
 	function logout() {
 		if ($this->logged == false)
 			return;
-		}
 
-		cookie('auth[email]', '');
-		cookie('auth[passwd]', '');
+		$this->cookie('auth[email]' , '');
+		$this->cookie('auth[passwd]', '');
 
-		$this->email = '';
+		//$this->email = '';
 		$this->is_admin = false;
 		$this->logged = false;
 		session_destroy();
@@ -108,6 +107,11 @@ class auth {
 		global $con;
 		$sql = "update users set last_login = now() where email = '". $this->email . "'";
 		mysql_query($sql, $con);
+	}
+	
+	function cookie($name, $value) {
+		$expire = time() + 60*60*24*30; //expire in 30 days
+		return setcookie($name, $value, $expire, "/");
 	}
 }
 

@@ -7,11 +7,7 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
-
-
 	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
-
-	$auth = new auth;
 ?>
 
 <body id="overview"> 
@@ -75,12 +71,14 @@ $login->addJFormPage($jFormPage1);
 function onSubmit($formValues) {
 	$formValues = $formValues->loginFormPage->loginFormSection;
 
+	$auth = new auth;
+	
 	if ($auth->login($formValues->email, $formValues->password, !empty($formValues->rememberMe))) {
 		$response = array('successPageHtml' => '<p>Login Successful</p>');
 	} else {
-		$response = array('failureNoticeHtml' => 'Invalid username or password.' , 'failureJs' => "$('#password').val('').focus();");
+		$response = array('failureNoticeHtml' => 'Invalid username or password.', 'failureJs' => "$('#password').val('').focus();");
 	}
-	
+
 	return $response;
 }
 
