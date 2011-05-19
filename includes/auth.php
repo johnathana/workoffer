@@ -40,7 +40,7 @@ class auth {
 	function load_info() {
 		if ($this->logged) {
 			global $con;
-			$sql = "select * from users where email = '". $this->email) . "'";
+			$sql = "select * from users where email = '". $this->email . "'";
 			$result = mysql_query($sql, $con);
 			$row = mysql_fetch_array($result);
 
