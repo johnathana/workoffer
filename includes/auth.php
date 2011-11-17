@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
 class auth {
 
 	var $logged = false;
-	var $is_admin = false;
+	var $is_admin = 0;
 	var $email = '';
 
 	
@@ -32,7 +32,6 @@ class auth {
 					$this->logged = false;
 			}
 		}
-
 		$this->load_info();
 	}
 
@@ -43,8 +42,7 @@ class auth {
 			$sql = "select * from users where email = '". $this->email . "'";
 			$result = mysql_query($sql, $con);
 			$row = mysql_fetch_array($result);
-
-			$this->is_admin = $row['is_admin'] ? true : false;
+			$this->is_admin = $row['is_admin'];
 			$_SESSION['auth']['is_admin'] = $this->is_admin;
 		}
 	}
@@ -81,7 +79,7 @@ class auth {
 		$this->cookie('auth[passwd]', '');
 
 		//$this->email = '';
-		$this->is_admin = false;
+		$this->is_admin = 0;
 		$this->logged = false;
 		session_destroy();
 	}
@@ -114,5 +112,6 @@ class auth {
 		return setcookie($name, $value, $expire, "/");
 	}
 }
-
+	
+	$auth = new auth;
 ?> 

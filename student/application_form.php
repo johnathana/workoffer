@@ -7,11 +7,11 @@
 		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); 
 	 ?>
 	<style type="text/css" title="currentStyle">
-		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table_jui.css";
-		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
+		@import "../dataTables/css/demo_page.css";
+		@import "../dataTables/css/demo_table_jui.css";
+		@import "../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="../dataTables/js/jquery.dataTables.js"></script>
 		
 		
 		<script type="text/javascript" charset="utf-8">
@@ -25,19 +25,19 @@
 		//"sScrollXInner": "850px",
 		"bScrollCollapse": true,
 		"aoColumns": [
-        /* WorkOfferId */{"bVisible": false },
-        /* Product */null,
-        /* Description */null,
-        /* Rating */null,
-        /* Price */null,
-		/* Product */null,
-        /* Description */null,
-        /* Rating */null,
-		/* Product */null,
-        /* Description */null,
-        /* Rating */null,
-		/* Product */null,
-        /* Rating */null,
+			/* WorkOfferId */{"bVisible": false },
+			/* Professor */null,
+			/* Title */null,
+			/* Lesson */null,
+			/* Candidates */null,
+			/* Requirements*/null,
+			/* Deliverables */null,
+			/* Hours */null,
+			/* Deadline */null,
+			/* At_di */null,
+			/* Acad_year */null,
+			/* Winter */null,
+			/* Addressed */null
         ]
 		});
 		
@@ -51,22 +51,17 @@
 		
 		$('input:button').click(function()
 		{
-		var workid = fnGetSelected(oTable);
-		if(workid!=null)
-		{
-			$.post(
-			'workapp_form_processing.php',
-			{ id : workid },
-			function(data)
+			var workid = (fnGetSelected(oTable));
+			if (workid == null)//δεν έχει επιλέξει κάποια παροχή
 			{
-			  alert(data);
-			//$('.spacer').html(data);
-			});
-		}
-		else//δεν έχει επιλέξει κάποια παροχή 
-		{
-			alert("Πρώτα πρέπει να επιλέξετε μια παροχή έργου");
-		}
+				alert("Πρέπει πρώτα να επιλέξετε μια παροχή έργου");
+				return false;
+			}
+			else //έχει επιλεγεί κάποια παροχή
+			{
+				alert("Ανακατεύθυνση στις παροχές που έχετε κάνει αίτηση");
+				window.location.href="my_applications.php?id="+workid;
+			}
 		});
 		
 		}); 
@@ -110,8 +105,6 @@
 				<i>Πίνακας Παροχών</i> 
 			</div>
 			
-			<p>Οι γραμμές με <label class="high">αυτό το χρώμα</label> υποδηλώνουν ότι έχετε κάνει αίτηση στο παρελθόν για τις συγκεκριμένες παροχές</p>
-			
 			<form name="myForm" >
 				<div id="demo" ></div>
 				
@@ -143,19 +136,8 @@
 				<?php	while($row = mysql_fetch_assoc($result_set))
 						{
 							extract($row);
-							$workoffer_id = $id;
-							$stud_id = 1;//tha pernei tin timi apo to session['id']
-							$query1 = "SELECT * FROM work_applications WHERE user_id='$stud_id' AND work_id='$workoffer_id'";
-							$result_set1 = mysql_query($query1,$con);
-							confirm_query($result_set1);
-							if(mysql_num_rows($result_set1)>0)//iparxei idi kataxwrimeni afti i aitisi
-							{
-								echo "<tr class = 'high'>";
-							}
-							else
-							{
-								echo "<tr>";
-							}
+							//$stud_id = 3;//tha pernei tin timi apo to session['id']
+							echo "<tr>";
 							if($addressed_for==0)
 							{$student_type="Μη εργαζόμενο";}
 							elseif($addressed_for==1)
@@ -184,6 +166,7 @@
 				?>	
 				</tbody>
 				</table>
+				<br />
 				<input class="button" type="button" name="submit_btn" value="Καταχώρηση"  />
 					
 			</form>	

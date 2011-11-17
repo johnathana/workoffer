@@ -25,7 +25,12 @@ if (!$db_selected) {
 
 $result = mysql_query("SELECT * FROM users");
 
-
+$password = "12345";
+$passwd = sha1($password);
+echo $passwd."<br />";
+$password = '12345';
+$passwd = sha1($password);
+echo $passwd."<br />";
 echo "<table>\n";
 
 while ($row = mysql_fetch_assoc($result))

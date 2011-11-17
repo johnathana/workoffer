@@ -7,6 +7,72 @@
             die("Database query failed: ". mysql_error());
         }
     }
+	
+	function get_data($choice,$myEmail)
+	{
+	//To 111 simainei trexondas didaskon-trexon etos-energes
+	//To 212 simainei oloi oi didaskondes-trexon etos-anenerges
+		global $con;
+		$row = get_current_year();//pernei to id tou current year
+		$current_year = $row['id'];
+		$qr = "SELECT id FROM users WHERE email = '".$myEmail."'";
+		$set = mysql_query($qr,$con);
+		confirm_query($set);
+		$row = mysql_fetch_assoc($set);
+		$prof_id = $row['id'];
+		
+		switch($choice)
+		{
+			case"211":
+				$query1 = "SELECT * FROM work_offers WHERE academic_year_id = '$current_year' AND has_expired = false";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+			break;
+			case"221":
+				$query1 = "SELECT * FROM work_offers WHERE academic_year_id <> '$current_year' AND has_expired = false";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+			break;
+			case"212":
+				$query1 = "SELECT * FROM work_offers WHERE academic_year_id = '$current_year' AND has_expired = true";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+			break;
+			case"222":
+				$query1 = "SELECT * FROM work_offers WHERE academic_year_id <> '$current_year' AND has_expired = true";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+			break;
+			case"112":
+				$query1 = "SELECT * FROM work_offers WHERE professor_id = '$prof_id' AND academic_year_id = '$current_year' AND has_expired = true";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+			break;
+			case"121":
+				$query1 = "SELECT * FROM work_offers WHERE professor_id = '$prof_id' AND academic_year_id <> '$current_year' AND has_expired = false";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+			break;
+			case"122":
+				$query1 = "SELECT * FROM work_offers WHERE professor_id = '$prof_id' AND academic_year_id <> '$current_year' AND has_expired = true";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+			break;
+			default:
+				$query1 = "SELECT * FROM work_offers WHERE professor_id = '$prof_id' AND academic_year_id = '$current_year' AND has_expired = false";
+				$result_set1 = mysql_query($query1,$con);
+				confirm_query($result_set1);
+				return $result_set1;
+		}
+	}
+	
 	/*Βρίσκει το επιθετο μέσω του foreign key*/
 	function get_surname_from_professor_id($professor_id)
 	{

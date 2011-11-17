@@ -8,15 +8,16 @@
 	 ?>
 	
 	<style type="text/css" title="currentStyle">
-		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table_jui.css";
-		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
-		@import "media/css/TableTools.css";
+		@import "../dataTables/css/demo_page.css";
+		@import "../dataTables/css/demo_table_jui.css";
+		@import "../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
+		@import "../media/css/TableTools.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/ZeroClipboard.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/ZeroClipboard.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/TableTools.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
+		
 		var oTable;
 		
 		$(document).ready(function(){ 
@@ -28,73 +29,28 @@
 			"bScrollCollapse": true,
 			"aoColumns": [
 					/* WorkOfferId */{"bVisible": false },
-					/* Product */null,
-					/* Description */null,
-					/* Rating */null,
-					/* Price */null,
-					/* Product */null,
-					/* Description */null,
-					/* Rating */null,
-					/* Product */null,
-					/* Description */null,
-					/* Rating */null,
-					/* Product */null,
-					/* Rating */null
+					/* Professor */null,
+					/* Title */null,
+					/* Lesson */null,
+					/* Candidates */null,
+					/* Requirements*/null,
+					/* Deliverables */null,
+					/* Hours */null,
+					/* Deadline */null,
+					/* At_di */null,
+					/* Acad_year */null,
+					/* Winter */null,
+					/* Addressed */null
 			]
 		});
 		
 		var oTableTools = new TableTools( oTable, {
-			"sSwfPath": "media/swf/copy_cvs_xls_pdf.swf"
+			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf"
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
 		
-		/* Add a click handler to the rows - this could be used as a callback */
-		$("#example tbody").click(function(event) {
-			$(oTable.fnSettings().aoData).each(function (){
-				$(this.nTr).removeClass('row_selected');
-			});
-			$(event.target.parentNode).addClass('row_selected');
-			var workid = (fnGetSelected(oTable));
-			var str = '<input type="hidden" name="id" value="'+workid+'"/>';
-			$('#demo').html(str);
 		});
-		
-		$('#myForm').submit(function()
-		{
-			var workid = (fnGetSelected(oTable));
-			
-			if (workid != null)//έχει επιλεγεί κάποια παροχή
-			{
-				return true;
-			}
-			else//δεν έχει επιλέξει κάποια παροχή 
-			{
-				alert("Πρέπει πρώτα να επιλέξετε μια παροχή έργου");
-				return false;
-			}
-		});
-		
-		}); 
-		
-		/* Get the rows which are currently selected */
-		function fnGetSelected( oTableLocal )
-		{
-			var aReturn = new Array();
-			var aTrs = oTableLocal.fnGetNodes();
-			
-			for ( var i=0 ; i<aTrs.length ; i++ )
-			{
-				if ( $(aTrs[i]).hasClass('row_selected') )
-				{
-					var aRowData = new Array();
-					aRowData = oTable.fnGetData(aTrs[i]);
-
-					return aRowData[0];
-				}
-			}
-			return null;
-		}
 
 	</script>
 </head> 
@@ -113,8 +69,8 @@
 			<div class="full_width big">
 				<i>Πίνακας Παροχών</i> 
 			</div>
-			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</p>
-			<form id="myForm" action="processing_two_buttons.php" method="POST" >
+
+			<form id="myForm"  method="POST" >
 				<div id="demo" ></div>
 				
 				<?php
@@ -175,17 +131,12 @@
 				</tbody>
 				</table>
 				
-				<br>
-				<p>
-					<input class="button" type="submit" name="submit_btn" value="Επεξεργασία"  />
-					<input class="button" type="submit" name="submit_btn" value="Αιτήσεις για αυτήν την παροχή"  />
-				</p>
-				<input type='hidden' name='sent' value='yes' />
-			
+				<br />
+				</div>
 			</form>	
-		</div>
+		
 			<div class="spacer"></div>
-
+		</div>
 	</aside> 
 	</div><!--/content--> 
  

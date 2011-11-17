@@ -100,7 +100,7 @@ $registration->processRequest();
 ?>
 
 	</aside> 
-</div><!--/content--> 
+	</div><!--/content--> 
  
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'); ?>
  

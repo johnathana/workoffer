@@ -71,13 +71,13 @@ $login->addJFormPage($jFormPage1);
 function onSubmit($formValues) {
 	$formValues = $formValues->loginFormPage->loginFormSection;
 
-	$auth = new auth;
-	
+	global $auth;
 	if ($auth->login($formValues->email, $formValues->password, !empty($formValues->rememberMe))) {
 		$response = array('successPageHtml' => '<p>Login Successful</p>');
 	} else {
 		$response = array('failureNoticeHtml' => 'Invalid username or password.', 'failureJs' => "$('#password').val('').focus();");
 	}
+	
 
 	return $response;
 }

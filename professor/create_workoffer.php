@@ -2,8 +2,8 @@
 <html> 
 <head>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
-	<link type="text/css" href="jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
-	<script type="text/javascript" src="jquery-validation-1.8.0/jquery.validate.min.js"></script>
+	<link type="text/css" href="../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
+	<script type="text/javascript" src="../jquery-validation-1.8.0/jquery.validate.min.js"></script>
 	<script>
 		$(document).ready(function(){
 		$('#myForm').validate({
@@ -26,7 +26,7 @@
 <body id="overview"> 
 
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
-
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
 
 	<div id="globalfooter"> 
 
@@ -34,8 +34,43 @@
 		<aside class="column first" id="optimized">
 
 		<h3>Δημιουργία νέας παροχής </h3>
-		<form id="myForm" action="workoffer_form_processing.php" method="post">
-		<table>
+		<form id="myForm" action="create_workoffer_processing.php" method="post">
+		<table  style="width: 800px">
+			<tr>
+				<td>Καθηγητής</td>
+				<td>
+<?php
+
+
+	$disabled = '';
+ 
+	$query = "SELECT * FROM users WHERE is_admin = '2'";
+ 
+	switch ($auth->is_admin) {
+	case "0":
+		die("Unauthorized access");
+	case "2":
+		$disabled = "disabled";
+		break;
+	}
+	
+	
+	$result_set = mysql_query($query, $con);
+	confirm_query($result_set);
+	echo "<select name=\"prof_id\" ". $disabled. ">";
+	while ($row = mysql_fetch_assoc($result_set)) {
+		if ($row['email'] == $auth->email)
+			echo "<option value=\"". $row['id']."\" select=\"selected\">".$row['surname']."</option>";
+		else
+			echo "<option value=\"". $row['id']."\">".$row['surname']."</option>";
+	}
+	echo "</select>";
+	
+?>
+				
+				
+				</td>
+			</tr>
 			<tr>
 				<td>Τίτλος παροχής</td><td><input type="text" name="title" size="40"/></td>
 			</tr>
@@ -76,10 +111,10 @@
 			<td>Απενεργοποίηση παροχής</td><td> <input type="checkbox" name="expired"   /></td>
 			</tr>
 			<tr>
-			<td><p>Ημερομηνία λήξης</p></td><td><p><input id="deadline" name="deadline" type="text"></p></td>
+			<td>Ημερομηνία λήξης</td><td><p><input id="deadline" name="deadline" type="text"></p></td>
 			</tr>
 			<tr>
-			<td><input type="submit" name="submit" value="Καταχώρηση" /></td>
+			<td><input type="submit" name="submit" value="Καταχώρηση" class="button"/></td>
 			</tr>
 		</table>
 		</form>
