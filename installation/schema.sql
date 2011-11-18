@@ -1,7 +1,7 @@
 
-create database if not exists workoffer CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+create database if not exists workofferdb CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
-use workoffer;
+use workofferdb;
 
 
 create table if not exists users (
