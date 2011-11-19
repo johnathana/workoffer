@@ -21,7 +21,7 @@ img.flushright { margin-right: -20px; }
 
 .replaced { display: block; width: 1px; height: 1px; outline: none; overflow: hidden; text-indent: -9999px; }
 #omniture, #top { position: absolute; top: 0; }
-#container { width: 900px; margin: 0 auto; position: relative; }
+#container { width: 900px; margin: 20px auto; position: relative; }
 #main { width: 100%; position: relative; }
 #content { padding: 18px 20px; position: relative; color: #333; }
 #breadcrumb { clear: both; text-align: center; margin: 18px auto; clear: both; font-size: 10px; color: #686868; }

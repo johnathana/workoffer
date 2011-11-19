@@ -68,7 +68,7 @@ insert into users (email, passwd, is_admin, name, surname, reg_numb, phone, sex,
 insert into users (email, passwd, name, surname, reg_numb, phone, sex, cv) values ("grkjohny@gmail.com", "8cb2237d0679ca88db6464eac60da96345513964", "Giannis", "Iosifidis", "ΜΟΠ278", "6945678999", "m", "Μια νύχτα από τα δικά μου ολόκληρη η δική σου");
 insert into users (email, passwd, name, surname, reg_numb, phone, sex, cv) values ("steradams@gmail.com", "8cb2237d0679ca88db6464eac60da96345513964", "Στέργιος", "Αδάμος", "ΜΟΠ288", "6945671234", "m", "Δεν περιγράφω άλλο");
 insert into users (email, passwd, name, surname, reg_numb, phone, sex, cv) values ("none@none.com", "8cb2237d0679ca88db6464eac60da96345513964", "Οδυσσέας", "Κανένας", "ΜΟΠ666", "210999999", "m", "Οδύσσεια!!!");
-insert into users (email, passwd, is_admin, name, surname, phone, sex, cv) values ("johnathana@gmail.com", "8cb2237d0679ca88db6464eac60da96345513964", 2, "Christos", "Michalakelis", "090606060", "m", "Ότι και να πω είναι λίγο.-");
+insert into users (email, passwd, is_admin, name, surname, phone, sex, cv) values ("michalak@di.uoa.gr", "8cb2237d0679ca88db6464eac60da96345513964", 2, "Christos", "Michalakelis", "090606060", "m", "Ότι και να πω είναι λίγο.-");
 
 insert into academic_year (ayear, is_current) values ("2009-2010", false);
 insert into academic_year (ayear, is_current) values ("2010-2011", true);

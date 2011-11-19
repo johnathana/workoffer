@@ -95,14 +95,14 @@
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
 
 
-	<div id="globalfooter"> 
+	<div id="globalfooter">
 
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
 		
 		<div id="container">
 			<div class="full_width big">
-				<i>Πίνακας Παροχών</i> 
+				<h2>Πίνακας Παροχών</h2> 
 			</div>
 			
 			<form name="myForm" >

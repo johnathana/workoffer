@@ -33,7 +33,11 @@
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
 
-		<h3>Δημιουργία νέας παροχής </h3>
+		<div id="container">
+			<div class="full_width big">
+				<h2>Δημιουργία νέας παροχής </h2>
+			</div>
+		
 		<form id="myForm" action="create_workoffer_processing.php" method="post">
 		<table  style="width: 800px">
 			<tr>
@@ -42,10 +46,6 @@
 <?php
 
 
-	$disabled = '';
- 
-	$query = "SELECT * FROM users WHERE is_admin = '2'";
- 
 	switch ($auth->is_admin) {
 	case "0":
 		die("Unauthorized access");
@@ -53,8 +53,11 @@
 		$disabled = "disabled";
 		break;
 	}
-	
-	
+
+
+	$disabled = '';
+	$query = "SELECT * FROM users WHERE is_admin = '2'";
+
 	$result_set = mysql_query($query, $con);
 	confirm_query($result_set);
 	echo "<select name=\"prof_id\" ". $disabled. ">";
@@ -118,9 +121,12 @@
 			</tr>
 		</table>
 		</form>
+
+	</div>
 	</aside> 
 	</div><!--/content--> 
- 
+
+
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'); ?>
  
 	</div><!--/globalfooter--> 
