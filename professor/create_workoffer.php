@@ -47,9 +47,9 @@
 	$disabled = '';
 	
 	switch ($auth->is_admin) {
-	case "0":
+	case auth::Student :
 		die("Unauthorized access");
-	case "2":
+	case auth::Professor :
 		$disabled = "disabled";
 		break;
 	}
