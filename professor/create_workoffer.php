@@ -44,8 +44,8 @@
 				<td>Καθηγητής</td>
 				<td>
 <?php
-
-
+	$disabled = '';
+	
 	switch ($auth->is_admin) {
 	case "0":
 		die("Unauthorized access");
@@ -55,7 +55,7 @@
 	}
 
 
-	$disabled = '';
+	
 	$query = "SELECT * FROM users WHERE is_admin = '2'";
 
 	$result_set = mysql_query($query, $con);
