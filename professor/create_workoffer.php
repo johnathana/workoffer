@@ -63,12 +63,12 @@
 	echo "<select name=\"prof_id\" ". $disabled. ">";
 	while ($row = mysql_fetch_assoc($result_set)) {
 		if ($row['email'] == $auth->email)
-			echo "<option value=\"". $row['id']."\" select=\"selected\">".$row['surname']."</option>";
+			echo "<option value=\"". $row['id']."\" selected=\"selected\">".$row['surname']."</option>";
 		else
 			echo "<option value=\"". $row['id']."\">".$row['surname']."</option>";
 	}
 	echo "</select>";
-	
+
 ?>
 				
 				
