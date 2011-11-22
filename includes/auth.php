@@ -133,5 +133,8 @@ class auth {
 }
 
 	$auth = new auth;
+
+	if (!$auth->logged &&  $_SERVER['PHP_SELF'] != "/index.php")
+		header("Location: /index.php");
 ?>
 
