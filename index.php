@@ -77,7 +77,6 @@ $jFormSection1->addJFormComponentArray(array(
         'tip' => '<p></p>',
         )
     ),
-    new JFormComponentHtml('<div class="jFormComponent"><a href="" ">Ξέχασα το password μου</a></div>')
 ));
 
 // Add the section to the page

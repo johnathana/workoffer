@@ -7,29 +7,9 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
-	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
-
-	global $auth;
-
-	if ($auth->logged) {
-
-		$location = "";
-
-		switch ($auth->is_admin) {
-
-		case auth::Professor :
-			$location = "/professor/prof_menu.php";
-			break;
-		case auth::Student :
-			$location = "/student/application_form.php";
-			break;
-		}
-
-		header("Location: $location");
-	}
 ?>
 
-<body id="overview"> 
+<body id="overview">
 
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
 
@@ -152,6 +132,9 @@ function onSubmit($formValues) {
 $registration->processRequest();
 
 ?>
+	<div style="margin: 15px">
+		<a href="/">Πίσω</a>
+	</div>
 
 	</aside> 
 	</div><!--/content--> 
