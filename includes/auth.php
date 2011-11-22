@@ -8,16 +8,20 @@ class auth {
 	const Admin = 1;
 	const Professor = 2;
 
-
-	var $logged = false;
-	var $is_admin = 0;
 	var $email = '';
+	var $logged = false;
+
+	var $id = 0;
+	var $is_admin = 0;
+
 
 	
 	function auth() {
 		session_start();
-		if (isset($_SESSION['auth']['email'])) {
+		if (isset($_SESSION['auth']['id'])) {
+			$this->id = $_SESSION['auth']['id'];
 			$this->email = $_SESSION['auth']['email'];
+			$this->is_admin = $_SESSION['auth']['is_admin'];
 			$this->logged = true;
 		} else {
 			if (isset($_COOKIE['auth']['email'])) {
@@ -25,10 +29,16 @@ class auth {
 				$passwd_sha1 = $_COOKIE['auth']['passwd'];
 
 				if ($this->check_login($email, $passwd_sha1)) {
-					$_SESSION['auth']['email'] = $email;
+
 					$this->email = $email;
 					$this->logged = true;
+
+					$this->load_info();
 					$this->reset_visit();
+
+					$_SESSION['auth']['id'] = $this->id;
+					$_SESSION['auth']['email'] = $this->email;
+					$_SESSION['auth']['is_admin'] = $this->is_admin;
 				} else {
 					$this->logged = false;
 				}
@@ -37,7 +47,6 @@ class auth {
 				$this->logged = false;
 			}
 		}
-		$this->load_info();
 	}
 
 
@@ -47,8 +56,9 @@ class auth {
 			$sql = "select * from users where email = '". $this->email . "'";
 			$result = mysql_query($sql, $con);
 			$row = mysql_fetch_array($result);
+
+			$this->id = $row['id'];
 			$this->is_admin = $row['is_admin'];
-			$_SESSION['auth']['is_admin'] = $this->is_admin;
 		}
 	}
 
@@ -60,12 +70,15 @@ class auth {
 
 		if ($this->check_login($email, $sha1_password)) {
 
-			$_SESSION['auth']['email'] = $email;
 			$this->email = $email;
 			$this->logged = true;
 
 			$this->load_info();
 			$this->reset_visit();
+
+			$_SESSION['auth']['id'] = $this->id;
+			$_SESSION['auth']['email'] = $this->email;
+			$_SESSION['auth']['is_admin'] = $this->is_admin;
 
 			if ($save) {
 				$this->cookie('auth[email]' , $email);
@@ -83,6 +96,7 @@ class auth {
 		$this->cookie('auth[email]' , '');
 		$this->cookie('auth[passwd]', '');
 
+		$this->id = 0;
 		$this->email = '';
 		$this->is_admin = 0;
 		$this->logged = false;
@@ -108,15 +122,16 @@ class auth {
 
 	function reset_visit() {
 		global $con;
-		$sql = "update users set last_login = now() where email = '". $this->email . "'";
+		$sql = "update users set last_login = now() where id = '". $this->id . "'";
 		mysql_query($sql, $con);
 	}
-	
+
 	function cookie($name, $value) {
 		$expire = time() + 60*60*24*30; //expire in 30 days
 		return setcookie($name, $value, $expire, "/");
 	}
 }
-	
+
 	$auth = new auth;
-?> 
+?>
+
