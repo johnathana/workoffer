@@ -70,11 +70,7 @@
 					if (isset($_GET['id']))
 					{
 						$workoffer_id = $_GET['id'];
-						$qr = "SELECT id FROM users WHERE email = '".$auth->email."'";
-						$set = mysql_query($qr,$con);
-						confirm_query($set);
-						$row = mysql_fetch_assoc($set);
-						$stud_id = $row['id'];//tha pernei tin timi apo to session['id']
+						$stud_id = $auth->id;
 						$query1 = "SELECT * FROM work_applications WHERE user_id='$stud_id' AND work_id='$workoffer_id'";
 						$result_set1 = mysql_query($query1,$con);
 						confirm_query($result_set1);

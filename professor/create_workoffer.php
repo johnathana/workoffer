@@ -56,10 +56,11 @@
 
 
 	
-	$query = "SELECT * FROM users WHERE is_admin = '2'";
+	$query = "SELECT * FROM users WHERE is_admin = ". $auth::Professor;
 
 	$result_set = mysql_query($query, $con);
 	confirm_query($result_set);
+
 	echo "<select name=\"prof_id\" ". $disabled. ">";
 	while ($row = mysql_fetch_assoc($result_set)) {
 		if ($row['email'] == $auth->email)
@@ -105,7 +106,7 @@
 			<td>Απαιτούμενες ώρες υλοποίησης</td><td> <input type="text" name="hours" size="10"/></td>
 			</tr>
 			<tr>
-			<td>Στο χώρο του di</td><td> <input type="checkbox" name="at_di"   /></td>
+			<td>Στο χώρο του di</td><td> <input type="checkbox" name="at_di" /></td>
 			</tr>
 			<tr>
 			<td>Χειμερινού εξαμήνου</td><td> <input type="checkbox" name="winter"   /></td>
