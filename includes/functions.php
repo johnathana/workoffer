@@ -1,13 +1,14 @@
 <?php
     //This file is the place to store all basic functions
-    function confirm_query($result_set)
-    {
-        if(!$result_set)
-        {
-            die("Database query failed: ". mysql_error());
-        }
-    }
-	
+	function confirm_query($result_set)
+	{
+		if (!$result_set)
+		{
+			die("Database query failed: ". mysql_error());
+		}
+	}
+
+
 	function get_data($choice,$myEmail)
 	{
 	//To 111 simainei trexondas didaskon-trexon etos-energes
@@ -103,27 +104,13 @@
 		return $year;
 	}
     
-    function get_user_info($user_id)
-    {
-        global $con;
-		$query = "SELECT * FROM users WHERE id = '$user_id'";
-        $result_set = mysql_query("$query",$con);
-        confirm_query($result_set);
-		$user_info = mysql_fetch_assoc($result_set);
-        return $user_info;
-		
-    }
-		
-		/*Βρίσκει το email του χρήστη*/
-		function get_user_mail($mail_username)
-	{	
+	function get_user_info($user_id)
+	{
 		global $con;
-		$query_mail_user = "SELECT name, surname, email FROM users WHERE email='$mail_username'";
-		$result_mail_user = mysql_query($query_mail_user,$con);
-		confirm_query($result_mail_user);
-		$user_mail = mysql_fetch_assoc($result_mail_user);  //iparxei o user?
-		return $user_mail;
-	
+		$query = "SELECT * FROM users WHERE id = '$user_id'";
+		$result = mysql_query($query, $con);
+		confirm_query($result);
+		$user_info = mysql_fetch_assoc($result);
+		return $user_info;
 	}
-	
 ?>
