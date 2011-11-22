@@ -49,6 +49,11 @@
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
 		
+		$('input[name=menu]').click(function()
+		{
+			window.location.href="/professor/prof_menu.php";
+		}); 
+	
 		}); 
 		function radio_click()
 		{
@@ -139,10 +144,11 @@
 
 		<div id="container">
 			<div class="full_width big">
-				<i>Πίνακας Παροχών</i> 
+				<h2>Πίνακας Παροχών</h2> 
+				<br />
 			</div>
 
-			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</p>
+			<h3>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</h3>
 			<form id="myForm"  method="POST" >
 				<div id="demo" ></div>
 				<div class="demo_jui" id="demo_jui">
@@ -238,6 +244,7 @@
 				</table>
 				
 				<br />
+				<input type="button" name="menu" value="Αρχικό μενού" class="button"/>
 				</div>
 			</form>	
 				

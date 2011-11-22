@@ -21,7 +21,7 @@
 			$location = "/professor/prof_menu.php";
 			break;
 		case auth::Student :
-			$location = "/student/application_form.php";
+			$location = "/student/stud_menu.php";
 			break;
 		}
 

@@ -7,6 +7,14 @@
 		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); 
 		//require 'form.libs.php'; 
 	?>
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('input[name=menu]').click(function()
+		{
+			window.location.href="/professor/prof_menu.php";
+		});
+    }); 
+	</script>
 </head> 
 
 <body id="overview"> 
@@ -46,7 +54,7 @@
 	$errors=get_errors($_POST,$form_rules); */
 	//if(!count($errors)){
 	//save the data into the database
-		$id = $_POST['prof_id'];
+		$id = $auth->id;
 		$title = trim($_POST['title']);
 		$lesson = trim($_POST['lesson']);
 		$candidates = trim($_POST['candidates']);
@@ -80,8 +88,9 @@
 		confirm_query($set);
 		mysql_close($con);
 
-	echo "Επιτυχής καταχώρηση";
-	echo '<a href="create_workoffer.php">Επιστροφή στην αρχική φόρμα</a>';
+	echo "Επιτυχής καταχώρηση";?>
+	<input type="button" name="menu" value="Αρχικό μενού" class="button"/>
+	<?php
 	//}
 	/*else{
 	echo '<strong>Λάθη που βρέθηκαν στη φόρμα:</strong><ul><li>';

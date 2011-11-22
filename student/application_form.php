@@ -49,7 +49,12 @@
 			$(event.target.parentNode).addClass('row_selected');
 		});
 		
-		$('input:button').click(function()
+		$('input[name=menu]').click(function()
+		{
+			window.location.href="/student/stud_menu.php";
+		}); 
+		
+		$('input[name=submit_btn]').click(function()
 		{
 			var workid = (fnGetSelected(oTable));
 			if (workid == null)//δεν έχει επιλέξει κάποια παροχή
@@ -166,8 +171,8 @@
 				</tbody>
 				</table>
 				<br />
-				<input class="button" type="button" name="submit_btn" value="Καταχώρηση"  />
-					
+				<p><input class="button" type="button" name="submit_btn" value="Καταχώρηση"  />
+				<input type="button" name="menu" value="Αρχικό μενού" class="button"/>	</p>
 			</form>	
 			
 		</div>

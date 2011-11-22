@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="../jquery-validation-1.8.0/jquery.validate.min.js"></script>
 	<script>
 		$(document).ready(function(){
-		$('#myForm').validate({
+			$('#myForm').validate({
 				'rules':{
 						'title':'required',
 						'lesson':'required',
@@ -15,8 +15,12 @@
 						'deadline':'required',
 						'hours':'required'
 						}
-						});
-						});
+			});
+			$('input[name=menu]').click(function()
+			{
+				window.location.href="/professor/prof_menu.php";
+			});
+		});
 		$(function() {
 			$( "#deadline" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		});
@@ -120,6 +124,7 @@
 			<tr>
 			<td><input type="submit" name="submit" value="Καταχώρηση" class="button"/></td>
 			</tr>
+			<tr><td><input type="button" name="menu" value="Αρχικό μενού" class="button"/></td></tr>
 		</table>
 		</form>
 

@@ -41,6 +41,11 @@
         ]
 		});
 		
+		$('input[name=menu]').click(function()
+		{
+			window.location.href="/student/stud_menu.php";
+		});
+		
 		}); 
 		
 		</script>
@@ -161,7 +166,9 @@
 						}	
 				?>	
 				</tbody>
-				</table>		
+				</table>
+				<br />
+				<input type="button" name="menu" value="Αρχικό μενού" class="button"/>
 			</form>		
 		</div>
 			<div class="spacer"></div>
