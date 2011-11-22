@@ -62,6 +62,27 @@ $jFormSection2 = new JFormSection($registration->id . 'Section2', array(
 
 // Add components to the section
 $jFormSection1->addJFormComponentArray(array(
+    new JFormComponentSingleLineText('name', 'Όνομα:', array(
+        'validationOptions' => array('required')
+    )),
+    new JFormComponentSingleLineText('surname', 'Επώνυμο:', array(
+        'validationOptions' => array('required')
+    )),
+     new JFormComponentMultipleChoice('sex', 'Φύλο:',
+            array(
+                array('value' => 'm', 'label' => 'Άνδρας'),
+                array('value' => 'f', 'label' => 'Γυναίκα'),
+            ),
+            array(
+                'multipleChoiceType' => 'radio',
+                'validationOptions' => array('required'),
+    )),
+    new JFormComponentSingleLineText('reg_numb', 'Κωδικός μητρώου:', array(
+        'validationOptions' => array('required', 'integer', 'minLength' => 5),
+    )),
+    new JFormComponentSingleLineText('phone', 'Τηλέφωνο:', array(
+        'validationOptions' => array('required', 'phone'),
+    )),
     new JFormComponentSingleLineText('email', 'E-mail:', array(
         'validationOptions' => array('required', 'email'),
     )),
@@ -76,6 +97,11 @@ $jFormSection1->addJFormComponentArray(array(
         'type' => 'password',
         'validationOptions' => array('required', 'password', 'matches' => 'password'),
     )),
+    new JFormComponentTextArea('cv', 'Βιογραφικό:', array(
+        'width' => 'medium',
+        'height' => 'medium',
+        //'validationOptions' => array('required'),
+    )),
 ));
 
 // Add the section to the page
@@ -89,9 +115,15 @@ $registration->addJFormPage($jFormPage1);
 function onSubmit($formValues) {
 	//return array('failureHtml' => json_encode($formValues));
 
-	$email  = trim($formValues->registrationPage->registrationSection1->email);
-	$passwd = trim($formValues->registrationPage->registrationSection1->password);
-	
+	$email  = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->email));
+	$passwd = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->password));
+	$name  = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->name));
+	$surname = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->surname));
+	$sex = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->sex));
+	$reg_numb = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->reg_numb));
+	$phone = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->phone));
+	$cv = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->cv));
+
 	global $con;
 	$sql = "select * from users where email = '". mysql_real_escape_string($email) . "'";
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
@@ -103,22 +135,21 @@ function onSubmit($formValues) {
 		return $response;
 	}
 
-
-	$sql = "insert into users (email, passwd) values ('". mysql_real_escape_string($email) . "', '" . sha1($passwd) . "')";
+	$sql = "insert into users (email, passwd, name, surname, reg_numb, phone, sex, cv) values ('".$email."', '".sha1($passwd)."', '".$name."', '".$surname."', '".$reg_numb."', '".$phone."', '".$sex."', '".$cv."')";
+	echo $sql;
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
 	mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
 
 	return array(
-		'successPageHtml' => '<h2>Η δημιουργία ολοκληρώθηκε.</h2>
-		<p>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαρισμού σας.</p>'
-    );
+		'successPageHtml' => '<h2>Η δημιουργία ολοκληρώθηκε.</h2><br>
+		<h3>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαρισμού σας.</h3>'
+	);
 }
 
 // Process any request to the form
 $registration->processRequest();
-
 
 ?>
 
