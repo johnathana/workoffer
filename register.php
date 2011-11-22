@@ -7,7 +7,26 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
-	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
+
+	global $auth;
+
+	if ($auth->logged) {
+
+		$location = "";
+
+		switch ($auth->is_admin) {
+
+		case auth::Professor :
+			$location = "/professor/prof_menu.php";
+			break;
+		case auth::Student :
+			$location = "/student/application_form.php";
+			break;
+		}
+
+		header("Location: $location");
+	}
 ?>
 
 <body id="overview"> 
@@ -89,11 +108,11 @@ function onSubmit($formValues) {
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	mail($email, 'Δημιουρία λογαριασμού', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
+	mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
 
 	return array(
-		'successPageHtml' => '<p>Η δημιουργία ολοκληρώθηκε.</p>
-		<p>E-mail: ' . $email . '</p>'
+		'successPageHtml' => '<h2>Η δημιουργία ολοκληρώθηκε.</h2>
+		<p>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαρισμού σας.</p>'
     );
 }
 

@@ -30,6 +30,7 @@
 	<div id="globalfooter"> 
 
 	<div class="content promos grid2col"> 
+<<<<<<< HEAD
 		
 		
 		<h3 style="text-align:center; line-height:58px; font-size:18px">Κεντρικό μενού καθηγητή </h3>
@@ -38,6 +39,16 @@
 			<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="overview" value="Επισκόπηση παροχών" /></td></tr>
 			<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="management" value="Διαχείριση παροχών" /></td></tr>
 		</table>
+=======
+		<div id="container">
+			<h3 style="text-align:center; line-height:58px; font-size:18px">Κεντρικό μενού καθηγητή </h3>
+			<table align="center">
+				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="create" value="Δημιουργία παροχής" /></td></tr>
+				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="overview" value="Επισκόπηση παροχών" /></td></tr>
+				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="management" value="Διαχείριση παροχών" /></td></tr>
+			</table>
+		</div>
+>>>>>>> 0ce70d8438d8efa37c44b00115e01a397b0e6af3
 		
 		
 	</div><!--/content--> 

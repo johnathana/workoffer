@@ -13,4 +13,3 @@
 	<script type="text/javascript" src="../jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js" ></script>
 	<script type="text/javascript" src="../jFormer/jFormer.js" ></script> 
 
-<?php		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); ?> 

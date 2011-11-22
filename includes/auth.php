@@ -4,6 +4,11 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
 
 class auth {
 
+	const Student = 0;
+	const Admin = 1;
+	const Professor = 2;
+
+
 	var $logged = false;
 	var $is_admin = 0;
 	var $email = '';
@@ -29,7 +34,7 @@ class auth {
 				}
 
 			} else {
-					$this->logged = false;
+				$this->logged = false;
 			}
 		}
 		$this->load_info();
@@ -78,7 +83,7 @@ class auth {
 		$this->cookie('auth[email]' , '');
 		$this->cookie('auth[passwd]', '');
 
-		//$this->email = '';
+		$this->email = '';
 		$this->is_admin = 0;
 		$this->logged = false;
 		session_destroy();
