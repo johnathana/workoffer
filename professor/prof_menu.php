@@ -5,20 +5,20 @@
 	<link type="text/css" href="../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
 	<script type="text/javascript" src="../jquery-validation-1.8.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
 		$('input[name=create]').click(function()
 		{
 			window.location.href="/professor/create_workoffer.php";
 		});
-		
 		$('input[name=overview]').click(function()
 		{
 			window.location.href="/professor/workoffers_overview.php";
 		});
-		
 		$('input[name=management]').click(function()
 		{
 			window.location.href="/professor/personal_workoffer_list.php";
 		});
+    }); 
 	</script>
 </head> 
 
@@ -34,7 +34,7 @@
 		
 		<h3 style="text-align:center; line-height:58px; font-size:18px">Κεντρικό μενού καθηγητή </h3>
 		<table align="center">
-			<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="create" value="Δημιουργία παροχής" /></td></tr>
+			<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="create" onClick="redirect_create();" value="Δημιουργία παροχής" /></td></tr>
 			<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="overview" value="Επισκόπηση παροχών" /></td></tr>
 			<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="management" value="Διαχείριση παροχών" /></td></tr>
 		</table>
