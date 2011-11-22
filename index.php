@@ -8,6 +8,25 @@
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
+
+	global $auth;
+
+	if ($auth->logged) {
+
+		$location = "";
+
+		switch ($auth->is_admin) {
+
+		case auth::Professor :
+			$location = "/professor/prof_menu.php";
+			break;
+		case auth::Student :
+			$location = "/student/application_form.php";
+			break;
+		}
+
+		header("Location: $location");
+	}
 ?>
 
 <body id="overview"> 
@@ -50,15 +69,15 @@ $jFormSection1->addJFormComponentArray(array(
         'validationOptions' => array('required', 'password'),
         'tip' => '<p>Παρακαλώ πληκρολογήστε το <b>password</b> σας</p>',
     )),
-
     new JFormComponentMultipleChoice('rememberMe', '', 
         array(
-            array('value' => 'remember', 'label' => 'Διατήρηση σύνδεσης σε αυτόν τον υπολογιστή'),
+            array('value' => 'remember', 'label' => 'Διατήρηση σύνδεσης σε αυτόν τον υπολογιστή')
         ),
         array(
         'tip' => '<p></p>',
         )
     ),
+    new JFormComponentHtml('<div class="jFormComponent"><a href="" ">Ξέχασα το password μου</a></div>')
 ));
 
 // Add the section to the page
@@ -73,11 +92,10 @@ function onSubmit($formValues) {
 
 	global $auth;
 	if ($auth->login($formValues->email, $formValues->password, !empty($formValues->rememberMe))) {
-		$response = array('successPageHtml' => '<p>Login Successful</p>');
+		$response = array('successPageHtml' => '<script type="text/javascript">window.location.href="/index.php";</script>');
 	} else {
 		$response = array('failureNoticeHtml' => 'Invalid username or password.', 'failureJs' => "$('#password').val('').focus();");
 	}
-	
 
 	return $response;
 }
@@ -87,7 +105,9 @@ function onSubmit($formValues) {
 $login->processRequest();
 
 ?>
-	<div style="margin: 15px"><a href="register.php">Δημιουργία λογαρισμού</a></div>
+	<div style="margin: 15px">
+		<a href="register.php">Δημιουργία λογαρισμού</a>
+	</div>
 	</aside> 
 </div><!--/content--> 
  

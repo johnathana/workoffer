@@ -7,7 +7,26 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
-	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
+
+	global $auth;
+
+	if ($auth->logged) {
+
+		$location = "";
+
+		switch ($auth->is_admin) {
+
+		case auth::Professor :
+			$location = "/professor/prof_menu.php";
+			break;
+		case auth::Student :
+			$location = "/student/application_form.php";
+			break;
+		}
+
+		header("Location: $location");
+	}
 ?>
 
 <body id="overview"> 
