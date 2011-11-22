@@ -101,7 +101,7 @@
 		}
 		function redirect_create()
 		{
-			window.location.href = "/professor/create_workoffer.php";
+			window.location.href = "/professor/prof_menu.php";
 		}
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
@@ -170,10 +170,11 @@
 	?>
 		<div id="container">
 			<div class="full_width big">
-				<i>Πίνακας Παροχών</i> 
+				<h2>Πίνακας Παροχών</h2>
+				<br />
 			</div>
 
-			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</p>
+			<h3>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</h3>
 			<form id="myForm"  method="POST" >
 				<div id="demo" ></div>
 				<div class="demo_jui" id="demo_jui">
@@ -192,14 +193,14 @@
 				</table>
 				<?php
 					switch ($auth->is_admin) {
-					case "0":
+					case auth::Student :
 						die("Unauthorized access");
-					case "1":
+					case auth::Admin :
 						$query = "SELECT * FROM work_offers WHERE has_expired = true";//fere tis anenerges paroxes olwn twn kathigitwn 
 						$result_set = mysql_query($query,$con);
 						confirm_query($result_set);
 						break;
-					case "2":
+					case auth::Professor :
 						$qr = "SELECT id FROM users WHERE email = '".$auth->email."'";
 						$set = mysql_query($qr,$con);
 						confirm_query($set);
@@ -297,7 +298,7 @@
 				
 				<br />
 				<p>
-					<input class="button" type="button" id="edit_btn" onClick="redirect_create();" value="Δημιουργία"  />
+					<input class="button" type="button" id="edit_btn" onClick="redirect_create();" value="Αρχικό μενού"  />
 					<input class="button" type="button" id="edit_btn" onClick="check_redirect1();" value="Επεξεργασία"  />
 					<input class="button" type="button" id="apps_btn" onClick="check_redirect2();" value="Αιτήσεις για αυτήν την παροχή"  />
 				</p>
