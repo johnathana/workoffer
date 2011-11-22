@@ -136,7 +136,6 @@
 				<?php	while($row = mysql_fetch_assoc($result_set))
 						{
 							extract($row);
-							//$stud_id = 3;//tha pernei tin timi apo to session['id']
 							echo "<tr>";
 							if($addressed_for==0)
 							{$student_type="Μη εργαζόμενο";}

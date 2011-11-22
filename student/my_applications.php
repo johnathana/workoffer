@@ -70,7 +70,11 @@
 					if (isset($_GET['id']))
 					{
 						$workoffer_id = $_GET['id'];
-						$stud_id = 1;//tha pernei tin timi apo to session['id']
+						$qr = "SELECT id FROM users WHERE email = '".$auth->email."'";
+						$set = mysql_query($qr,$con);
+						confirm_query($set);
+						$row = mysql_fetch_assoc($set);
+						$stud_id = $row['id'];//tha pernei tin timi apo to session['id']
 						$query1 = "SELECT * FROM work_applications WHERE user_id='$stud_id' AND work_id='$workoffer_id'";
 						$result_set1 = mysql_query($query1,$con);
 						confirm_query($result_set1);
@@ -81,7 +85,7 @@
 						}
 						else
 						{
-							$query = "INSERT INTO work_applications (user_id, work_id) values (1, '$workoffer_id')";//NA ALLAXSW TO 1 ME TO ID POY UA VRW APO TO SESSION[EMAIL]
+							$query = "INSERT INTO work_applications (user_id, work_id) values ('$stud_id', '$workoffer_id')";//NA ALLAXSW TO 1 ME TO ID POY UA VRW APO TO SESSION[EMAIL]
 							if (!mysql_query($query,$con))
 							{
 								die('Error: ' . mysql_error());
@@ -90,7 +94,7 @@
 						}
 					}
 					
-					$query = "SELECT work_id,accepted FROM work_applications WHERE user_id=1";//to user_id tha vrethei apo to session['email']
+					$query = "SELECT work_id,accepted FROM work_applications WHERE user_id='$stud_id'";//to user_id tha vrethei apo to session['email']
 					$result_set = mysql_query($query,$con);
 					confirm_query($result_set);
 				?>

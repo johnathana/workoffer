@@ -46,7 +46,7 @@
 	$errors=get_errors($_POST,$form_rules); */
 	//if(!count($errors)){
 	//save the data into the database
-		$id =($_POST['prof_id']);
+		$id = $_POST['prof_id'];
 		$title = trim($_POST['title']);
 		$lesson = trim($_POST['lesson']);
 		$candidates = trim($_POST['candidates']);
