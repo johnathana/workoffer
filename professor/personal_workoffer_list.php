@@ -224,14 +224,14 @@
 				</table>
 				<?php
 					switch ($auth->is_admin) {
-					case "0":
+					case auth::Student :
 						die("Unauthorized access");
-					case "1":
+					case auth::Admin :
 						$query = "SELECT * FROM work_offers WHERE has_expired = false";//fere tis energes paroxes olwn twn kathigitwn 
 						$result_set = mysql_query($query,$con);
 						confirm_query($result_set);
 						break;
-					case "2":
+					case auth::Professor :
 						$qr = "SELECT id FROM users WHERE email = '".$auth->email."'";
 						$set = mysql_query($qr,$con);
 						confirm_query($set);
