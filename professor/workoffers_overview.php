@@ -158,12 +158,12 @@
 				if (isset($_GET['choice']))
 				{  
 					$choice = $_GET['choice'];
-					$result = get_data($choice,$auth->email);
+					$result = get_data($choice,$auth->id);
 				}
 				else
 				{
-					$choice = "111";
-					$result = get_data($choice,$auth->email);
+					$choice = "111";//proswpikes-trexon etos-energes
+					$result = get_data($choice,$auth->id);
 				}
 				?>
 				<table style="width: 300px">

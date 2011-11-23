@@ -202,11 +202,7 @@
 						confirm_query($result_set);
 						break;
 					case auth::Professor :
-						$qr = "SELECT id FROM users WHERE email = '".$auth->email."'";
-						$set = mysql_query($qr,$con);
-						confirm_query($set);
-						$row = mysql_fetch_assoc($set);
-						$query = "SELECT * FROM work_offers WHERE professor_id = '".$row['id']."' AND has_expired = true";//fere tis anenerges paroxes enos kathigiti
+						$query = "SELECT * FROM work_offers WHERE professor_id = '".$auth->id."' AND has_expired = true";//fere tis anenerges paroxes enos kathigiti
 						$result_set = mysql_query($query,$con);
 						confirm_query($result_set);
 						break;
@@ -234,11 +230,7 @@
 						confirm_query($result_set);
 						break;
 					case auth::Professor :
-						$qr = "SELECT id FROM users WHERE email = '".$auth->email."'";
-						$set = mysql_query($qr,$con);
-						confirm_query($set);
-						$row = mysql_fetch_assoc($set);
-						$query = "SELECT * FROM work_offers WHERE professor_id = '".$row['id']."' AND has_expired = false";//fere tis anenerges paroxes enos kathigiti
+						$query = "SELECT * FROM work_offers WHERE professor_id = '".$auth->id."' AND has_expired = false";//fere tis anenerges paroxes enos kathigiti
 						$result_set = mysql_query($query,$con);
 						confirm_query($result_set);
 						break;

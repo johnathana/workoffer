@@ -9,18 +9,14 @@
 	}
 
 
-	function get_data($choice,$myEmail)
+	function get_data($choice,$id)
 	{
 	//To 111 simainei trexondas didaskon-trexon etos-energes
 	//To 212 simainei oloi oi didaskondes-trexon etos-anenerges
 		global $con;
 		$row = get_current_year();//pernei to id tou current year
 		$current_year = $row['id'];
-		$qr = "SELECT id FROM users WHERE email = '".$myEmail."'";
-		$set = mysql_query($qr,$con);
-		confirm_query($set);
-		$row = mysql_fetch_assoc($set);
-		$prof_id = $row['id'];
+		$prof_id = $id;
 		
 		switch($choice)
 		{
