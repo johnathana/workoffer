@@ -59,6 +59,10 @@ create table if not exists work_applications (
 ) character set 'utf8' collate 'utf8_general_ci';
 
 
+create event update_expired
+    on schedule every 1 day
+      do
+update work_offers set has_expired = true where deadline < now();
 
 
 /* Insert examples */
