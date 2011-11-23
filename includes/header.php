@@ -7,7 +7,7 @@
 <?php
 	global $auth;
 
-	if ($auth->logged) {
+	if (isset($auth) && $auth->logged) {
 		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/menu.php');
 	}
 ?>

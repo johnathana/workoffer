@@ -28,9 +28,7 @@
 			$("#cv").val("<?php echo $user['cv']; ?>");
 
 			$("#email").val("<?php echo $user['email']; ?>");
-			$("#emailConfirm").val("<?php echo $user['email']; ?>");
 			$("#email").attr('disabled', true);
-			$("#emailConfirm").attr('disabled', true);
 
 		});
 	</script>
@@ -55,7 +53,7 @@ $registration = new JFormer('registration', array(
 
 // Create the form page
 $jFormPage1 = new JFormPage($registration->id . 'Page', array(
-            'title' => '<h2 style="margin-bottom: 10px;">Επεξεργασία λογαρισμού</h2>',
+            'title' => '<h2 style="margin-bottom: 10px;">Επεξεργασία λογαριασμού</h2>',
         ));
 
 // Create the form section
@@ -84,24 +82,25 @@ $jFormSection1->addJFormComponentArray(array(
                 'validationOptions' => array('required'),
     )),
     new JFormComponentSingleLineText('reg_numb', 'Κωδικός μητρώου:', array(
-        'validationOptions' => array('required', 'integer', 'minLength' => 5),
+        'validationOptions' => array('integer', 'minLength' => 5),
     )),
     new JFormComponentSingleLineText('phone', 'Τηλέφωνο:', array(
         'validationOptions' => array('required', 'phone'),
     )),
     new JFormComponentSingleLineText('email', 'E-mail:', array(
-        'validationOptions' => array('required', 'email'),
+        'validationOptions' => array('email'),
     )),
-    new JFormComponentSingleLineText('emailConfirm', 'Επιβεβαίωση e-mail:', array(
-        'validationOptions' => array('required', 'email', 'matches' => 'email'),
-    )),
-    new JFormComponentSingleLineText('password', 'Κωδικός:', array(
+    new JFormComponentSingleLineText('old_password', 'Παλιός κωδικός:', array(
         'type' => 'password',
-        'validationOptions' => array('required', 'password'),
+        'validationOptions' => array('password'),
     )),
-    new JFormComponentSingleLineText('passwordConfirm', 'Επιβεβαίωση κωδικού:', array(
+    new JFormComponentSingleLineText('password', 'Νέος κωδικός:', array(
         'type' => 'password',
-        'validationOptions' => array('required', 'password', 'matches' => 'password'),
+        'validationOptions' => array('password'),
+    )),
+    new JFormComponentSingleLineText('passwordConfirm', 'Επιβεβαίωση νέου κωδικού:', array(
+        'type' => 'password',
+        'validationOptions' => array('password', 'matches' => 'password'),
     )),
     new JFormComponentTextArea('cv', 'Βιογραφικό:', array(
         'width' => 'medium',
@@ -119,10 +118,27 @@ $registration->addJFormPage($jFormPage1);
 
 // Set the function for a successful form submission
 function onSubmit($formValues) {
-	//return array('failureHtml' => json_encode($formValues));
+// 	return array('failureHtml' => json_encode($formValues));
 
-	$email  = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->email));
-	$passwd = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->password));
+	global $con;
+	global $auth;
+
+	$old_password = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->old_password));
+
+	if ($old_password != "") {
+
+		$password = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->password));
+
+		if ($password == "")
+			return array('failureHtml' => 'Παρακάλω εισάγετε το νέο password');
+
+		if ( !$auth->check_login($auth->email, sha1($old_password)) )
+			return array('failureHtml' => 'Λάθος password');
+
+		$sql = "update users set passwd='".sha1($password)."' where id = '".$auth->id."'";
+		mysql_query($sql, $con) || die('Error: ' . mysql_error());
+	}
+
 	$name  = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->name));
 	$surname = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->surname));
 	$sex = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->sex));
@@ -130,26 +146,16 @@ function onSubmit($formValues) {
 	$phone = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->phone));
 	$cv = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->cv));
 
-	global $con;
-	$sql = "select * from users where email = '". mysql_real_escape_string($email) . "'";
-	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	$result = mysql_query($sql, $con);
-	
-	if (mysql_num_rows($result) > 0) {
-		$response = array('failureNoticeHtml' => 'Το email ανήκει σε υπάρχον λογαριασμό');
-		return $response;
-	}
-
-	$sql = "update users set name=, surname=, reg_numb=, phone=, sex=, cv= where id = '". $auth->id ."'";
+	$sql = "update users set name='".$name."', surname='".$surname."', reg_numb='".$reg_numb."', phone='".$phone."', sex='".$sex."', cv='".$cv."' where id = '". $auth->id ."'";
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
 	//mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
 
 	return array(
-		'successPageHtml' => '<h2>Η δημιουργία ολοκληρώθηκε.</h2><br>
-		<h3>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαρισμού σας.</h3>'
+		'successPageHtml' => '<h2>Η επεξεργασία ολοκληρώθηκε.</h2><br>
+		<input type="button" name="menu" value="Αρχικό μενού" class="button" onClick="window.location.href=\'/index.php\'"/>'
 	);
 }
 
@@ -157,6 +163,9 @@ function onSubmit($formValues) {
 $registration->processRequest();
 
 ?>
+	<div style="margin: 15px">
+		<a href="/">Πίσω</a>
+	</div>
 
 	</aside> 
 	</div><!--/content--> 

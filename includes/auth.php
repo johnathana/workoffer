@@ -105,7 +105,7 @@ class auth {
 
 	function check_login($email, $sha1_password) {
 		global $con;
-		$sql = "select * from users where email = '". mysql_real_escape_string($email) . "'";
+		$sql = "select passwd from users where email = '". mysql_real_escape_string($email) . "'";
 		$result = mysql_query($sql, $con);
 		$row = mysql_fetch_array($result);
 
