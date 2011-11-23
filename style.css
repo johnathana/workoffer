@@ -213,7 +213,7 @@ h2 { font-size: 26px; margin: 0; }
 
 /* promo footers */
 .promos { width:980px; margin:0 auto 2em; line-height:1.4; }
-.promos a { display:block; padding-top: 4px; text-decoration:none; }
+.promos a { display:block; padding-top: 5px; padding-bottom: 5px; text-decoration:none; }
 .promos .more { padding-right:10px; color:#08c; white-space:nowrap; background:url(/global/elements/arrows/morearrow_08c.gif) no-repeat 100% 60%; }
 .promos a:hover .more { text-decoration:underline; }
 .promos h2 { font-size:18px; }
@@ -221,7 +221,7 @@ h2 { font-size: 26px; margin: 0; }
 .promos img.right { margin:0 0 0 20px; }
 
 .promos .column.first { width:450px; padding:0 0 0 40px; }
-.promos .column.last { width:370px; padding:0 80px 0 40px; }
+.promos .column.last { width:370px; padding:0 10px 0 40px; }
 
 #optimized img.right { margin-top:-24px; }
 #thoughts img.right { margin-left:70px; }
