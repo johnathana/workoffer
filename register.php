@@ -1,7 +1,8 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php');?>
 </head> 
 
 
@@ -29,7 +30,7 @@ $registration = new JFormer('registration', array(
 
 // Create the form page
 $jFormPage1 = new JFormPage($registration->id . 'Page', array(
-            'title' => '<h2 style="margin-bottom: 10px;">Δημιουργία λογαρισμού</h2>',
+            'title' => '<h2 style="margin-bottom: 10px;">Δημιουργία λογαριασμού</h2>',
         ));
 
 // Create the form section
@@ -120,11 +121,11 @@ function onSubmit($formValues) {
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
+	//mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
 
 	return array(
 		'successPageHtml' => '<h2>Η δημιουργία ολοκληρώθηκε.</h2><br>
-		<h3>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαρισμού σας.</h3>'
+		<h3>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαριασμού σας.</h3>'
 	);
 }
 

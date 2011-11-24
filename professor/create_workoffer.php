@@ -125,7 +125,14 @@
 			<tr>
 			<td><input type="submit" name="submit" value="Καταχώρηση" class="button"/></td>
 			</tr>
-			<tr><td><input type="button" name="menu" value="Αρχικό μενού" class="button"/></td></tr>
+			<tr><td><?php switch ($auth->is_admin) {
+				case auth::Admin :?>
+					<input type="button" id="admin" name="menu" value="Αρχικό μενού" class="button"/></td></tr>
+			<?php	break;
+				case auth::Professor :?>
+					<input type="button" id="prof" name="menu" value="Αρχικό μενού" class="button"/></td></tr>
+			<?php	break;
+				}?>
 		</table>
 		</form>
 

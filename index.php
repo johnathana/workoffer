@@ -17,6 +17,9 @@
 
 		switch ($auth->is_admin) {
 
+		case auth::Admin :
+			$location = "/admin_menu.php";
+			break;
 		case auth::Professor :
 			$location = "/professor/prof_menu.php";
 			break;
