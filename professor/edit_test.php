@@ -14,31 +14,36 @@
 	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php');
 
-	if(isset($_GET['id']))//exei epilexsei kapoia paroxi
+
+	if ( is_null($_GET['id']) )
 	{
-			$workoffer_id = $_GET['id'];
-			$query = "SELECT * FROM work_offers WHERE id='$workoffer_id'";
-			$result_set = mysql_query($query,$con);
-			confirm_query($result_set);
-			$row = mysql_fetch_assoc($result_set);
-			extract($row);
+		die("Δεν έχει επιλεγεί παροχή");
 	}
+
+	$workoffer_id = $_GET['id'];
+	$query = "SELECT * FROM work_offers WHERE id='$workoffer_id'";
+	$result_set = mysql_query($query,$con);
+	confirm_query($result_set);
+	$row = mysql_fetch_assoc($result_set);
+	extract($row);
 ?>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#title").val("<?php echo $title; ?>");
 			$("#lesson").val("<?php echo $lesson; ?>");
-			$("[name=candidates]").filter("[value=<?php echo $candidates; ?>]").attr("selected","selected");
-			$("[name=addressed]").filter("[value=<?php echo $addressed_for; ?>]").attr("selected","selected");
+			$("#candidates").val('<?php echo $candidates; ?>');
+			$("#addressed_for").val('<?php echo $addressed_for; ?>');
 			$("#requirements").val("<?php echo $requirements; ?>");
 			$("#deliverables").val("<?php echo $deliverables; ?>");
 			$("#hours").val("<?php echo $hours; ?>");
-			<?php if($at_di == true){ ?> $('#at_di').prop('checked', true); <?php } ?>
-			<?php if($winter_semester == true){ ?> $('#winter').prop('checked', true); <?php } ?>
-			<?php if($has_expired == true){ ?> $('#disable').prop('checked', true); <?php } ?>
+
+			$('input[name=at_di]').attr('checked', '<? echo $at_di; ?>');
+			$('input[name=winter_semester]').attr('checked', '<? echo $winter_semester; ?>');
+			$('input[name=is_available]').attr('checked', '<? echo $is_available; ?>');
+
+			$("#deadline").datepicker({ dateFormat: 'yy-mm-dd' });
 			$("#deadline").val("<?php echo $deadline; ?>");
-			$( "#deadline" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		});
 	</script>
 
@@ -102,7 +107,7 @@ $jFormSection1->addJFormComponentArray(array(
 			),
 			'validationOptions' => array('required')
 	)),
-	new JFormComponentDropDown('addressed', 'Απευθύνεται σε φοιτητή:',
+	new JFormComponentDropDown('addressed_for', 'Απευθύνεται σε φοιτητή:',
 		array(
 			array(
 				'value' => '0',
@@ -135,11 +140,11 @@ $jFormSection1->addJFormComponentArray(array(
             array(
                 array('value' => 'true', 'label' => 'Στο χώρο του di'),
     )),
-	new JFormComponentMultipleChoice('winter', '',
+	new JFormComponentMultipleChoice('winter_semester', '',
             array(
                 array('value' => 'true', 'label' => 'Χειμερινού εξαμήνου'),
     )),
-	new JFormComponentMultipleChoice('disable', '',
+	new JFormComponentMultipleChoice('is_available', '',
             array(
                 array('value' => 'true', 'label' => 'Απενεργοποίηση παροχής'),
     )),
@@ -157,7 +162,7 @@ $registration->addJFormPage($jFormPage1);
 
 // Set the function for a successful form submission
 function onSubmit($formValues) {
-// 	return array('failureHtml' => json_encode($formValues));
+	return array('failureHtml' => json_encode($formValues));
 
 	global $con;
 	
@@ -173,6 +178,8 @@ function onSubmit($formValues) {
 	$deadline = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->deadline));
 
 	$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', has_expired = '$disable', addressed_for = '$addressed' WHERE id='$id'";
+
+
 	$result_set = mysql_query($query,$con);
 	confirm_query($result_set);
 
