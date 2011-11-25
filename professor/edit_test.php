@@ -20,8 +20,12 @@
 		die("Δεν έχει επιλεγεί παροχή");
 	}
 
-	$workoffer_id = $_GET['id'];
-	$query = "SELECT * FROM work_offers WHERE id='$workoffer_id'";
+	if ( is_int($_GET['id']) )
+	{
+		die();
+	}
+
+	$query = "SELECT * FROM work_offers WHERE id='".$_GET['id']."'";
 	$result_set = mysql_query($query,$con);
 	confirm_query($result_set);
 	$row = mysql_fetch_assoc($result_set);
@@ -67,7 +71,7 @@ $registration = new JFormer('registration', array(
 
 // Create the form page
 $jFormPage1 = new JFormPage($registration->id . 'Page', array(
-            'title' => '<h2 style="margin-bottom: 10px;">Επεξεργασία Παροχής</h2>',
+            'title' => '<h2 style="margin-bottom: 10px;">Επεξεργασία παροχής</h2>',
         ));
 
 // Create the form section
@@ -80,7 +84,6 @@ $jFormSection2 = new JFormSection($registration->id . 'Section2', array(
 
 // Add components to the section
 $jFormSection1->addJFormComponentArray(array(
-	new JFormComponentHidden('workoffer_id', '$_GET[\'id\']'),
     new JFormComponentSingleLineText('title', 'Τίτλος παροχής:', array(
         'validationOptions' => array('required')
     )),
@@ -166,15 +169,15 @@ function onSubmit($formValues) {
 
 	global $con;
 	
-	$id = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->workoffer_id));
-	$title  = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->title));
+	$id = trim(mysql_real_escape_string($_GET['id']));
+	$title = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->title));
 	$lesson = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->lesson));
 	$candidates = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->candidates));
 	$requirements = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->requirements));
 	$deliverables = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->deliverables));
 	$hours = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->hours));
-	$addressed = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->addressed));
-	$disable = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->disable));
+	$addressed = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->addressed_for));
+	$is_available = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->is_available));
 	$deadline = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->deadline));
 
 	$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', has_expired = '$disable', addressed_for = '$addressed' WHERE id='$id'";

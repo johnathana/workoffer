@@ -29,7 +29,6 @@
 
 			$("#email").val("<?php echo $user['email']; ?>");
 			$("#email").attr('disabled', true);
-
 		});
 	</script>
 
