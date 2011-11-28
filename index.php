@@ -80,6 +80,7 @@ $jFormSection1->addJFormComponentArray(array(
         'tip' => '<p></p>',
         )
     ),
+    new JFormComponentHtml('<div class="jFormComponent"><a href="/password_reset.php" ">Ξέχασα το password μου</a></div>')
 ));
 
 // Add the section to the page
