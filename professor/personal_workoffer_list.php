@@ -83,7 +83,7 @@
 			}
 			else //έχει επιλεγεί κάποια παροχή
 			{
-				window.location.href="edit_test.php?id="+workid+"";
+				window.location.href="edit_workoffer.php?id="+workid+"";
 			}
 		}
 		function check_redirect2()
