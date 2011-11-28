@@ -148,12 +148,12 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 			if(isset($_GET['id']))//exei epilexsei kapoia paroxi apo to personal workoffer list
 			{
 				$workid = $_GET['id'];
-				$query1 = "SELECT is_available, title FROM work_offers WHERE id = '$workid'";
+				$query1 = "SELECT is_available, title, has_expired FROM work_offers WHERE id = '$workid'";
 				$res = mysql_query($query1,$con);
 				confirm_query($res);
-				$row = mysql_fetch_assoc($res);
-				echo "Παρακάτω φαίνεται ο πίνακας με τις αιτήσεις των φοιτητών για την παροχή με τίτλο ".$row['title'];
-				if($row['is_available'] == 0)
+				$row1 = mysql_fetch_assoc($res);
+				echo "Παρακάτω φαίνεται ο πίνακας με τις αιτήσεις των φοιτητών για την παροχή με τίτλο ".$row1['title'];
+				if($row1['is_available'] == 0)
 					echo "Η παροχή δεν είναι διαθέσιμη για ανάθεση"."<br />";
 				
 				$query = "SELECT * FROM work_applications WHERE work_id = '$workid'";
@@ -197,7 +197,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 						</table>
 						<br />
 						<p><input class="button" type="button" name="back" value="Πίσω"  />
-						<input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  />
+						<?php if($row1['has_expired']==0)
+							{?><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /><?php	}?>
 						<input class="button" type="button" name="btn" value="Πληροφορίες"  /></p>
 						<p><input type="button" name="menu" value="Αρχικό μενού" class="button"/></p>
 					</form>
@@ -225,7 +226,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 					{
 						echo "Δεν μπορεί να γίνει η παραπάνω ανάθεση"."<br />";
 						echo "Ο μέγιστος επιτρεπόμενος αριθμός φοιτητών είναι $max_candidates και τους έχετε ήδη επιλέξει"."<br />";
-					
+					}
 					elseif (mysql_num_rows($workapps)==0 && $row['is_available']==0)
 					{
 						echo "Η παροχή έχει απενεργοποιηθεί"."<br />";
@@ -236,7 +237,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 						$result_set = mysql_query($query,$con);
 						confirm_query($result_set);
 						if(mysql_affected_rows() > 0)
-							echo "Επιτυχής καταχώρηση στη βάση δεδομένων";
+							echo "Επιτυχής καταχώρηση στη βάση δεδομένων"."<br />";
 						$query3 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
 						$workapps = mysql_query($query3,$con);
 						confirm_query($workapps);
@@ -247,14 +248,12 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 							confirm_query($result_set);
 						}				
 					}
-					//$workid = $_GET['id'];
-					$query1 = "SELECT is_available, title FROM work_offers WHERE id = '$workoffer_id'";
+					
+					$query1 = "SELECT has_expired, title FROM work_offers WHERE id = '$workoffer_id'";
 					$res = mysql_query($query1,$con);
 					confirm_query($res);
-					$row = mysql_fetch_assoc($res);
-					echo "Παρακάτω φαίνεται ο πίνακας με τις αιτήσεις των φοιτητών για την παροχή με τίτλο ".$row['title'];
-					//if($row['is_available'] == 0)
-						//echo "Η παροχή έχει ήδη ανατεθεί στον μέγιστο επιτρεπόμενο αριθμό φοιτητών"."<br />";
+					$row1 = mysql_fetch_assoc($res);
+					echo "Παρακάτω φαίνεται ο πίνακας με τις αιτήσεις των φοιτητών για την παροχή με τίτλο ".$row1['title'];
 					
 					$query = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id'";
 					$workapps = mysql_query($query,$con);
@@ -297,7 +296,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 							</table>
 							<br />
 							<p><input class="button" type="button" name="back" value="Πίσω"  />
-							<input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  />
+							<?php if($row1['has_expired']==0)
+							{?><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /><?php	}?>
 							<input class="button" type="button" name="btn" value="Πληροφορίες"  /></p>
 							<p><input type="button" name="menu" value="Αρχικό μενού" class="button"/></p>
 						</form>
