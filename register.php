@@ -117,7 +117,6 @@ function onSubmit($formValues) {
 	}
 
 	$sql = "insert into users (email, passwd, name, surname, reg_numb, phone, sex, cv) values ('".$email."', '".sha1($passwd)."', '".$name."', '".$surname."', '".$reg_numb."', '".$phone."', '".$sex."', '".$cv."')";
-	echo $sql;
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
