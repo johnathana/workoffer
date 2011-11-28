@@ -294,7 +294,7 @@
 							<p><input class="button" type="button" name="back" value="Πίσω"  />
 							<input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  />
 							<input class="button" type="button" name="btn" value="Πληροφορίες"  /></p>
-						
+							<p><input type="button" name="menu" value="Αρχικό μενού" class="button"/></p>
 						</form>
 						<a href="personal_workoffer_list.php">Πίσω στις παροχές μου</a>
 					</div><?php

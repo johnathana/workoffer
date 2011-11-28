@@ -121,7 +121,7 @@ function onSubmit($formValues) {
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	//mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
+	mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
 
 	return array(
 		'successPageHtml' => '<h2>Η δημιουργία ολοκληρώθηκε.</h2><br>

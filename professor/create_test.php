@@ -13,44 +13,15 @@
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php');
-
-
-	if ( is_null($_GET['id']) )
-	{
-		die("Δεν έχει επιλεγεί παροχή");
-	}
-
-	if ( is_int($_GET['id']) )
-	{
-		die();
-	}
 	
-	$query = "SELECT * FROM work_offers WHERE id='".$_GET['id']."'";
-	$result_set = mysql_query($query,$con);
-	confirm_query($result_set);
-	$row = mysql_fetch_assoc($result_set);
-	extract($row);
+	global $auth;
+	$user_id = $auth->id;
 ?>
-
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#title").val("<?php echo $title; ?>");
-			$("#lesson").val("<?php echo $lesson; ?>");
-			$("#candidates").val('<?php echo $candidates; ?>');
-			$("#addressed_for").val('<?php echo $addressed_for; ?>');
-			$("#requirements").val("<?php echo $requirements; ?>");
-			$("#deliverables").val("<?php echo $deliverables; ?>");
-			$("#hours").val("<?php echo $hours; ?>");
-
-			$('input[name=at_di]').attr('checked', '<? echo $at_di; ?>');
-			$('input[name=winter_semester]').attr('checked', '<? echo $winter_semester; ?>');
-			$('input[name=is_available]').attr('checked', '<? echo $is_available; ?>');
-
-			$("#deadline").datepicker({ dateFormat: 'yy-mm-dd' });
-			$("#deadline").val("<?php echo $deadline; ?>");
+		$("#deadline").datepicker({ dateFormat: 'yy-mm-dd' });
 		});
 	</script>
-
 <body id="overview"> 
 
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
@@ -70,7 +41,7 @@ $registration = new JFormer('registration', array(
 
 // Create the form page
 $jFormPage1 = new JFormPage($registration->id . 'Page', array(
-            'title' => '<h2 style="margin-bottom: 10px;">Επεξεργασία παροχής</h2>',
+            'title' => '<h2 style="margin-bottom: 10px;">Δημιουργία παροχής</h2>',
         ));
 
 // Create the form section
@@ -167,6 +138,7 @@ function onSubmit($formValues) {
 	return array('failureHtml' => json_encode($formValues));
 
 	global $con;
+	global $auth;
 	
 	$title = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->title));
 	$lesson = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->lesson));
@@ -178,8 +150,7 @@ function onSubmit($formValues) {
 	$is_available = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->is_available));
 	$deadline = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->deadline));
 
-	$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', is_available = '$is_available', addressed_for = '$addressed' WHERE id='$id'";
-
+	$query = "INSERT INTO work_offers (professor_id, title, lesson, candidates, requirements, deliverables, hours, deadline, at_di, winter_semester, is_available, addressed_for) VALUES ('".$auth->id."','".$title."','".$lesson."','".$candidates."','".$requirements."','".$deliverables."','".$hours."','".$deadline."','".$at_di."','".$winter."','".$is_available."','".$addressed."')";
 
 	$result_set = mysql_query($query,$con);
 	confirm_query($result_set);
