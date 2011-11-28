@@ -40,7 +40,7 @@
 
 		<div id="container">
 			<div class="full_width big">
-				<h2>Δημιουργία νέας παροχής </h2>
+				<h2>Δημιουργία παροχής </h2>
 			</div>
 		
 		<form id="myForm" action="create_workoffer_processing.php" method="post">
@@ -117,23 +117,21 @@
 			<td>Χειμερινού εξαμήνου</td><td> <input type="checkbox" name="winter"   /></td>
 			</tr>
 			<tr>
-			<td>Απενεργοποίηση παροχής</td><td> <input type="checkbox" name="expired"   /></td>
-			</tr>
-			<tr>
 			<td>Ημερομηνία λήξης</td><td><p><input id="deadline" name="deadline" type="text"></p></td>
 			</tr>
-			<tr>
-			<td><input type="submit" name="submit" value="Καταχώρηση" class="button"/></td>
-			</tr>
-			<tr><td><?php switch ($auth->is_admin) {
+			</table>
+			<br />
+			<?php switch ($auth->is_admin) {
 				case auth::Admin :?>
-					<input type="button" id="admin" name="menu" value="Αρχικό μενού" class="button"/></td></tr>
+					<p><input type="button" id="admin" name="menu" value="Αρχικό μενού" class="button"/>
+					<input type="submit" name="submit" value="Καταχώρηση" class="button"/></p>
 			<?php	break;
 				case auth::Professor :?>
-					<input type="button" id="prof" name="menu" value="Αρχικό μενού" class="button"/></td></tr>
+					<p><input type="button" id="prof" name="menu" value="Αρχικό μενού" class="button"/>
+					<input type="submit" name="submit" value="Καταχώρηση" class="button"/></p>
 			<?php	break;
 				}?>
-		</table>
+		
 		</form>
 
 	</div>

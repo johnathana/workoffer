@@ -30,7 +30,23 @@
 				return false;
 			}
 		});
-		
+		$('input[name=menu]').click(function()
+		{
+			window.location.href="/professor/prof_menu.php";
+		});
+		<?php 
+		if(isset($_GET['id']))
+		{
+			$query2 = "SELECT * FROM work_applications WHERE work_id = '".$_GET['id']."' AND accepted = '1'";
+			$workapps = mysql_query($query2,$con);
+			confirm_query($workapps);
+			if (mysql_num_rows($workapps) >= 1)
+			{
+				?>$('input[name=non_available]').attr('disabled', true);
+				  	<?php
+			}
+		}
+		?>
 		}); 
 		
 		$(function() {
@@ -38,7 +54,7 @@
 		});
 	</script>
 </head> 
-
+	
 <body id="overview"> 
 
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
@@ -48,6 +64,11 @@
 
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
+		
+		<div id="container">
+			<div class="full_width big">
+				<h2>Επεξεργασία παροχής </h2>
+			</div>
 
 	<?php 
 			if(isset($_GET['id']))//exei epilexsei kapoia paroxi
@@ -59,7 +80,6 @@
 					$row = mysql_fetch_assoc($result_set);
 					extract($row); ?>
 					
-					<h3>Επεξεργασία υπάρχουσας παροχής </h3>
 					<form action="personal_workoffer_list.php" method="post">
 					<input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
 					<table>
@@ -102,15 +122,17 @@
 						<td>Χειμερινού εξαμήνου</td><td> <input type="checkbox" name="winter" <?php if($winter_semester==true) echo "checked='true'"; ?> /></td>
 						</tr>
 						<tr>
-						<td>Απενεργοποίηση παροχής</td><td> <input type="checkbox" name="expired"  /></td>
+						<td>Απενεργοποίηση παροχής</td><td> <input type="checkbox" id="non_available" name="non_available"  /></td>
 						</tr>
 						<tr>
-						<td><p>Ημερομηνία λήξης</p></td><td><p><input id="deadline" name="deadline" type="text" value="<?php echo $deadline?>"></p></td>
+						<td>Ημερομηνία λήξης</td><td><p><input id="deadline" name="deadline" type="text" value="<?php echo $deadline?>"></p></td>
 						</tr>
-						<tr>
-						<td><input class="button" type="submit" name="submit" value="Καταχώρηση" /></td>
-						</tr>
-					</table>
+						</table>
+						<br />
+						<p><input type="button" name="menu" value="Αρχικό μενού" class="button"/>
+						<input class="button" type="submit" name="submit" value="Καταχώρηση" /></p>
+						
+					
 					</form>
 					
 					<?php			

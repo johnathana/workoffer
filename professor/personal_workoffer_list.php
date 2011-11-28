@@ -160,6 +160,9 @@
 				$expired = ($_POST['expired'] == "on" ? 1 : 0);
 			else 
 				$expired = 0;
+			 
+			$is_available = ($_POST['non_available'] == "on" ? 0 : 1);
+			
 			
 			if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
 			{

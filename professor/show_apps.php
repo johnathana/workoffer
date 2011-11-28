@@ -2,7 +2,8 @@
 <html> 
 <head>
 	<?php 
-		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');		
 		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); 
 	 ?>
 	<title>Πίνακας παροχών</title>
@@ -203,7 +204,7 @@
 				</div>
 				<?php		
 			}
-			
+			//diadikasia anathesis paroxis sto foititi
 			elseif (isset($_POST['workoffer_id']))//to id ths work-offer
 			{
 				if (isset($_POST['id']))//to id ths work-application
@@ -211,7 +212,7 @@
 					$workoffer_id = $_POST['workoffer_id'];
 					$workapp_id = $_POST['id'];
 					
-					$query1 = "SELECT candidates FROM work_offers WHERE id='$workoffer_id'";
+					$query1 = "SELECT candidates,is_available FROM work_offers WHERE id='$workoffer_id'";
 					$result_set1 = mysql_query($query1,$con);
 					confirm_query($result_set1);
 					$row = mysql_fetch_assoc($result_set1);
@@ -224,6 +225,10 @@
 					{
 						echo "Δεν μπορεί να γίνει η παραπάνω ανάθεση"."<br />";
 						echo "Ο μέγιστος επιτρεπόμενος αριθμός φοιτητών είναι $max_candidates και τους έχετε ήδη επιλέξει"."<br />";
+					
+					elseif (mysql_num_rows($workapps)==0 && $row['is_available']==0)
+					{
+						echo "Η παροχή έχει απενεργοποιηθεί"."<br />";
 					}
 					else
 					{

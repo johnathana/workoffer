@@ -72,17 +72,13 @@
 			$winter = ($_POST['winter'] == "on" ? 1 : 0);
 		else 
 			$winter = 0;
-		if (isset($_POST['expired'])) 
-			$expired = ($_POST['expired'] == "on" ? 1 : 0);
-		else 
-			$expired = 0;
 		
 		$year = get_current_year();
 		$academic_year_id = $year['id'];
 		
 		$sql="INSERT INTO work_offers (professor_id, title, lesson, candidates, requirements, deliverables, hours, deadline, at_di, academic_year_id, winter_semester, is_available, has_expired, addressed_for)
 		VALUES
-		('$id','$title','$lesson','$candidates', '$requirements','$deliverables','$hours','$deadline','$at_di','$academic_year_id','$winter',true,'$expired','$addressed')";
+		('$id','$title','$lesson','$candidates', '$requirements','$deliverables','$hours','$deadline','$at_di','$academic_year_id','$winter',true, false,'$addressed')";
 		
 		$set = mysql_query($sql,$con);
 		confirm_query($set);
