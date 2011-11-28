@@ -8,14 +8,14 @@
 	 ?>
 	
 	<style type="text/css" title="currentStyle">
-		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table_jui.css";
-		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
-		@import "media/css/TableTools.css";
+		@import "../dataTables/css/demo_page.css";
+		@import "../dataTables/css/demo_table_jui.css";
+		@import "../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
+		@import "../media/css/TableTools.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/ZeroClipboard.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/ZeroClipboard.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/TableTools.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var oTable;
 		
@@ -41,7 +41,7 @@
 		});
 		
 		var oTableTools = new TableTools( oTable, {
-			"sSwfPath": "media/swf/copy_cvs_xls_pdf.swf"
+			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf"
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
@@ -127,9 +127,10 @@
 
 		<div id="container">
 			<div class="full_width big">
-				<i>Πίνακας Φοιτητών</i> 
+				<h2>Πίνακας Φοιτητών</h2> 
+				 <br />	
 			</div>
-			<p>Επιλέξτε φοιτητή και στη συνέχεια πατήστε "επεξεργασία" για την επεξεργασία των στοιχείων του ή πληροφορίες για την επισκόπηση των παροχών του</p>
+			<h3>Επιλέξτε φοιτητή και στη συνέχεια πατήστε "επεξεργασία" για την επεξεργασία των στοιχείων του ή πληροφορίες για την επισκόπηση των παροχών του</h3>
 			<form id="myStudForm" action="process_student.php" method="POST" >
 				<div id="demo" ></div>
 				

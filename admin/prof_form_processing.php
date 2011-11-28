@@ -8,15 +8,16 @@
 	 ?>
 	
 	<style type="text/css" title="currentStyle">
-		@import "dataTables/css/demo_page.css";
-		@import "dataTables/css/demo_table_jui.css";
-		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
-		@import "media/css/TableTools.css";
+		@import "../dataTables/css/demo_page.css";
+		@import "../dataTables/css/demo_table_jui.css";
+		@import "../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
+		@import "../media/css/TableTools.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/ZeroClipboard.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/ZeroClipboard.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/TableTools.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
+	
 		var oTable;
 		
 		$(document).ready(function(){ 
@@ -41,7 +42,7 @@
 		});
 		
 		var oTableTools = new TableTools( oTable, {
-			"sSwfPath": "media/swf/copy_cvs_xls_pdf.swf"
+			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf"
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
@@ -108,9 +109,10 @@
 
 		<div id="container">
 			<div class="full_width big">
-				<i>Πίνακας Καθηγητών</i> 
+				<h2>Πίνακας Καθηγητών</h2>
+             <br />				
 			</div>
-			<p>Επιλέξτε διδάσκοντα και στη συνέχεια πατήστε "επεξεργασία" για την επεξεργασία των στοιχείων του ή επιλέξτε "καταχώρηση νέου διδάσκοντα" για τη δημιουργία νέου λογαριασμού</p>
+			<h3>Επιλέξτε διδάσκοντα και στη συνέχεια πατήστε "επεξεργασία" για την επεξεργασία των στοιχείων του ή επιλέξτε "καταχώρηση νέου διδάσκοντα" για τη δημιουργία νέου λογαριασμού</h3>
 			<form id="myProfForm" action="process_prof.php" method="POST" >
 				<div id="demo" ></div>
 				

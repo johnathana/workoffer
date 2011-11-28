@@ -55,7 +55,7 @@
 		</table>
 		</form> 	
 		
-		<form id="myWorkListForm" action="workoffers_overview.php" method="post">
+		<form id="myWorkListForm" action="/professor/personal_workoffer_list.php" method="post">
 		<table>
 			<tr>
 			<td>Για τη διαχείριση των παροχών πατήστε: </td>
