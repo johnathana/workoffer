@@ -94,8 +94,8 @@
 							//echo "Επιτυχής καταχώρηση στη βάση δεδομένων";
 						}
 					}
-					
-					$query = "SELECT work_id,accepted FROM work_applications WHERE user_id='$stud_id'";//to user_id tha vrethei apo to session['email']
+					$stud_id = $auth->id;
+					$query = "SELECT work_id,accepted FROM work_applications WHERE user_id='$stud_id'";
 					$result_set = mysql_query($query,$con);
 					confirm_query($result_set);
 				?>
@@ -124,7 +124,6 @@
 							extract($row);
 							$workoffer_id = $row['work_id'];
 							$acceptance = $row['accepted'];
-							$stud_id = 1;//tha pernei tin timi apo to session['id']
 							$query1 = "SELECT * FROM work_offers WHERE id='$workoffer_id'";
 							$result_set1 = mysql_query($query1,$con);
 							confirm_query($result_set1);
