@@ -112,15 +112,11 @@ $jFormSection1->addJFormComponentArray(array(
     )),
 	new JFormComponentMultipleChoice('at_di', '',
             array(
-                array('value' => 'true', 'label' => 'Στο χώρο του di'),
+                array('value' => '1', 'label' => 'Στο χώρο του di'),
     )),
 	new JFormComponentMultipleChoice('winter_semester', '',
             array(
-                array('value' => 'true', 'label' => 'Χειμερινού εξαμήνου'),
-    )),
-	new JFormComponentMultipleChoice('is_available', '',
-            array(
-                array('value' => 'true', 'label' => 'Απενεργοποίηση παροχής'),
+                array('value' => '1', 'label' => 'Χειμερινού εξαμήνου'),
     )),
     new JFormComponentSingleLineText('deadline', 'Ημερομηνία λήξης:', array(
         'validationOptions' => array('required')
@@ -136,7 +132,7 @@ $registration->addJFormPage($jFormPage1);
 
 // Set the function for a successful form submission
 function onSubmit($formValues) {
-	//return array('failureHtml' => json_encode($formValues));
+	//return array('failureHtml' => json_encode($formValues->registrationPage->registrationSection1->winter_semester[0]));
 
 	global $con;
 	global $auth;
@@ -148,10 +144,13 @@ function onSubmit($formValues) {
 	$deliverables = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->deliverables));
 	$hours = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->hours));
 	$addressed = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->addressed_for));
-	$is_available = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->is_available));
+	$at_di = $formValues->registrationPage->registrationSection1->at_di[0];
+	$winter_semester = $formValues->registrationPage->registrationSection1->winter_semester[0];
 	$deadline = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->deadline));
-
-	$query = "INSERT INTO work_offers (professor_id, title, lesson, candidates, requirements, deliverables, hours, deadline, at_di, winter_semester, is_available, addressed_for) VALUES ('".$auth->id."','".$title."','".$lesson."','".$candidates."','".$requirements."','".$deliverables."','".$hours."','".$deadline."','".$at_di."','".$winter."','".$is_available."','".$addressed."')";
+	$year = get_current_year();
+	$academic_year_id = $year['id'];
+	
+	$query = "INSERT INTO work_offers (professor_id, title, lesson, candidates, requirements, deliverables, hours, deadline, at_di, academic_year_id, winter_semester, is_available, has_expired, addressed_for) VALUES ('".$auth->id."','".$title."','".$lesson."','".$candidates."','".$requirements."','".$deliverables."','".$hours."','".$deadline."','".$at_di."','".$academic_year_id."','".$winter_semester."', true, false,'".$addressed."')";
 	$result_set = mysql_query($query,$con);
 	confirm_query($result_set);
 
