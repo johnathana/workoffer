@@ -58,22 +58,31 @@
 			$('#demo').html(str);
 		});
 		
-		$('#myProfForm').submit(function()
+		}); 
+		
+	//	$('#myProfForm').submit(function()
+	    function redirect_change()
 		{
 			var profid = (fnGetSelected(oTable));
 		
-			if (profid != null) //έχει επιλεγεί κάποιο καθηγητή
-			{
-			    return true;
-			}
-			else     //δεν έχει επιλέξει κάποιο καθηγητή				
+			if (profid == null) // δεν έχει επιλεγεί κάποιο καθηγητή
 			{
 			    alert("Πρέπει πρώτα να επιλέξετε ένα καθηγητή");
-				return false;		
+				return false;
+			}
+			else     //έχει επιλέξει κάποιο καθηγητή				
+			{
+			    window.location.href="/admin/process_prof.php?id="+profid+"";		
 			 } 
-		});
-		
-		}); 
+		}
+		function redirect_insert()
+		{
+			window.location.href = "/admin/process_new_prof.php";
+		}
+			function redirect_menu()
+		{
+			window.location.href = "/admin/admin_menu_new.php";
+		}
 		
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
@@ -113,7 +122,7 @@
              <br />				
 			</div>
 			<h3>Επιλέξτε διδάσκοντα και στη συνέχεια πατήστε "επεξεργασία" για την επεξεργασία των στοιχείων του ή επιλέξτε "καταχώρηση νέου διδάσκοντα" για τη δημιουργία νέου λογαριασμού</h3>
-			<form id="myProfForm" action="process_prof.php" method="POST" >
+			<form id="myProfForm" method="POST" >
 				<div id="demo" ></div>
 				
 				<?php
@@ -158,16 +167,13 @@
 				</table>
 				<br>
 				<p>
-					<input class="button" type="submit" name="submit_proc" value="Επεξεργασία"  />	
+				 <input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Αρχικό μενού"  />	
+	             <input class="button" type="button" id="edit_btn" onClick="redirect_change();" value="Επεξεργασία"  />	
+				 <input class="button" type="button" id="edit_btn" onClick="redirect_insert();" value="Kαταχώρηση νέου διδάσκοντα"  />	
 				</p>
 				<input type='hidden' name='sent_prof' value='yes' />
 			</form>	
 			
-			<form id="myNewProfForm" action="process_new_prof.php" method="post">
-		<table>
-			<input class="button" type="submit" name="submit_new" value="Kαταχώρηση νέου διδάσκοντα"  />
-		</table>
-		</form> 	
 			
 		</div>
 			<div class="spacer"></div>

@@ -64,7 +64,7 @@
 			$result_set = mysql_query($query,$con);
 			confirm_query($result_set);
 			echo "Οι τροποποιήσεις πραγματοποιήθηκαν με επιτυχία";
-			?><p>Πατήστε <a href="admins_form.php">εδώ</a> για επιστροφή στην κεντρική σελίδα των διαχειριστών</p> <?php
+			?><p>Πατήστε <a href="admin_menu_new.php">εδώ</a> για επιστροφή στην κεντρική σελίδα των διαχειριστών</p> <?php
 		}
 		?>
 		<?php mysql_close($con); ?>
