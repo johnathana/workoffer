@@ -19,9 +19,10 @@
 ?>
 	<script type="text/javascript">
 		$(document).ready(function() {
-		$("#deadline").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#deadline").datepicker({ dateFormat: 'yy-mm-dd' });
 		});
 	</script>
+
 <body id="overview"> 
 
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
@@ -60,7 +61,7 @@ $jFormSection1->addJFormComponentArray(array(
     new JFormComponentSingleLineText('lesson', 'Τίτλος μαθήματος:', array(
         'validationOptions' => array('required')
     )),
-    new JFormComponentDropDown('candidates', 'Αριθμός υποψηφίων:',
+	new JFormComponentDropDown('candidates', 'Αριθμός υποψηφίων:',
 		array(
 			array(
 				'value' => '1',
@@ -77,9 +78,9 @@ $jFormSection1->addJFormComponentArray(array(
 			array(
 				'value' => '4',
 				'label' => '4'
-			),
-			'validationOptions' => array('required')
-	)),
+			)
+		)
+	),
 	new JFormComponentDropDown('addressed_for', 'Απευθύνεται σε φοιτητή:',
 		array(
 			array(
@@ -94,8 +95,8 @@ $jFormSection1->addJFormComponentArray(array(
 				'value' => '2',
 				'label' => 'Πλήρως εργαζόμενο'
 			),
-			'validationOptions' => array('required')
-	)),
+		)
+	),
 	new JFormComponentTextArea('requirements', 'Απαιτήσεις γνώσεων:', array(
 		'width' => 'medium',
         'height' => 'medium',
@@ -121,9 +122,9 @@ $jFormSection1->addJFormComponentArray(array(
             array(
                 array('value' => 'true', 'label' => 'Απενεργοποίηση παροχής'),
     )),
-	new JFormComponentDate('deadline', 'Ημερομηνία λήξης:', array(
-		'validationOptions' => array('required'),
-	)),
+    new JFormComponentSingleLineText('deadline', 'Ημερομηνία λήξης:', array(
+        'validationOptions' => array('required')
+    )),
 ));
 
 // Add the section to the page
@@ -135,7 +136,7 @@ $registration->addJFormPage($jFormPage1);
 
 // Set the function for a successful form submission
 function onSubmit($formValues) {
-	return array('failureHtml' => json_encode($formValues));
+	//return array('failureHtml' => json_encode($formValues));
 
 	global $con;
 	global $auth;
@@ -151,12 +152,12 @@ function onSubmit($formValues) {
 	$deadline = trim(mysql_real_escape_string($formValues->registrationPage->registrationSection1->deadline));
 
 	$query = "INSERT INTO work_offers (professor_id, title, lesson, candidates, requirements, deliverables, hours, deadline, at_di, winter_semester, is_available, addressed_for) VALUES ('".$auth->id."','".$title."','".$lesson."','".$candidates."','".$requirements."','".$deliverables."','".$hours."','".$deadline."','".$at_di."','".$winter."','".$is_available."','".$addressed."')";
-
 	$result_set = mysql_query($query,$con);
 	confirm_query($result_set);
 
 	return array(
-		'successPageHtml' => '<script type="text/javascript">window.location.href="/index.php";</script>'
+		'successPageHtml' => '<h2>Η παροχή καταχωρήθηκε</h2><br>
+		<input type="button" name="menu" value="Αρχικό μενού" class="button" onClick="window.location.href=\'/index.php\'"/>'
 	);
 }
 
