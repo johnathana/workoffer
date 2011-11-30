@@ -15,6 +15,17 @@
 		{
 			window.location.href="/professor/personal_workoffer_list.php";
 		});
+		$('input[name=professors]').click(function()
+		{
+			window.location.href="/admin/prof_form_processing.php";
+		});
+		$('input[name=students]').click(function()
+		{
+			window.location.href="/admin/student_form_processing.php";
+		});$('input[name=massmails]').click(function()
+		{
+			window.location.href="/admin/mail_form.php";
+		});		
     }); 
 	</script>
 </head> 
@@ -32,6 +43,9 @@
 			<table align="center">
 				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="create" value="Δημιουργία παροχής" /></td></tr>
 				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="management" value="Διαχείριση παροχών" /></td></tr>
+				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="professors" value="Διαχείριση καθηγητών" /></td></tr>
+				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="students" value="Διαχείριση φοιτητών" /></td></tr>
+				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="massmails" value="Αποστολή μυνημάτων" /></td></tr>
 			</table>
 		</div>
 		
