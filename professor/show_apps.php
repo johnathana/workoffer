@@ -60,7 +60,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 		{
 			var workapp_id = (fnGetSelected(oTable));
 			
-			if (workapp_id != null)//έχει επιλεγεί κάποιος φοιτητής
+			if (workapp_id != null)//έχει επιλεγεί κάποια αίτηση φοιτητή
 			{
 				return true;
 			}
@@ -197,10 +197,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 						</table>
 						<br />
 						<p><input class="button" type="button" name="back" value="Πίσω"  />
-						<?php if($row1['has_expired']==0)
-							{?><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /><?php	}?>
+						<input type="button" name="menu" value="Αρχικό μενού" class="button"/>
+						<?php if($row1['has_expired']==0){?><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /><?php	}?>
 						<input class="button" type="button" name="btn" value="Πληροφορίες"  /></p>
-						<p><input type="button" name="menu" value="Αρχικό μενού" class="button"/></p>
 					</form>
 				</div>
 				<?php		

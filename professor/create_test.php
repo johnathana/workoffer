@@ -58,9 +58,7 @@ $jFormSection1->addJFormComponentArray(array(
     new JFormComponentSingleLineText('title', 'Τίτλος παροχής:', array(
         'validationOptions' => array('required')
     )),
-    new JFormComponentSingleLineText('lesson', 'Τίτλος μαθήματος:', array(
-        'validationOptions' => array('required')
-    )),
+    new JFormComponentSingleLineText('lesson', 'Τίτλος μαθήματος:'),
 	new JFormComponentDropDown('candidates', 'Αριθμός υποψηφίων:',
 		array(
 			array(
@@ -112,7 +110,7 @@ $jFormSection1->addJFormComponentArray(array(
     )),
 	new JFormComponentMultipleChoice('at_di', '',
             array(
-                array('value' => '1', 'label' => 'Στο χώρο του di'),
+                array('value' => '1', 'label' => 'Στο χώρο του πανεπιστημίου'),
     )),
 	new JFormComponentMultipleChoice('winter_semester', '',
             array(
@@ -150,7 +148,8 @@ function onSubmit($formValues) {
 	$year = get_current_year();
 	$academic_year_id = $year['id'];
 	
-	$query = "INSERT INTO work_offers (professor_id, title, lesson, candidates, requirements, deliverables, hours, deadline, at_di, academic_year_id, winter_semester, is_available, has_expired, addressed_for) VALUES ('".$auth->id."','".$title."','".$lesson."','".$candidates."','".$requirements."','".$deliverables."','".$hours."','".$deadline."','".$at_di."','".$academic_year_id."','".$winter_semester."', true, false,'".$addressed."')";
+	$query = "INSERT INTO work_offers (professor_id, title, lesson, candidates, requirements, deliverables, hours, deadline, at_di, academic_year_id, winter_semester, is_available, has_expired, addressed_for) 
+	VALUES ('".$auth->id."','".$title."','".$lesson."','".$candidates."','".$requirements."','".$deliverables."','".$hours."','".$deadline."','".$at_di."','".$academic_year_id."','".$winter_semester."', true, false,'".$addressed."')";
 	$result_set = mysql_query($query,$con);
 	confirm_query($result_set);
 
@@ -164,8 +163,8 @@ function onSubmit($formValues) {
 $registration->processRequest();
 
 ?>
-	<div style="margin: 15px">
-		<a href="/">Πίσω</a>
+	<div style="margin: 0px 0px 5px 0px">
+		<input type="button" name="menu" value="Ακύρωση" class="button" onClick="window.location.href='/index.php'"/>
 	</div>
 
 	</aside> 

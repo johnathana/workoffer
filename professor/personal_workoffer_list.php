@@ -156,19 +156,45 @@
 				$winter = ($_POST['winter'] == "on" ? 1 : 0);
 			else 
 				$winter = 0;
-			if (isset($_POST['expired'])) 
-				$expired = ($_POST['expired'] == "on" ? 1 : 0);
-			else 
-				$expired = 0;
-			 
-			$is_available = ($_POST['non_available'] == "on" ? 0 : 1);
-			
-			
-			if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
+			if (isset($_POST['non_available']))
 			{
-				$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', has_expired = '$expired', addressed_for = '$addressed' WHERE id='$workoffer_id'";
-				$result_set = mysql_query($query,$con);
-				confirm_query($result_set);
+				$is_available = ($_POST['non_available'] == "on" ? 0 : 1);
+				if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
+				{
+					$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', is_available = '$is_available', addressed_for = '$addressed' WHERE id='$workoffer_id'";
+					$result_set = mysql_query($query,$con);
+					confirm_query($result_set);
+				}
+			}
+			else
+			{	//elenxos an itan prin checked kai twra egine unchecked (diladi energopoiithike i paroxi)
+				$query2 = "SELECT * FROM work_applications WHERE work_id = '".$_POST['id']."' AND accepted = '1'";
+				$workapps = mysql_query($query2,$con);
+				confirm_query($workapps);
+				$q = "SELECT is_available FROM work_offers WHERE id = '".$_POST['id']."'";
+				$result = mysql_query($q,$con);
+				confirm_query($result);
+				$row = mysql_fetch_assoc($result);
+				if (mysql_num_rows($workapps) == 0 && $row['is_available'] == 0)
+				{
+					$is_available = 1;
+					if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
+					{
+						$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', is_available = '$is_available', addressed_for = '$addressed' WHERE id='$workoffer_id'";
+						$result_set = mysql_query($query,$con);
+						confirm_query($result_set);
+					}
+				}
+				else//itan kai prin kai meta unchecked h itan disabled (diladi unchecked)
+				{
+					if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
+					{
+						//apla den ginetai update to is_available kai paramenei oti itan prin sti vasi
+						$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', addressed_for = '$addressed' WHERE id='$workoffer_id'";
+						$result_set = mysql_query($query,$con);
+						confirm_query($result_set);
+					}
+				}
 			}
 		}
 	?>

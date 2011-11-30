@@ -15,43 +15,33 @@
 		var oTable;
 		
 		$(document).ready(function(){ 
-		
-		$('#myForm').submit(function()
-		{
-			var workapp_id = (fnGetSelected(oTable));
-			
-			if (workapp_id != null)//έχει επιλεγεί κάποια παροχή
-			{
-				return true;
-			}
-			else//δεν έχει επιλέξει κάποια παροχή 
-			{
-				alert("Πρέπει πρώτα να επιλέξετε έναν φοιτητή για την ανάθεση");
-				return false;
-			}
-		});
 		$('input[name=menu]').click(function()
 		{
 			window.location.href="/professor/prof_menu.php";
 		});
+		$( "#deadline" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		<?php 
 		if(isset($_GET['id']))
 		{
 			$query2 = "SELECT * FROM work_applications WHERE work_id = '".$_GET['id']."' AND accepted = '1'";
 			$workapps = mysql_query($query2,$con);
 			confirm_query($workapps);
+			$q = "SELECT is_available FROM work_offers WHERE id = '".$_GET['id']."'";
+			$result = mysql_query($q,$con);
+			confirm_query($result);
+			$row = mysql_fetch_assoc($result);
 			if (mysql_num_rows($workapps) >= 1)
 			{
 				?>$('input[name=non_available]').attr('disabled', true);
 				  	<?php
 			}
+			if (mysql_num_rows($workapps) == 0 && $row['is_available'] == 0)//monadiki periptwsi na einai checked to pedio apenergopoiisi paroxis
+			{
+				?>$('input[name=non_available]').attr('checked', true); <?php
+			}
 		}
 		?>
 		}); 
-		
-		$(function() {
-		$( "#deadline" ).datepicker({ dateFormat: 'yy-mm-dd' });
-		});
 	</script>
 </head> 
 	
@@ -67,11 +57,12 @@
 		
 		<div id="container">
 			<div class="full_width big">
-				<h2>Επεξεργασία παροχής </h2>
+				<h2>Επεξεργασία παροχής </h2><br />
+				<p>Μπορείτε να αυξομειώσετε το μέγεθος των πεδίων (Απαιτήσεις γνώσεων και Παραδοτέα) τραβώντας τα από την κάτω δεξιά μεριά. </p>
 			</div>
 
 	<?php 
-			if(isset($_GET['id']))//exei epilexsei kapoia paroxi
+			if(isset($_GET['id']))//exei epilegei kapoia paroxi
 			{
 					$workoffer_id = $_GET['id'];
 					$query = "SELECT * FROM work_offers WHERE id='$workoffer_id'";
@@ -116,7 +107,7 @@
 						<td>Απαιτούμενες ώρες υλοποίησης</td><td> <input type="text" name="hours" value="<?php echo $hours; ?>"/></td>
 						</tr>
 						<tr>
-						<td>Στο χώρο του di</td><td> <input type="checkbox" name="at_di" <?php if($at_di==true) echo "checked='true'"; ?>  /></td>
+						<td>Στο χώρο του πανεπιστημίου</td><td> <input type="checkbox" name="at_di" <?php if($at_di==true) echo "checked='true'"; ?>  /></td>
 						</tr>
 						<tr>
 						<td>Χειμερινού εξαμήνου</td><td> <input type="checkbox" name="winter" <?php if($winter_semester==true) echo "checked='true'"; ?> /></td>
@@ -129,7 +120,7 @@
 						</tr>
 						</table>
 						<br />
-						<p><input type="button" name="menu" value="Αρχικό μενού" class="button"/>
+						<p><input type="button" name="menu" value="Ακύρωση" class="button"/>
 						<input class="button" type="submit" name="submit" value="Καταχώρηση" /></p>
 						
 					
