@@ -43,12 +43,10 @@
 		$name = trim($_POST['name']);
 		$id = trim($_POST['id']);
 		$email = trim($_POST['email']);
-		$passwd = trim($_POST['passwd']);
+		$reg_numb = trim($_POST['reg_numb']);
 		$phone = trim($_POST['phone']);
 		$fyllo= trim($_POST['sex']);
-		$cv = ($_POST['cv']);
-		$created = ($_POST['created']);
-		$last_login = ($_POST['last_login']);	
+		$cv = ($_POST['cv']);	
 		if ($fyllo == 0)
 		 { 
 		 $sex = 'm';
@@ -60,7 +58,7 @@
 			
 		if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
 		{
-			$query = "UPDATE users SET surname  = '$surname', name = '$name', email = '$email', passwd = '$passwd', phone = '$phone', sex = '$sex', cv = '$cv', created = '$created', last_login = '$last_login' where id = '$stud_id'";
+			$query = "UPDATE users SET surname  = '$surname', name = '$name', email = '$email', reg_numb = '$reg_numb', phone = '$phone', sex = '$sex', cv = '$cv' where id = '$stud_id'";
 			$result_set = mysql_query($query,$con);
 			confirm_query($result_set);
 			echo "Οι τροποποιήσεις πραγματοποιήθηκαν με επιτυχία";
@@ -76,7 +74,7 @@
 			
 			case"1":
 //			echo "admin";
-			?><p>Πατήστε <a href="admins_form.php">εδώ</a> για επιστροφή στην κεντρική σελίδα των διαχειριστών</p> <?php
+			?><p>Πατήστε <a href="admin_menu_new.php">εδώ</a> για επιστροφή στην κεντρική σελίδα των διαχειριστών</p> <?php
 			break;
 			
 			case"2":

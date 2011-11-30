@@ -35,8 +35,7 @@
 					/* Product */null,
 					/* Description */null,
 					/* Rating */null,
-					/* Product */null,
-					/* Description */null,
+					
 			]
 		});
 		
@@ -76,7 +75,7 @@
 		
 		function redirect_menu()
 		{
-			window.location.href = "/admin/admin_menu_new.php";
+			window.location.href = "/admin/prof_form_processing.php";
 		}
 		
 		/* Get the rows which are currently selected */
@@ -124,7 +123,7 @@
      								
 					<h3>Επεξεργασία καθηγητή </h3>
 					<form action="prof_update.php" method="post">
-					<input type="hidden" name="id" value="<?php echo $_POST['id'];?>" />
+					<input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
 					<table>
 						<tr>
 							<td>Επώνυμο </td><td><input type="text" name="surname" value="<?php echo $surname;?>" /></td>
@@ -150,15 +149,9 @@
 						<tr>
 							<td>Πληροφορίες </td><td><textarea name="cv" cols="40" rows="4"><?php echo $cv; ?></textarea></td>
 						</tr>
-						<tr>
-							<td>Ημερομηνία δημιουργίας λογαριασμού </td><td><input type="text" name="created" value="<?php echo $created;?>" /></td>
-						</tr>
-						<tr>
-							<td>Τελευταία είσοδος στο σύστημα </td><td><input type="text" name="last_login" value="<?php echo $last_login;?>" /></td>
-						</tr>
 						</table>
 						<br>
-						<p><input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Αρχικό μενού" />
+						<p><input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Ακύρωση" />
 						<input class="button" type="submit" name="submit" value="Καταχώρηση" /></p>
 						</br>			
 					</form>  

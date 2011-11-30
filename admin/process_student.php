@@ -35,8 +35,6 @@
 					/* Product */null,
 					/* Description */null,
 					/* Rating */null,
-					/* Product */null,
-					/* Description */null,
 			]
 		});
 		
@@ -73,6 +71,11 @@
 		});
 		
 		}); 
+		
+		function redirect_menu()
+		{
+			window.location.href = "/admin/student_form_processing.php";
+		}
 		
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
@@ -123,14 +126,14 @@
 			 $stud_id = $row_id['id'];
 //			 echo $stud_id;
 			 
-			 if(isset($_POST['id']))
+			 if(isset($_GET['id']))
 			 {
-		     echo $_POST['id'];
+		     echo $_GET['id'];
 			 echo "server error: Παρακαλώ συνδεθείτε ξανα";
 			 }
 			 else 
 			 {
-			 $_POST = array("id" => $stud_id);
+			 $_GET = array("id" => $stud_id);
 //			 print_r($_POST['id']);	
 			 
 			 $query = "SELECT * FROM users WHERE id='$stud_id'";
@@ -144,9 +147,9 @@
 			case"1":
 //			echo "admin";
 			
-			if(isset($_POST['id'])) //exei epilexsei kapoio foithth
+			if(isset($_GET['id'])) //exei epilexsei kapoio foithth
 			{
-					$stud_id = $_POST['id'];
+					$stud_id = $_GET['id'];
 					$query = "SELECT * FROM users WHERE id='$stud_id'";
 					$result_set = mysql_query($query,$con);
 					confirm_query($result_set);
@@ -180,7 +183,7 @@
 							<td>E-mail </td><td><input type="text" name="email" value="<?php echo $email;?>" /></td>
 						</tr>
 						<tr>
-							<td>Κωδικός Πρόσβασης </td><td><input type="text" name="passwd" value="<?php echo $passwd;?>" /></td>
+							<td>Αριθμός Μητρώου </td><td><input type="text" name="reg_numb" value="<?php echo $reg_numb;?>" /></td>
 						</tr>
 						<tr>
 							<td>Τηλέφωνο </td><td><input type="text" name="phone" value="<?php echo $phone;?>" /></td>
@@ -194,16 +197,11 @@
 						<tr>
 							<td>Βιογραφικό </td><td><textarea name="cv" cols="40" rows="4"><?php echo $cv; ?></textarea></td>
 						</tr>
-						<tr>
-							<td>Ημερομηνία δημιουργίας λογαριασμού </td><td><input type="text" name="created" value="<?php echo $created;?>" /></td>
-						</tr>
-						<tr>
-							<td>Τελευταία είσοδος στο σύστημα </td><td><input type="text" name="last_login" value="<?php echo $last_login;?>" /></td>
-						</tr>
-						<tr>
-						<td><input class="button" type="submit" name="submit" value="Καταχώρηση" /></td>
-						</tr>
-					</table>
+					    </table>
+					    <br>
+					    <p><input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Ακύρωση" />
+						<input class="button" type="submit" name="submit" value="Καταχώρηση" /></td>
+						</br>
 					</form>  
 					<?php mysql_close($con); ?>
 
