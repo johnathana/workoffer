@@ -40,7 +40,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 		});
 		
 		var oTableTools = new TableTools( oTable, {
-			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf"
+			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf",
+			"aButtons": [ "copy","xls", "pdf", "print" ]
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );
@@ -54,6 +55,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 			var workapp_id = (fnGetSelected(oTable));
 			var str = '<input type="hidden" name="id" value="'+workapp_id+'"/>';
 			$('#demo').html(str);
+			var accepted = (fnGetSelected1(oTable));
+			if (accepted == 'ΝΑΙ')
+			$('input[type=submit]').attr('disabled',true);
 		});
 		
 		$('#myForm').submit(function()
@@ -129,6 +133,23 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 			}
 			return null;
 		}
+		function fnGetSelected1( oTableLocal )
+		{
+			var aReturn = new Array();
+			var aTrs = oTableLocal.fnGetNodes();
+			
+			for ( var i=0 ; i<aTrs.length ; i++ )
+			{
+				if ( $(aTrs[i]).hasClass('row_selected') )
+				{
+					var aRowData = new Array();
+					aRowData = oTable.fnGetData(aTrs[i]);
+
+					return aRowData[2];
+				}
+			}
+			return null;
+		}
 	</script>
 </head> 
 
@@ -151,20 +172,24 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 				$query1 = "SELECT candidates, title, has_expired FROM work_offers WHERE id = '$workid'";
 				$res = mysql_query($query1,$con);
 				confirm_query($res);
-				$row1 = mysql_fetch_assoc($res);
-				echo "Παρακάτω φαίνεται ο πίνακας με τις αιτήσεις των φοιτητών για την παροχή με τίτλο ".$row1['title'];
+				$row1 = mysql_fetch_assoc($res);?>
+				<div id="container">
+				<div class="full_width big">
+				<h2>Πίνακας αιτήσεων για την παροχή <?php echo $row1['title'];?></h2>
+				<br />
+				</div>
+				<?php
 				$query = "SELECT * FROM work_applications WHERE work_id = '$workid' AND accepted = '1'";
 				$workapps = mysql_query($query,$con);
 				confirm_query($workapps);
 				$row = mysql_fetch_assoc($workapps);
 				if($row1['candidates'] == mysql_num_rows($workapps))
-					echo "Η παροχή δεν είναι διαθέσιμη για ανάθεση"."<br />";
+					echo "Έχει συμπληρωθεί ο μέγιστος αριθμός φοιτητών"."<br />";
 				
 				$query = "SELECT * FROM work_applications WHERE work_id = '$workid'";
 				$workapps = mysql_query($query,$con);
 				confirm_query($workapps);?>
-				<div id="container">
-					<form id="myForm" action="show_apps.php" method="POST" >
+				 	<form id="myForm" action="show_apps.php" method="POST" >
 					<input type="hidden" name="workoffer_id" value="<?php echo $_GET['id'];?>" />
 					<div id="demo" ></div>
 					<div class="demo_jui" id="demo_jui"></div>
@@ -216,11 +241,11 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 					$workoffer_id = $_POST['workoffer_id'];
 					$workapp_id = $_POST['id'];
 					
-					$query1 = "SELECT candidates,is_available FROM work_offers WHERE id='$workoffer_id'";
+					$query1 = "SELECT candidates,is_available,title,has_expired FROM work_offers WHERE id='$workoffer_id'";
 					$result_set1 = mysql_query($query1,$con);
 					confirm_query($result_set1);
-					$row = mysql_fetch_assoc($result_set1);
-					$max_candidates = $row['candidates'];
+					$row1 = mysql_fetch_assoc($result_set1);
+					$max_candidates = $row1['candidates'];
 					
 					$query2 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
 					$workapps = mysql_query($query2,$con);
@@ -230,7 +255,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 						echo "Δεν μπορεί να γίνει η παραπάνω ανάθεση"."<br />";
 						echo "Ο μέγιστος επιτρεπόμενος αριθμός φοιτητών είναι $max_candidates και τους έχετε ήδη επιλέξει"."<br />";
 					}
-					elseif (mysql_num_rows($workapps)==0 && $row['is_available']==0)
+					elseif (mysql_num_rows($workapps)==0 && $row1['is_available']==0)
 					{
 						echo "Η παροχή έχει απενεργοποιηθεί"."<br />";
 					}
@@ -251,17 +276,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 							confirm_query($result_set);
 						}				
 					}
-					
-					$query1 = "SELECT has_expired, title FROM work_offers WHERE id = '$workoffer_id'";
-					$res = mysql_query($query1,$con);
-					confirm_query($res);
-					$row1 = mysql_fetch_assoc($res);
-					echo "Παρακάτω φαίνεται ο πίνακας με τις αιτήσεις των φοιτητών για την παροχή με τίτλο ".$row1['title'];
-					
 					$query = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id'";
 					$workapps = mysql_query($query,$con);
 					confirm_query($workapps);?>
-					<div id="container">
 						<form id="myForm" action="show_apps.php" method="POST" >
 						<input type="hidden" name="workoffer_id" value="<?php echo $_POST['workoffer_id'];?>" />
 						<div id="demo" ></div>
