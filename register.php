@@ -8,6 +8,7 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/mail.php');
 ?>
 
 <body id="overview">
@@ -120,11 +121,11 @@ function onSubmit($formValues) {
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
+	workoffer_mail($email, 'Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
 
 	return array(
 		'successPageHtml' => '<h2>Η δημιουργία ολοκληρώθηκε.</h2><br>
-		<h3>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαριασμού σας.</h3>'
+		<p>Ελέξτε το email σας ' . $email . ' για ενεργοποίηση του λογαριασμού σας.</p>'
 	);
 }
 

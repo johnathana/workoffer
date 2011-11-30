@@ -13,9 +13,9 @@
 		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
 		@import "media/css/TableTools.css";
 	</style>
-	<script type="text/javascript" language="javascript" src="dataTables/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/ZeroClipboard.js"></script>
-	<script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/ZeroClipboard.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/TableTools.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var oTable;
 		
@@ -71,8 +71,13 @@
 				return false;
 			}
 		});
-		
+			
 		}); 
+		
+		function redirect_menu()
+		{
+			window.location.href = "/admin/admin_menu_new.php";
+		}
 		
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
@@ -108,9 +113,9 @@
 
 	<?php 
 
-			if(isset($_POST['id'])) //exei epilexsei kapoio kathigiti
+			if(isset($_GET['id'])) //exei epilexsei kapoio kathigiti
 			{
-					$prof_id = $_POST['id'];
+					$prof_id = $_GET['id'];
 					$query = "SELECT * FROM users WHERE id='$prof_id'";
 					$result_set = mysql_query($query,$con);
 					confirm_query($result_set);
@@ -151,17 +156,18 @@
 						<tr>
 							<td>Τελευταία είσοδος στο σύστημα </td><td><input type="text" name="last_login" value="<?php echo $last_login;?>" /></td>
 						</tr>
-						<tr>
-						<td><input class="button" type="submit" name="submit" value="Καταχώρηση" /></td>
-						</tr>
-					</table>
+						</table>
+						<br>
+						<p><input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Αρχικό μενού" />
+						<input class="button" type="submit" name="submit" value="Καταχώρηση" /></p>
+						</br>			
 					</form>  
 					<?php
 	    	}
 					else  //validation
 			{
 				echo "<p>Δεν έχετε επιλέξει κάποιον καθηγητή!</p>";
-				//header("Location: workoffer_list.php");
+			
 			}
 		 
 		mysql_close($con); 
