@@ -62,7 +62,7 @@ function onSubmit($formValues) {
 	$result = mysql_query($sql, $con);
 	
 	if (mysql_num_rows($result) == 0) {
-		$response = array('failureNoticeHtml' => 'Το email δεν ανήκει σε υπάρχον λογαριασμό');
+		$response = array('failureNoticeHtml' => 'Το email δεν αντιστοιχεί σε υπάρχοντα λογαριασμό');
 		return $response;
 	}
 
@@ -77,7 +77,7 @@ function onSubmit($formValues) {
 	$sql = "update users set passwd = '". sha1($new_passwd) . "' where email = '". $email ."'";
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	mail($email, '[Workoffer] Password reset', 'Το νέο σας password είναι το: '.$new_passwd);
+	mail($email, '[ODT - Workoffer] Password reset', 'Το νέο σας password είναι το: '.$new_passwd);
 
 	return array(
 		'successPageHtml' => '<h2>Το password σας άλλαξε</h2><br>

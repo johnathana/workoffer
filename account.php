@@ -150,8 +150,6 @@ function onSubmit($formValues) {
 
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	//mail($email, '[Workoffer] Account activation', 'Ο λογαριασμός σας δημιουργήθηκε με επιτυχία.');
-
 	return array(
 		'successPageHtml' => '<h2>Η επεξεργασία ολοκληρώθηκε.</h2><br>
 		<input type="button" name="menu" value="Αρχικό μενού" class="button" onClick="window.location.href=\'/index.php\'"/>'
