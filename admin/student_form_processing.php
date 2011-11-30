@@ -35,8 +35,9 @@
 					/* Product */null,
 					/* Description */null,
 					/* Rating */null,
+					/* Price */null,
 					/* Product */null,
-					/* Description */null,
+
 			]
 		});
 		
@@ -57,20 +58,27 @@
 			$('#demo').html(str);
 		});
 		
-		$('#myStudForm').submit(function()
+		}); 
+		
+	//	$('#myStudForm').submit(function()
+		function redirect_change1()
 		{
 			var studid = (fnGetSelected(oTable));
 		
-			if (studid != null) //έχει επιλεγεί κάποιο φοιτητή
-			{
-			    return true;
-			}
-			else     //δεν έχει επιλέξει κάποιο φοιτητή				
+			if (studid == null) // δεν έχει επιλεγεί φοιτητής
 			{
 			    alert("Πρέπει πρώτα να επιλέξετε ένα φοιτητή");
-				return false;		
+				return false;
+			}
+			else     //έχει επιλέξει φοιτητή				
+			{
+			    window.location.href="/admin/process_student.php?id="+studid+"";		
 			 } 
-		});
+		}
+		  function redirect_menu()
+		{
+			window.location.href = "/admin/admin_menu_new.php";
+		}
 		
 		$('input:button').click(function()
 		{
@@ -91,7 +99,6 @@
 		}
 		});
 		
-		}); 
 		
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
@@ -148,7 +155,7 @@
 						<th>Επώνυμο</th>
 						<th>Όνομα</th>
 						<th>E-mail</th>
-						<th>Κωδικός Πρόσβασης</th>
+						<th>Αριθμός Μητρώου</th>
 						<th>Τηλέφωνο</th>
 						<th>Φύλλο</th>
 						<th>Βιογραφικό</th>
@@ -167,7 +174,7 @@
 							{$fyllo="Θήλυ";}
 						 else
 							{$fyllo="???";} 
-						 echo "<td>$id</td><td>$surname</td><td>$name</td><td>$email</td><td>$passwd</td><td>$phone</td>
+						 echo "<td>$id</td><td>$surname</td><td>$name</td><td>$email</td><td>$reg_numb</td><td>$phone</td>
 								<td>$fyllo</td><td>$cv</td><td>$created</td><td>$last_login</td>";
 					     echo "</tr>"; 
 						} 		
@@ -176,7 +183,8 @@
 				</table>
 				<br>
 				<p>
-					<input class="button" type="submit" name="submit_proc" value="Επεξεργασία"  />	
+				<input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Αρχικό μενού"  />	
+	            <input class="button" type="button" id="edit_btn" onClick="redirect_change1();" value="Επεξεργασία"  />	
 				</p>
 				<input type='hidden' name='sent_prof' value='yes' />
 			</form>	

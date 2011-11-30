@@ -46,9 +46,7 @@
 		$passwd = trim($_POST['passwd']);
 		$phone = trim($_POST['phone']);
 		$fyllo= trim($_POST['sex']);
-		$cv = ($_POST['cv']);
-		$created = ($_POST['created']);
-		$last_login = ($_POST['last_login']);	
+		$cv = ($_POST['cv']);	
 		if ($fyllo == 0)
 		 { 
 		 $sex = 'm';
@@ -60,7 +58,7 @@
 			
 		if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
 		{
-			$query = "UPDATE users SET surname  = '$surname', name = '$name', email = '$email', passwd = '$passwd', phone = '$phone', sex = '$sex', cv = '$cv', created = '$created', last_login = '$last_login' where id = '$prof_id'";
+			$query = "UPDATE users SET surname  = '$surname', name = '$name', email = '$email', passwd = '$passwd', phone = '$phone', sex = '$sex', cv = '$cv' where id = '$prof_id'";
 			$result_set = mysql_query($query,$con);
 			confirm_query($result_set);
 			echo "Οι τροποποιήσεις πραγματοποιήθηκαν με επιτυχία";

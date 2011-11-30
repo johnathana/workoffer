@@ -34,6 +34,14 @@
 		$(function() {
 			$( "#deadline" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		});
+		function redirect_menu()
+		{
+			window.location.href = "/admin/prof_form_processing.php";
+		}
+		function redirect_menu()
+		{
+			window.location.href = "/admin/prof_form_processing.php";
+		}
 	</script>
 </head> 
 
@@ -74,10 +82,12 @@
 						<tr>
 							<td>Πληροφορίες </td><td><textarea " name="cv" cols="40" rows="4" /></textarea></td>
 						</tr>
-						<tr>
-						<td><input class="button" type="submit" name="submit" value="Καταχώρηση" /></td>
-						</tr>
-					</table>
+						</table>
+						<br>
+						<p><input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Ακύρωση" />
+						<input class="button" type="submit" name="submit" value="Καταχώρηση" /></p>
+						</br>
+					
 					</form>  
 
 	</aside> 
