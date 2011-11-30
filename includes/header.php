@@ -1,6 +1,6 @@
 	<article id="main" class="content"> 
 		<header id="pageheader"> 
-			<h1>Ηλεκτρονική Πλατφόρμα Παροχής Έργου</h1>
+			<h1>Ηλεκτρονική Πλατφόρμα Διαχείρισης Παροχών</h1>
 		</header>
 	</article><!--/main--> 
 
