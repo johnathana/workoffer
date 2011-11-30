@@ -7,6 +7,7 @@
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jFormer/jformer.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/mail.php');
 ?>
 
 <body id="overview"> 
@@ -77,11 +78,11 @@ function onSubmit($formValues) {
 	$sql = "update users set passwd = '". sha1($new_passwd) . "' where email = '". $email ."'";
 	mysql_query($sql, $con) || die('Error: ' . mysql_error());
 
-	mail($email, '[ODT - Workoffer] Password reset', 'Το νέο σας password είναι το: '.$new_passwd);
+	workoffer_mail($email, 'Password reset', 'Το νέο σας password είναι το: '.$new_passwd);
 
 	return array(
 		'successPageHtml' => '<h2>Το password σας άλλαξε</h2><br>
-		<h3>Το νέο password έχει σταλεί στο email σας ' . $email . '</h3>'
+		<p>Το νέο password έχει σταλεί στο email σας ' . $email . '</p>'
 	);
 }
 
