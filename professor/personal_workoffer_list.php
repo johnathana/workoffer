@@ -45,7 +45,8 @@
 		});
 		
 		var oTableTools = new TableTools( oTable, {
-			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf"
+			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf",
+			"aButtons": [ "copy","xls", "pdf", "print" ]
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
@@ -204,7 +205,7 @@
 				<br />
 			</div>
 
-			<h3>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</h3>
+			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</p>
 			<form id="myForm"  method="POST" >
 				<div id="demo" ></div>
 				<div class="demo_jui" id="demo_jui">
@@ -213,11 +214,11 @@
 				if (isset($_GET['check']) && $_GET['check'] == "notlive"){  ?>
 				<table style="width: 150px">
 				<tr>
-					<td><label><h4>Ενεργές παροχές</h4></td>
+					<td><label>Ενεργές παροχές</td>
 					<td><input type="radio" name="myradio" onClick="radio_click();" value="live" /></label></td>
 				</tr>
 				<tr>
-					<td><label><h4>Ανενεργές παροχές</h4></td>
+					<td><label>Ανενεργές παροχές</td>
 					<td><input type="radio" name="myradio" onClick="radio_click();" value="dead" checked="true" /></label></td>
 				</tr>
 				</table>
@@ -241,11 +242,11 @@
 				?>
 				<table style="width: 150px">
 				<tr>
-					<td><label><h4>Ενεργές παροχές</h4></td>
+					<td><label>Ενεργές παροχές</td>
 					<td><input type="radio" name="myradio" onClick="radio_click();" value="live" checked="true" /></label></td>
 				</tr>
 				<tr>
-					<td><label><h4>Ανενεργές παροχές</h4></td>
+					<td><label>Ανενεργές παροχές</td>
 					<td><input type="radio" name="myradio" onClick="radio_click();" value="dead"  /></label></td>
 				</tr>
 				</table>
@@ -279,7 +280,7 @@
 						<th>Παραδοτέα </th>
 						<th>Απαιτούμενες ώρες υλοποίησης</th>
 						<th>Λήξη προθεσμίας</th>
-						<th>Στο χώρο του di</th>
+						<th>Στο χώρο του πανεπιστημίου</th>
 						<th>Ακαδημαϊκό έτος</th>
 						<th>Χειμερινού εξαμήνου</th>
 						<th>Απευθύνεται σε φοιτητή</th>

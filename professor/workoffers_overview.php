@@ -45,7 +45,8 @@
 		});
 		
 		var oTableTools = new TableTools( oTable, {
-			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf"
+			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf",
+			"aButtons": [ "copy","xls", "pdf", "print" ]
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
@@ -149,7 +150,7 @@
 				<br />
 			</div>
 
-			<h3>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</h3>
+			<p>Επιλέξτε μια παροχή και στη συνέχεια πατήστε επεξεργασία για τροποποίηση της συγκεκριμένης παροχής ή επιλέξτε αιτήσεις για να δείτε τις αιτήσεις των φοιτητών</p>
 			<form id="myForm"  method="POST" >
 				<div id="demo" ></div>
 				<div class="demo_jui" id="demo_jui">
@@ -168,26 +169,26 @@
 				?>
 				<table style="width: 300px">
 				<tr>
-					<td><label><h4>Προσωπικές παροχές</h4></td>
+					<td><label>Προσωπικές παροχές</td>
 					<td><input type="radio" name="filter1" onClick="radio_click();" value="one" 
 					<?php if($choice=="111"||$choice=="112"||$choice=="121"||$choice=="122"){echo "checked=\"true\"";}?> /></label></td>
-					<td><label><h4>Όλων των καθηγητών</h4></td>
+					<td><label>Όλων των καθηγητών</td>
 					<td><input type="radio" name="filter1" onClick="radio_click();" value="all"
 					<?php if($choice=="211"||$choice=="212"||$choice=="221"||$choice=="222"){echo "checked=\"true\"";}?> /></label></td>
 				</tr>
 				<tr>
-					<td><label><h4>Τρέχοντος έτους</h4></td>
+					<td><label>Τρέχοντος έτους</td>
 					<td><input type="radio" name="filter2" onClick="radio_click();" value="current"
 					<?php if($choice=="111"||$choice=="112"||$choice=="211"||$choice=="212"){echo "checked=\"true\"";}?> /></label></td>
-					<td><label><h4>Παλιότερων ετών</h4></td>
+					<td><label>Παλιότερων ετών</td>
 					<td><input type="radio" name="filter2" onClick="radio_click();" value="old"
 					<?php if($choice=="121"||$choice=="122"||$choice=="221"||$choice=="222"){echo "checked=\"true\"";}?>/></label></td>
 				</tr>
 				<tr>
-					<td><label><h4>Ενεργές παροχές</h4></td>
+					<td><label>Ενεργές παροχές</td>
 					<td><input type="radio" name="filter3" onClick="radio_click();" value="live"
 					<?php if($choice=="111"||$choice=="121"||$choice=="211"||$choice=="221"){echo "checked=\"true\"";}?> /></label></td>
-					<td><label><h4>Ανενεργές παροχές</h4></td>
+					<td><label>Ανενεργές παροχές</td>
 					<td><input type="radio" name="filter3" onClick="radio_click();" value="dead"
 					<?php if($choice=="112"||$choice=="122"||$choice=="212"||$choice=="222"){echo "checked=\"true\"";}?>/></label></td>
 				</tr>
@@ -205,7 +206,7 @@
 						<th>Παραδοτέα </th>
 						<th>Απαιτούμενες ώρες υλοποίησης</th>
 						<th>Λήξη προθεσμίας</th>
-						<th>Στο χώρο του di</th>
+						<th>Στο χώρο του πανεπιστημίου</th>
 						<th>Ακαδημαϊκό έτος</th>
 						<th>Χειμερινού εξαμήνου</th>
 						<th>Απευθύνεται σε φοιτητή</th>
