@@ -57,7 +57,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 			$('#demo').html(str);
 			var accepted = (fnGetSelected1(oTable));
 			if (accepted == 'ΝΑΙ')
-			$('input[type=submit]').attr('disabled',true);
+			$('input[name=submit_btn]').attr('disabled',true);
+			else
+			$('input[name=erase]').attr('disabled',true);
 		});
 		
 		$('#myForm').submit(function()
@@ -105,7 +107,26 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 									$( this ).dialog( "close" );
 							}
 					}
-			});	
+			});
+		}
+		else//δεν έχει επιλέξει κάποια παροχή 
+		{
+			alert("Πρώτα πρέπει να επιλέξετε μια παροχή έργου");
+		}
+		});
+		$('input[name=erase]').click(function()
+		{
+		var workappid = fnGetSelected(oTable);
+		if(workappid!=null)
+		{
+			$.post('recantation.php',{ id : workappid },
+			function(data)
+			{
+			  alert(data);
+			});
+			// var work_id = $('input[name=workoffer_id]').val();
+			<?php if(isset($_GET['id'])){?>window.location.href="/professor/show_apps.php?id=<?php echo $_GET['id']?>";
+			<?php }else{?>window.location.href="/professor/show_apps.php?id=<?php echo $_POST['workoffer_id']?>";<?php }?>
 		}
 		else//δεν έχει επιλέξει κάποια παροχή 
 		{
@@ -163,13 +184,14 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
 		<div id="dialog-message" title="Πληροφορίες φοιτητή" hidden></div>
+		
 
 	<?php 
 		
 			if(isset($_GET['id']))//exei epilexsei kapoia paroxi apo to personal workoffer list
 			{
 				$workid = $_GET['id'];
-				$query1 = "SELECT candidates, title, has_expired FROM work_offers WHERE id = '$workid'";
+				$query1 = "SELECT candidates, title, has_expired, is_available FROM work_offers WHERE id = '$workid'";
 				$res = mysql_query($query1,$con);
 				confirm_query($res);
 				$row1 = mysql_fetch_assoc($res);?>
@@ -185,6 +207,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 				$row = mysql_fetch_assoc($workapps);
 				if($row1['candidates'] == mysql_num_rows($workapps))
 					echo "Έχει συμπληρωθεί ο μέγιστος αριθμός φοιτητών"."<br />";
+				if (mysql_num_rows($workapps)==0 && $row1['is_available']==0)
+					echo "Η παροχή έχει απενεργοποιηθεί"."<br />";
 				
 				$query = "SELECT * FROM work_applications WHERE work_id = '$workid'";
 				$workapps = mysql_query($query,$con);
@@ -228,6 +252,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 						<p><input class="button" type="button" name="back" value="Πίσω"  />
 						<input type="button" name="menu" value="Αρχικό μενού" class="button"/>
 						<?php if($row1['has_expired']==0){?><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /><?php	}?>
+						<input class="button" type="button" name="erase" value="Αναίρεση παροχής από φοιτητή"  />
 						<input class="button" type="button" name="btn" value="Πληροφορίες"  /></p>
 					</form>
 				</div>
@@ -240,13 +265,17 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 				{
 					$workoffer_id = $_POST['workoffer_id'];
 					$workapp_id = $_POST['id'];
-					
 					$query1 = "SELECT candidates,is_available,title,has_expired FROM work_offers WHERE id='$workoffer_id'";
 					$result_set1 = mysql_query($query1,$con);
 					confirm_query($result_set1);
 					$row1 = mysql_fetch_assoc($result_set1);
-					$max_candidates = $row1['candidates'];
-					
+					$max_candidates = $row1['candidates'];?>
+					<div id="container">
+					<div class="full_width big">
+					<h2>Πίνακας αιτήσεων για την παροχή <?php echo $row1['title'];?></h2>
+					<br />
+					</div>
+					<?php
 					$query2 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
 					$workapps = mysql_query($query2,$con);
 					confirm_query($workapps);
@@ -265,16 +294,18 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 						$result_set = mysql_query($query,$con);
 						confirm_query($result_set);
 						if(mysql_affected_rows() > 0)
+						{	
 							echo "Επιτυχής καταχώρηση στη βάση δεδομένων"."<br />";
-						$query3 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
-						$workapps = mysql_query($query3,$con);
-						confirm_query($workapps);
-						if (mysql_num_rows($workapps) == $max_candidates)
-						{
-							$que = "UPDATE work_offers SET is_available = '0' WHERE id='$workoffer_id'";
-							$result_set = mysql_query($que,$con);
-							confirm_query($result_set);
-						}				
+							$query3 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
+							$workapps = mysql_query($query3,$con);
+							confirm_query($workapps);
+							if (mysql_num_rows($workapps) == $max_candidates)
+							{
+								$que = "UPDATE work_offers SET is_available = '0' WHERE id='$workoffer_id'";
+								$result_set = mysql_query($que,$con);
+								confirm_query($result_set);
+							}
+						}	
 					}
 					$query = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id'";
 					$workapps = mysql_query($query,$con);
@@ -317,8 +348,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 							<br />
 							<p><input class="button" type="button" name="back" value="Πίσω"  />
 							<input type="button" name="menu" value="Αρχικό μενού" class="button"/>
-							<?php if($row1['has_expired']==0)
-							{?><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /><?php	}?>
+							<?php if($row1['has_expired']==0){?><input class="button" type="submit" name="submit_btn" value="Ανάθεση παροχής στο φοιτητή"  /><?php	}?>
+							<input class="button" type="button" name="erase" value="Αναίρεση παροχής από φοιτητή"  />
 							<input class="button" type="button" name="btn" value="Πληροφορίες"  /></p>
 						</form>
 					</div><?php
