@@ -97,7 +97,7 @@ function onSubmit($formValues) {
 	if ($auth->login($formValues->email, $formValues->password, !empty($formValues->rememberMe))) {
 		$response = array('successPageHtml' => '<script type="text/javascript">window.location.href="/index.php";</script>');
 	} else {
-		$response = array('failureNoticeHtml' => 'Invalid username or password.', 'failureJs' => "$('#password').val('').focus();");
+		$response = array('failureNoticeHtml' => 'Λάθος username ή password.', 'failureJs' => "$('#password').val('').focus();");
 	}
 
 	return $response;
