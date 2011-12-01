@@ -10,11 +10,20 @@
 	<style type="text/css" title="currentStyle">
 		@import "../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
 	</style>
-	
+	<script type="text/javascript" src="../jquery-validation-1.8.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var oTable;
 		
 		$(document).ready(function(){ 
+		$('#myForm').validate({
+				'rules':{
+						'title':'required',
+						'requirements':'required',
+						'deliverables':'required',
+						'deadline':'required',
+						'hours':'required'
+						}
+		});
 		$('input[name=menu]').click(function()
 		{
 			window.location.href="/professor/prof_menu.php";
@@ -71,7 +80,7 @@
 					$row = mysql_fetch_assoc($result_set);
 					extract($row); ?>
 					
-					<form action="personal_workoffer_list.php" method="post">
+					<form id="myForm" action="personal_workoffer_list.php" method="post">
 					<input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
 					<table>
 						<tr>
@@ -138,7 +147,7 @@
 		mysql_close($con);
 	 
 	?>
-
+		</div>
 	</aside> 
 	</div><!--/content--> 
  
