@@ -45,7 +45,7 @@
 				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="management" value="Διαχείριση παροχών" /></td></tr>
 				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="professors" value="Διαχείριση καθηγητών" /></td></tr>
 				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="students" value="Διαχείριση φοιτητών" /></td></tr>
-				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="massmails" value="Αποστολή μυνημάτων" /></td></tr>
+				<tr><td><input style="width:130px; height:35px;" class="button" type="button" name="massmails" value="Αποστολή μηνυμάτων" /></td></tr>
 			</table>
 		</div>
 		

@@ -61,7 +61,14 @@
 			var str = '<input type="hidden" name="id" value="'+workid+'"/>';
 			$('#demo').html(str);
 		});
-		
+		$('input[name=menu1]').click(function()
+		{
+			window.location.href="/admin/admin_menu.php";
+		});
+		$('input[name=menu2]').click(function()
+		{
+			window.location.href="/professor/prof_menu.php";
+		});
 		}); 
 		function radio_click()
 		{
@@ -321,7 +328,14 @@
 				
 				<br />
 				<p>
-					<input class="button" type="button" id="edit_btn" onClick="redirect_create();" value="Αρχικό μενού"  />
+					
+					<?php switch ($auth->is_admin) {
+					case auth::Admin :?>
+					<input type="button" id="admin" name="menu1" value="Αρχικό μενού" class="button"/>
+					<?php	break;
+					case auth::Professor :?>
+					<input type="button" id="prof" name="menu2" value="Αρχικό μενού" class="button"/>
+					<?php	break;	}?>
 					<input class="button" type="button" id="edit_btn" onClick="check_redirect1();" value="Επεξεργασία"  />
 					<input class="button" type="button" id="apps_btn" onClick="check_redirect2();" value="Αιτήσεις για αυτήν την παροχή"  />
 				</p>

@@ -10,7 +10,6 @@
 			$('#myForm').validate({
 				'rules':{
 						'title':'required',
-						'lesson':'required',
 						'requirements':'required',
 						'deliverables':'required',
 						'deadline':'required',
@@ -19,7 +18,7 @@
 			});
 			$('input[name=menu]').click(function()
 			{
-				window.location.href="/professor/prof_menu.php";
+				window.location.href="/admin/admin_menu.php";
 			});
 		});
 		$(function() {
@@ -65,12 +64,12 @@
 
 	$result_set = mysql_query($query, $con);
 	confirm_query($result_set);
-
-	echo "<select name=\"prof_id\" ". $disabled. ">";
-	while ($row = mysql_fetch_assoc($result_set)) {
-		if ($row['email'] == $auth->email)
-			echo "<option value=\"". $row['id']."\" selected=\"selected\">".$row['surname']."</option>";
-		else
+	//echo "<select name=\"prof_id\" ". $disabled. ">";?>
+		<select name="prof_id">
+<?php	while ($row = mysql_fetch_assoc($result_set)) {
+		//if ($row['email'] == $auth->email)
+			//echo "<option value=\"". $row['id']."\" selected=\"selected\">".$row['surname']."</option>";
+		//else
 			echo "<option value=\"". $row['id']."\">".$row['surname']."</option>";
 	}
 	echo "</select>";
