@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/mail_functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/PEAR/Mail/mime.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/head.php');?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/connection.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/functions.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../admin/mail_functions.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../PEAR/Mail/mime.php'); ?>
 	<?php require 'admins_form.libs.php'; ?>
 </head> 
 

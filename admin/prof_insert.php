@@ -100,11 +100,11 @@
 		 
 		 if (empty($row_mail)) 
 	 {
-	    	$query = "INSERT INTO users (surname, name, email, passwd, is_admin, phone, sex, cv) VALUES ('$surname','$name','$email', '$passwd','2','$phone','$sex','$cv')";
+	    	$query = "INSERT INTO users (surname, name, email, passwd, is_admin, phone, sex, cv) VALUES ('$surname','$name','$email', sha('$passwd'),'2','$phone','$sex','$cv')";
 			$result_set = mysql_query($query,$con);
 			confirm_query($result_set);
 			echo "Επιτυχής δημιουργία λογαριασμού";
-			?><p>Πατήστε <a href="admin_menu_new.php">εδώ</a> για επιστροφή στην κεντρική σελίδα των διαχειριστών</p> <?php
+			?><p>Πατήστε <a href="admin_menu.php">εδώ</a> για επιστροφή στην κεντρική σελίδα των διαχειριστών</p> <?php
 		}
 		
 		else
