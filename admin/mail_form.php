@@ -18,6 +18,10 @@
 		$(function() {
 			$( "#deadline" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		});
+		function redirect_menu()
+		{
+			window.location.href = "/admin/admin_menu.php";
+		}
 	</script>
 </head>
 
@@ -55,10 +59,12 @@
 			<td><label for='uploaded_file'>Επιλογή Συννημένου Αρχείου:</label></td>
             <td><input type="file" name="uploaded_file"></td>
 			</tr>
-			<tr>
+			</table>
+			<br>
+			<input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Ακύρωση" />
 			<td align="center"><input class="button" type="submit" name="sent_mail" value="Αποστολή"/></td>
-			</tr>
-		</table>
+			</br>
+		
 		</form>
 		
 		
