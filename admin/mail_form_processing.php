@@ -11,7 +11,7 @@
 
 <body id="overview"> 
 
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/header.php');?>
 
 	<div id="globalfooter"> 
 
