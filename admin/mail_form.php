@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php'); ?>
-	<link type="text/css" href="jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
-	<script type="text/javascript" src="jquery-validation-1.8.0/jquery.validate.min.js"></script>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');
+     require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');?>
+	<link type="text/css" href="../jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css" rel="Stylesheet" />
+	<script type="text/javascript" src="../jquery-validation-1.8.0/jquery.validate.min.js"></script>
 	<script>
 		$(document).ready(function(){
 		$('#myMailForm').validate({
 				'rules':{
-						'mail_username':'required',
-						'receivers':'required',
+				        'receivers':'required',
 						'mail_subject':'required',
 						'mail_contents':'required',
 						}
@@ -37,10 +37,7 @@
 
 		<h3> Αποστολή ενημερωτικών e-mail </h3>
 		<form id="myMailForm" action="mail_form_processing.php" method="post" enctype="multipart/form-data">
-		<table>
-		    <tr>
-				<td>ΑΠΟ(εισάγετε e-mail χρήστη)</td><td><input type="text" name="mail_username" size="40"/></td>
-			</tr>
+		<table>	    
 			<tr>
 				<td>ΠΡΟΣ</td><td> <select name="receivers">
 				  <option value="1">Όλους τους εγγεγραμένους χρήστες</option>
@@ -53,11 +50,7 @@
 				<td>Θέμα</td><td><input type="text" name="mail_subject" size="80"/></td>
 			</tr>
 			<tr>
-				<td>Κείμενο Περιεχομένου</td><td> <textarea name="mail_contents" cols="60" rows="5"></textarea></td>
-			</tr>
-			<tr>
-			<td><label for='uploaded_file'>Επιλογή Συννημένου Αρχείου:</label></td>
-            <td><input type="file" name="uploaded_file"></td>
+				<td>Κείμενο Περιεχομένου</td><td> <textarea name="mail_contents" cols="80" rows="6"></textarea></td>
 			</tr>
 			</table>
 			<br>
