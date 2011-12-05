@@ -131,7 +131,7 @@
 		      echo $subject;
 		      echo $message; */
 		
-		     ini_set('SMTP','mailgate.forthnet.gr');
+		     ini_set('SMTP','mailhost.di.uoa.gr');
 		     if (mail($to, $subject, $message, $from, $file)) {
              echo("<p>Το μύνημά σας εστάλθηκε επιτυχώς!</p>");
              } 
