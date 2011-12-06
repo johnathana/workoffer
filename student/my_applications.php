@@ -91,7 +91,24 @@
 							{
 								die('Error: ' . mysql_error());
 							}
-							//echo "Επιτυχής καταχώρηση στη βάση δεδομένων";
+							$query5 = "SELECT * FROM work_offers WHERE id='$workoffer_id'";
+							$result_set5 = mysql_query($query5,$con);
+							confirm_query($result_set5);
+							$row5 = mysql_fetch_assoc($result_set5);
+							$prof_id = $row5['professor_id'];
+							$query = "SELECT * FROM users WHERE id='$prof_id'";
+							$result_set = mysql_query($query,$con);
+							confirm_query($result_set);
+							$row = mysql_fetch_assoc($result_set);
+							$to = $row['email'];
+							$subject = "Workoffer Application";
+							$query = "SELECT name,surname FROM users WHERE id='$stud_id'";
+							$result_set = mysql_query($query,$con);
+							confirm_query($result_set);
+							$row = mysql_fetch_assoc($result_set);
+							$message = "Ο φοιτητής ".$row['surname'] ."έχει κάνει αίτηση για την παροχή ".$row['title'].".";
+							workoffer_mail($to, $subject, $message);
+							
 						}
 					}
 					$stud_id = $auth->id;

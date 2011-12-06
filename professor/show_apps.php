@@ -296,6 +296,20 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php');
 						if(mysql_affected_rows() > 0)
 						{	
 							echo "Επιτυχής καταχώρηση στη βάση δεδομένων"."<br />";
+							//diadikasia apostolis email
+							$query5 = "SELECT user_id FROM work_applications WHERE id='$workapp_id'";
+							$result_set5 = mysql_query($query5,$con);
+							confirm_query($result_set5);
+							$row5 = mysql_fetch_assoc($result_set5);
+							$user_id = $row5['user_id'];
+							$query4 = "SELECT email FROM users WHERE id='$user_id'";
+							$result_set4 = mysql_query($query4,$con);
+							confirm_query($result_set4);
+							$row4 = mysql_fetch_assoc($result_set4);
+							$to = $row4['email'];
+							$subject = "Application accepted";
+							$message = "Η αίτησή σας για την παροχή ".$row1['title'] ."έγινε αποδεκτή.";
+							workoffer_mail($to, $subject, $message);
 							$query3 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
 							$workapps = mysql_query($query3,$con);
 							confirm_query($workapps);

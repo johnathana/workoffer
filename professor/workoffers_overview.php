@@ -146,7 +146,7 @@
 
 		<div id="container">
 			<div class="full_width big">
-				<h2>Πίνακας Παροχών</h2> 
+				<h2>Επισκόπηση Παροχών</h2> 
 				<br />
 			</div>
 			

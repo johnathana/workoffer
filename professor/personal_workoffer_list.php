@@ -208,7 +208,7 @@
 	?>
 		<div id="container">
 			<div class="full_width big">
-				<h2>Πίνακας Παροχών</h2>
+				<h2>Διαχείριση Παροχών</h2>
 				<br />
 			</div>
 
