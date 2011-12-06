@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/head.php');?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/head.php');?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../admin/mail_functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../PEAR/Mail/mime.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/mail.php'); ?>
-	<?php require 'admins_form.libs.php'; ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/connection.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/functions.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./admin/mail_functions.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./PEAR/Mail/mime.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/mail.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./admin/admins_form.libs.php'); ?>
 </head> 
 
 <body id="overview"> 
@@ -20,7 +20,7 @@
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
 
-<?php   /*function get_errors($form_data,$rules){
+<?php   function get_errors($form_data,$rules){
 		//returns an array of errors
 		$errors=array();
 
@@ -59,7 +59,7 @@
 	// send mail
 	// get from data
 	//    $mail_username = trim($_POST['mail_username']);
-*/
+	
         $sender = $auth->email;
 		$receivers = trim($_POST['receivers']);
 		$mail_subject = trim($_POST['mail_subject']);
@@ -150,6 +150,8 @@
             }
 	
 		}	
+		
+		}
 	
 	?> 
 
