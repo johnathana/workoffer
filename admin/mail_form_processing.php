@@ -1,16 +1,26 @@
 ﻿<!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/head.php');?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./admin/mail_functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./PEAR/Mail/mime.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/mail.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./admin/admins_form.libs.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'./includes/head.php');
+	 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); 
+	 require_once($_SERVER['DOCUMENT_ROOT'].'./includes/connection.php'); 
+	 require_once($_SERVER['DOCUMENT_ROOT'].'./includes/functions.php'); 
+     require_once($_SERVER['DOCUMENT_ROOT'].'./admin/mail_functions.php'); 
+	 //require_once($_SERVER['DOCUMENT_ROOT'].'./PEAR/Mail/mime.php'); 
+	 require_once($_SERVER['DOCUMENT_ROOT'].'./includes/mail.php'); 
+	 require_once($_SERVER['DOCUMENT_ROOT'].'./admin/admins_form.libs.php'); ?>
 </head> 
-
+<style type="text/css" title="currentStyle">
+		@import "dataTables/css/demo_page.css";
+		@import "dataTables/css/demo_table_jui.css";
+		@import "jquery-ui-1.8.11.custom/css/redmond/jquery-ui-1.8.11.custom.css";
+		@import "media/css/TableTools.css";
+	</style>
+	<script type="text/javascript" language="javascript" src="../dataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/ZeroClipboard.js"></script>
+	<script type="text/javascript" language="javascript" src="../media/js/TableTools.min.js"></script>
+	<script type="text/javascript" charset="utf-8"></script>
+	
 <body id="overview"> 
 
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/header.php');?>

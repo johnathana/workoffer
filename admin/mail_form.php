@@ -36,7 +36,7 @@
 		<aside class="column first" id="optimized">
 
 		<h3> Αποστολή ενημερωτικών e-mail </h3>
-		<form id="myMailForm" action="mail_form_processing.php" method="post" enctype="multipart/form-data">
+		<form id="myMailForm" action="mail_form_processing.php" method="post">
 		<table>	    
 			<tr>
 				<td>ΠΡΟΣ</td><td> <select name="receivers">
