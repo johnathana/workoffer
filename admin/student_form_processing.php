@@ -77,29 +77,39 @@
 		}
 		  function redirect_menu()
 		{
-			window.location.href = "/admin/admin_menu_new.php";
+			window.location.href = "/admin/admin_menu.php";
 		}
 		
-		$('input:button').click(function()
+	function redirect_info()
+	//$('input[name=btn]').click(function()
 		{
 		var userid = fnGetSelected(oTable);
 		if(userid!=null)
 		{
-			$.post(
-			'user_processing.php',
-			{ id : userid },
+			$( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+			$.post('/professor/user_processing.php',{ id : userid },
 			function(data)
 			{
-			  alert(data);
+			$("#dialog-message").html(data);
+			  alert(data);		  
 			});
+
+			$( "#dialog-message" ).dialog({
+					modal: true,
+					buttons: {
+							Ok: function() {
+									$( this ).dialog( "close" );
+							}
+					}
+			});	
 		}
-		else//δεν έχει επιλέξει κάποιo φοιτητή 
+		else//δεν έχει επιλέξει κάποιo φοιτητή
 		{
 			alert("Πρέπει πρώτα να επιλέξετε ένα φοιτητή");
 		}
-		});
-		
-		
+		}
+	
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
 		{
@@ -184,16 +194,10 @@
 				<br>
 				<p>
 				<input class="button" type="button" id="edit_btn" onClick="redirect_menu();" value="Αρχικό μενού"  />	
-	            <input class="button" type="button" id="edit_btn" onClick="redirect_change1();" value="Επεξεργασία"  />	
+	            <input class="button" type="button" id="edit_btn" onClick="redirect_change1();" value="Επεξεργασία"  />
+                 <input class="button" type="button" id="edit_btn" onClick="redirect_info();" value="Πληροφορίες"  />			
 				</p>
 				<input type='hidden' name='sent_prof' value='yes' />
-			</form>	
-			
-			<form id="myShowStud" action="show_apps.php" method="POST" >
-			<table>
-			<p>
-			<input class="button" type="button" name="btn" value="Πληροφορίες"  /></p>
-			</table>
 			</form>	
 			
 		</div>

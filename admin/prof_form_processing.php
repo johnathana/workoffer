@@ -37,7 +37,6 @@
 					/* Description */null,
 					/* Rating */null,
 					/* Product */null,
-					/* Description */null,
 			]
 		});
 		
@@ -81,7 +80,7 @@
 		}
 			function redirect_menu()
 		{
-			window.location.href = "/admin/admin_menu_new.php";
+			window.location.href = "/admin/admin_menu.php";
 		}
 		
 		/* Get the rows which are currently selected */
@@ -139,7 +138,6 @@
 						<th>Επώνυμο</th>
 						<th>Όνομα</th>
 						<th>E-mail</th>
-						<th>Κωδικός Πρόσβασης</th>
 						<th>Τηλέφωνο</th>
 						<th>Φύλλο</th>
 						<th>Πληροφορίες</th>
@@ -158,7 +156,7 @@
 							{$fyllo="Θήλυ";}
 						 else
 							{$fyllo="???";} 
-						 echo "<td>$id</td><td>$surname</td><td>$name</td><td>$email</td><td>$passwd</td><td>$phone</td>
+						 echo "<td>$id</td><td>$surname</td><td>$name</td><td>$email</td><td>$phone</td>
 								<td>$fyllo</td><td>$cv</td><td>$created</td><td>$last_login</td>";
 					     echo "</tr>"; 
 						} 		

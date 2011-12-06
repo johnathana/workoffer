@@ -1,24 +1,26 @@
 ﻿<!DOCTYPE html> 
 <html> 
 <head>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connection.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/mail_functions.php'); ?>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/PEAR/Mail/mime.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/head.php');?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/auth.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/connection.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/functions.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../admin/mail_functions.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../PEAR/Mail/mime.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/mail.php'); ?>
 	<?php require 'admins_form.libs.php'; ?>
 </head> 
 
 <body id="overview"> 
 
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'../includes/header.php');?>
 
 	<div id="globalfooter"> 
 
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
 
-<?php   function get_errors($form_data,$rules){
+<?php   /*function get_errors($form_data,$rules){
 		//returns an array of errors
 		$errors=array();
 
@@ -52,21 +54,25 @@
 	}
 	else {
 	echo '<strong>Αποστολή e-mail</strong><ul><li>';
+	
+	   $sender = $auth->email;
 	// send mail
 	// get from data
-	    $mail_username = trim($_POST['mail_username']);
+	//    $mail_username = trim($_POST['mail_username']);
+*/
+        $sender = $auth->email;
 		$receivers = trim($_POST['receivers']);
 		$mail_subject = trim($_POST['mail_subject']);
 		$mail_contents = trim($_POST['mail_contents']);
 		
-		echo $mail_username; 
+		echo $sender; 
 		
-       $sender=get_user_mail($mail_username);  //apostoleas
+//      $sender=get_user_mail($mail_username);  //apostoleas
 		
 		
 		if (empty($sender)) 
 		{
-		echo "Ο χρήστης δεν υπάρχει";
+		echo "Δεν είναι δυνατή η αποστολή email";
 		echo '<a href="mail_form.php">Επιστροφή στη φόρμα αποστολής e-mail</a>';
 		}
 		else{
@@ -94,7 +100,7 @@
 			  
  		//Get Attachment
 		//Get the uploaded file information
-        $name_of_uploaded_file = basename($_FILES['uploaded_file']['name']);
+ /*       $name_of_uploaded_file = basename($_FILES['uploaded_file']['name']);
         $upload_folder = '../upload_folder';
 		
         //get the file extension of the file
@@ -118,32 +124,32 @@
         $attach->addAttachment($path_of_uploaded_file);
         $file = $attach->get();
 		//end of attachment proccess
-		
+*/		
 			  
-			  $to = $recvs . "\r\n";
-		      $subject = $mail_subject . "\r\n";
-		      $message = $mail_contents . "\r\n";
-			  $from = 'From: ' . $sender['name'] . ' ' . $sender['surname'] . " .< ". $sender['email'] . ">\r\n";
+			//  $to = $recvs . "\r\n";
+		    //  $subject = $mail_subject . "\r\n";
+		    //  $message = $mail_contents . "\r\n";
+			//  $from = 'From: ' . $sender['name'] . ' ' . $sender['surname'] . " .< ". $sender['email'] . ">\r\n";
 		
 			  // echo tests
-			 /* echo $from;
-			  echo $to;
-		      echo $subject;
-		      echo $message; */
+			 // echo $from;
+			  echo $recvs;
+		      echo $mail_subject;
+		      echo $mail_contents; 
 		
-		     ini_set('SMTP','mailgate.forthnet.gr');
-		     if (mail($to, $subject, $message, $from, $file)) {
+	//	 workoffer_mail($recvs, $mail_subject, $mail_contents);
+		
+//		     ini_set('SMTP','mailhost.di.uoa.gr');
+		     if (workoffer_mail($recvs, $mail_subject, $mail_contents)) {
              echo("<p>Το μύνημά σας εστάλθηκε επιτυχώς!</p>");
+			 ?><p>Πατήστε <a href="admin_menu.php">εδώ</a> για επιστροφή στην κεντρική σελίδα των διαχειριστών</p> <?php
              } 
 		     else {
              echo("<p>Message delivery failed...</p>");
+			 echo '<a href="mail_form.php">Επιστροφή στη φόρμα αποστολής e-mail</a>';
             }
-		
-		
-		}
-		
 	
-	}
+		}	
 	
 	?> 
 

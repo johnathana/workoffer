@@ -135,7 +135,7 @@
 							<td>E-mail </td><td><input type="text" name="email" value="<?php echo $email;?>" /></td>
 						</tr>
 						<tr>
-							<td>Κωδικός Πρόσβασης </td><td><input type="text" name="passwd" value="<?php echo $passwd;?>" /></td>
+							<td>Κωδικός Πρόσβασης </td><td><input type="text" name="passwd" value="<?php echo '*****';?>" /></td>
 						</tr>
 						<tr>
 							<td>Τηλέφωνο </td><td><input type="text" name="phone" value="<?php echo $phone;?>" /></td>
