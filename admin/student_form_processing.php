@@ -91,8 +91,7 @@
 			$.post('/professor/user_processing.php',{ id : userid },
 			function(data)
 			{
-			$("#dialog-message").html(data);
-			  alert(data);		  
+			$("#dialog-message").html(data);		  
 			});
 
 			$( "#dialog-message" ).dialog({
@@ -141,6 +140,7 @@
 
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
+		<div id="dialog-message" title="Πληροφορίες φοιτητή" hidden></div>
 
 		<div id="container">
 			<div class="full_width big">
