@@ -171,7 +171,7 @@
      								
 					<h3>Επεξεργασία φοιτητή </h3>
 					<form action="student_update.php" method="post">
-					<input type="hidden" name="id" value="<?php echo $_POST['id'];?>" />
+					<input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
 					<table>
 						<tr>
 							<td>Επώνυμο </td><td><input type="text" name="surname" value="<?php echo $surname;?>" /></td>
