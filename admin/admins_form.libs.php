@@ -1,6 +1,6 @@
 ﻿<?php
 $mail_form_rules=array(
-'mail_username'=>array('required'=>true),
+'receivers'=>array('required'=>true),
 'mail_subject'=>array('required'=>true),
 'mail_contents'=>array('required'=>true),
 );

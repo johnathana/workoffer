@@ -37,7 +37,7 @@
 		<aside class="column first" id="optimized">
 
 		<?php 
-	//	echo $_POST['id'];
+		//echo $_POST['id'];
 		$stud_id = $_POST['id'];
 		$surname = trim($_POST['surname']);
 		$name = trim($_POST['name']);
@@ -63,8 +63,12 @@
 			confirm_query($result_set);
 			echo "Οι τροποποιήσεις πραγματοποιήθηκαν με επιτυχία";
 			 }
+			 else 
+			 {
+		     echo "Αποτυχία τροποποίησης χρήστη";
+			 echo '<a href="/admin/student_form_processing.php">Επιστροφή στην οθόνη διαχείρισης φοιτητών</a>';
+			 }
 			 
-		 
 		switch($auth->is_admin)
 		{
 			case"0":
