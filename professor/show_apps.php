@@ -57,10 +57,14 @@
 			var str = '<input type="hidden" name="id" value="'+workapp_id+'"/>';
 			$('#demo').html(str);
 			var accepted = (fnGetSelected1(oTable));
-			if (accepted == 'ΝΑΙ')
+			if (accepted == 'ΝΑΙ'){
 			$('input[name=submit_btn]').attr('disabled',true);
-			else
+			$('input[name=erase]').attr('disabled',false);
+			}
+			else{
 			$('input[name=erase]').attr('disabled',true);
+			$('input[name=submit_btn]').attr('disabled',false);
+			}
 		});
 		
 		$('#myForm').submit(function()

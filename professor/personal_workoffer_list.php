@@ -198,6 +198,7 @@
 					if (isset($_POST['submit']) && $_POST['submit'] == "Καταχώρηση")
 					{
 						//apla den ginetai update to is_available kai paramenei oti itan prin sti vasi
+						/*na elenxsw an itan prin sti vasi to is_avail 0 kai meta o prof afxsise tous candidates*/
 						$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', addressed_for = '$addressed' WHERE id='$workoffer_id'";
 						$result_set = mysql_query($query,$con);
 						confirm_query($result_set);
