@@ -309,7 +309,7 @@
 							$row4 = mysql_fetch_assoc($result_set4);
 							$to = $row4['email'];
 							$subject = "Application accepted";
-							$message = "Η αίτησή σας για την παροχή ".$row1['title'] ."έγινε αποδεκτή.";
+							$message = "Η αίτησή σας για την παροχή ".$row1['title']." έγινε αποδεκτή.";
 							workoffer_mail($to, $subject, $message);
 							$query3 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";
 							$workapps = mysql_query($query3,$con);
