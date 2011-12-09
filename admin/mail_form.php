@@ -35,7 +35,11 @@
 	<div class="content promos grid2col"> 
 		<aside class="column first" id="optimized">
 
-		<h3> Αποστολή ενημερωτικών e-mail </h3>
+		<div id="container">
+			<div class="full_width big">
+				<h2>Αποστολή ενημερωτικών e-mail</h2>
+			</div>
+
 		<form id="myMailForm" action="mail_form_processing.php" method="post">
 		<table>	    
 			<tr>
@@ -60,7 +64,7 @@
 		
 		</form>
 		
-		
+		</div>
 	</aside> 
 	</div><!--/content--> 
  
