@@ -169,7 +169,12 @@
 		}
 ?>
      								
-					<h3>Επεξεργασία φοιτητή </h3>
+	                <div id="container">
+        	                <div class="full_width big">
+                	                <h2>Επεξεργασία φοιτητή</h2>
+                        	         <br />
+	                        </div>
+
 					<form action="student_update.php" method="post">
 					<input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
 					<table>
@@ -204,7 +209,7 @@
 						</br>
 					</form>  
 					<?php mysql_close($con); ?>
-
+			</div>
 	</aside> 
 	</div><!--/content--> 
  
