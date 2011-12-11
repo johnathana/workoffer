@@ -199,9 +199,34 @@
 					{
 						//apla den ginetai update to is_available kai paramenei oti itan prin sti vasi
 						/*na elenxsw an itan prin sti vasi to is_avail 0 kai meta o prof afxsise tous candidates*/
-						$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', addressed_for = '$addressed' WHERE id='$workoffer_id'";
-						$result_set = mysql_query($query,$con);
-						confirm_query($result_set);
+						$q = "SELECT candidates FROM work_offers WHERE id = '".$_POST['id']."'";
+						$result = mysql_query($q,$con);
+						confirm_query($result);
+						$row = mysql_fetch_assoc($result);
+						if ($row['candidates'] == $candidates)//den allaxse to plithos twn candidates
+						{
+							$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', addressed_for = '$addressed' WHERE id='$workoffer_id'";
+							$result_set = mysql_query($query,$con);
+							confirm_query($result_set);
+						}
+						else//eite meiwthike eite afxsithike to plithos twn candidates
+						{
+							if ($row['candidates'] < $candidates)
+							{
+								$is_available = 1;
+								$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', is_available = '$is_available', addressed_for = '$addressed' WHERE id='$workoffer_id'";
+								$result_set = mysql_query($query,$con);
+								confirm_query($result_set);
+							}
+							else//diladi $row['candidates'] > $candidates)
+							{
+								if ($candidates == mysql_num_rows($workapps)) { $is_available = 0; }
+								else { $is_available = 1; }//gia tin akriveia itan 1 kai paramenei 1 giati logw edit_workoffer panda to $candidates >= mysql_num_rows($workapps)
+								$query = "UPDATE work_offers SET title = '$title', lesson = '$lesson', candidates = '$candidates',  requirements = '$requirements', deliverables = '$deliverables', hours = '$hours', deadline = '$deadline', at_di = '$at_di', winter_semester = '$winter', is_available = '$is_available', addressed_for = '$addressed' WHERE id='$workoffer_id'";
+								$result_set = mysql_query($query,$con);
+								confirm_query($result_set);
+							}
+						}
 					}
 				}
 			}
