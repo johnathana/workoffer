@@ -11,7 +11,7 @@ function workoffer_mail($to, $subject, $message)
 
 	$message = htmlspecialchars_decode($message, ENT_QUOTES);//optional - I use encoding to POST data
 	
-	mail($to, $subject, $message, $headers);
+	return mail($to, $subject, $message, $headers);
 }
 
 ?>

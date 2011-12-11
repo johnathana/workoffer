@@ -115,7 +115,7 @@
 		 
 		switch($auth->is_admin)
 		{
-			case"0":
+			case auth::Student:
 //			echo "foithths";
 			
 			 $query_id = "SELECT id FROM users WHERE email='$email'";			 
@@ -144,7 +144,7 @@
 			 }
 			break;
 			
-			case"1":
+			case auth::Admin:
 //			echo "admin";
 			
 			if(isset($_GET['id'])) //exei epilexsei kapoio foithth
@@ -162,14 +162,19 @@
 			}	
 			break;
 			
-			case"2":
+			case auth::Professor:
 //			echo "professor";
 			echo "Δεν έχετε δικαίωμα πρόσβασης στη σελίδα αυτή";		
 			break;
 		}
 ?>
      								
-					<h3>Επεξεργασία φοιτητή </h3>
+	                <div id="container">
+        	                <div class="full_width big">
+                	                <h2>Επεξεργασία φοιτητή</h2>
+                        	         <br />
+	                        </div>
+
 					<form action="student_update.php" method="post">
 					<input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
 					<table>
@@ -204,7 +209,7 @@
 						</br>
 					</form>  
 					<?php mysql_close($con); ?>
-
+			</div>
 	</aside> 
 	</div><!--/content--> 
  
