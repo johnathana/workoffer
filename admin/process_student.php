@@ -115,7 +115,7 @@
 		 
 		switch($auth->is_admin)
 		{
-			case"0":
+			case auth::Student:
 //			echo "foithths";
 			
 			 $query_id = "SELECT id FROM users WHERE email='$email'";			 
@@ -144,7 +144,7 @@
 			 }
 			break;
 			
-			case"1":
+			case auth::Admin:
 //			echo "admin";
 			
 			if(isset($_GET['id'])) //exei epilexsei kapoio foithth
@@ -162,7 +162,7 @@
 			}	
 			break;
 			
-			case"2":
+			case auth::Professor:
 //			echo "professor";
 			echo "Δεν έχετε δικαίωμα πρόσβασης στη σελίδα αυτή";		
 			break;
