@@ -128,10 +128,14 @@
 			function(data)
 			{
 			  alert(data);
+			  if (data!=null)
+			  {
+				<?php if(isset($_GET['id'])){?>window.location.href="/professor/show_apps.php?id=<?php echo $_GET['id']?>";
+				<?php }else{?>window.location.href="/professor/show_apps.php?id=<?php echo $_POST['workoffer_id']?>";<?php }?>
+			  }
 			});
-			// var work_id = $('input[name=workoffer_id]').val();
-			<?php if(isset($_GET['id'])){?>window.location.href="/professor/show_apps.php?id=<?php echo $_GET['id']?>";
-			<?php }else{?>window.location.href="/professor/show_apps.php?id=<?php echo $_POST['workoffer_id']?>";<?php }?>
+			
+			
 		}
 		else//δεν έχει επιλέξει κάποια παροχή 
 		{

@@ -32,7 +32,11 @@
 				confirm_query($result_set4);
 			}
 			echo "Ακυρώθηκε η ανάθεση \n";
-			echo "Ανακατεύθυνση στον πίνακα αιτήσεων";
+			echo "O πίνακας αιτήσεων θα ανανεωθεί.";
+		}
+		else
+		{
+			echo "Δεν μπήκε στο mysql_affected_rows.";
 		}
 	}
 ?>
