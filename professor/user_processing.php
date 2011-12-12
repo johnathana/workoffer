@@ -35,13 +35,13 @@
 			while($row = mysql_fetch_assoc($res1))
 			{
 				$work_id = $row['work_id'];
-				$query2 = "SELECT title, hours FROM work_offers WHERE id = '$work_id'";
+				$query2 = "SELECT title, hours, candidates FROM work_offers WHERE id = '$work_id'";
 				$res2 = mysql_query($query2,$con);
 				confirm_query($res2);
 				$row1 = mysql_fetch_assoc($res2);
 				extract($row1);
 				echo "$title"."<br />";
-				$total_hours+=$hours;
+				$total_hours+=$total_hours + ($hours/$candidates);
 			}
 			echo "Ο φοιτητής έχει εξασφαλίσει ".$total_hours." ώρες παροχής έργου.";
 		}
