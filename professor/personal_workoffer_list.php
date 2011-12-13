@@ -46,7 +46,7 @@
 		
 		var oTableTools = new TableTools( oTable, {
 			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf",
-			"aButtons": [ "copy","xls", "pdf", "print" ]
+			"aButtons": [ "copy", "xls", "print" ]
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
