@@ -70,13 +70,16 @@
 				$.post('html_onclick.php',{ id : workapp_id },
 				function(data)
 				{
-					if(!data){
+					var condition = JSON.parse(data);
+
+					if(condition.answer == "nothing"){
 					var str1 = '<div style="font-family:arial;color:red;">Ο φοιτητής δεν έχει γίνει δεκτός σε κάποια παροχή.</div>';
 					$('#test').html(str1);
 					}
 					else{
-					var str1 = '<div style="font-family:arial;color:red;">Ο φοιτητής έχει γίνει δεκτός στις εξής παροχές: '+data+'</div>';
+					var str1 = '<div style="font-family:arial;color:red;">Ο φοιτητής έχει γίνει δεκτός στις εξής παροχές: '+condition.answer+'</div>';
 					$('#test').html(str1);
+					
 					}
 				});
 			}
