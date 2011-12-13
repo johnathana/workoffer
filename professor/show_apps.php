@@ -65,6 +65,24 @@
 			$('input[name=erase]').attr('disabled',true);
 			$('input[name=submit_btn]').attr('disabled',false);
 			}
+			if(workapp_id!=null)
+			{
+				$.post('html_onclick.php',{ id : workapp_id },
+				function(data)
+				{
+					var condition = JSON.parse(data);
+
+					if(condition.answer == "nothing"){
+					var str1 = '<div style="font-family:arial;color:red;">Ο φοιτητής δεν έχει γίνει δεκτός σε κάποια παροχή.</div>';
+					$('#test').html(str1);
+					}
+					else{
+					var str1 = '<div style="font-family:arial;color:red;">Ο φοιτητής έχει γίνει δεκτός στις εξής παροχές: '+condition.answer+'</div>';
+					$('#test').html(str1);
+					
+					}
+				});
+			}
 		});
 		
 		$('#myForm').submit(function()
@@ -94,12 +112,12 @@
 		
 		$('input[name=btn]').click(function()
 		{
-		var userid = fnGetSelected(oTable);
-		if(userid!=null)
+		var workappid = fnGetSelected(oTable);
+		if(workappid!=null)
 		{
 			$( "#dialog:ui-dialog" ).dialog( "destroy" );
 
-			$.post('user_processing.php',{ id : userid },
+			$.post('user_processing.php',{ id : workappid },
 			function(data)
 			{
 			  $("#dialog-message").html(data);
@@ -208,6 +226,7 @@
 				<div class="full_width big">
 				<h2>Πίνακας αιτήσεων για την παροχή <?php echo $row1['title'];?></h2>
 				<br />
+				<div id="test" ></div>
 				</div>
 				<?php
 				$query = "SELECT * FROM work_applications WHERE work_id = '$workid' AND accepted = '1'";
@@ -283,6 +302,7 @@
 					<div class="full_width big">
 					<h2>Πίνακας αιτήσεων για την παροχή <?php echo $row1['title'];?></h2>
 					<br />
+					<div id="test" ></div>
 					</div>
 					<?php
 					$query2 = "SELECT * FROM work_applications WHERE work_id = '$workoffer_id' AND accepted = '1'";

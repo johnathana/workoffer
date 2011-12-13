@@ -92,7 +92,7 @@
 						<tr>
 							<td>Αριθμός υποψηφίων</td>
 							<td><select name="candidates">
-							<?php for($i=1;$i<5;$i++)
+							<?php for($i=mysql_num_rows($workapps);$i<5;$i++)
 									{
 										?><option value="<?php echo $i; ?>"<?php if ($candidates == $i) { ?> selected="selected"<?php } ?>><?php echo $i; ?></option><?php
 									}
