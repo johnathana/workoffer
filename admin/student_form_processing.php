@@ -42,7 +42,8 @@
 		});
 		
 		var oTableTools = new TableTools( oTable, {
-			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf"
+			"sSwfPath": "../media/swf/copy_cvs_xls_pdf.swf",
+			"aButtons": [ "copy", "xls", "print" ]
         } );
 		
 		$('#demo_jui').before( oTableTools.dom.container );		
