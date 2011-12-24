@@ -15,6 +15,7 @@
 		$res1 = mysql_query($query1,$con);
 		confirm_query($res1);
 		echo "Ο φοιτητής έχει κάνει αίτηση στις εξής παροχές:"."<br />";
+		echo "<ul>";
 		while($row = mysql_fetch_assoc($res1))
 		{
 			$work_id = $row['work_id'];
@@ -23,15 +24,18 @@
 			confirm_query($res2);
 			$row1 = mysql_fetch_assoc($res2);
 			$title = $row1['title'];
-			echo "$title"."<br />";
+			echo "<li>$title"."</li>";
 		}
+		echo "</ul>";
+
 		$query1 = "SELECT work_id FROM work_applications WHERE user_id = '$user_id' AND accepted = true";
 		$res1 = mysql_query($query1,$con);
 		confirm_query($res1);
 		if(mysql_num_rows($res1) > 0)
 		{
-			echo "Ο φοιτητής έχει γίνει δεκτός στις εξής παροχές:\n";
+			echo "Ο φοιτητής έχει γίνει δεκτός στις εξής παροχές:<br/>\n";
 			$total_hours = 0;
+			echo "<ul>";
 			while($row = mysql_fetch_assoc($res1))
 			{
 				$work_id = $row['work_id'];
@@ -40,9 +44,10 @@
 				confirm_query($res2);
 				$row1 = mysql_fetch_assoc($res2);
 				extract($row1);
-				echo "$title"."<br />";
+				echo "<li>$title"."</li>";
 				$total_hours+=$total_hours + ($hours/$candidates);
 			}
+			echo "</ul>";
 			echo "Ο φοιτητής έχει εξασφαλίσει ".$total_hours." ώρες παροχής έργου.";
 		}
 		else
