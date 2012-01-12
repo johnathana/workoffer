@@ -107,7 +107,7 @@
 							$result_set = mysql_query($query,$con);
 							confirm_query($result_set);
 							$row = mysql_fetch_assoc($result_set);
-							$message = "Ο φοιτητής ".$row['surname'] ."έχει κάνει αίτηση για την παροχή ".$row5['title'].".";
+							$message = "Ο φοιτητής ".$row['surname'] ." ".$row['name']." έχει κάνει αίτηση για την παροχή ".$row5['title'].".";
 							workoffer_mail($to, $subject, $message);
 							
 						}
