@@ -109,7 +109,10 @@ $login->processRequest();
 
 ?>
 	<div style="margin: 15px">
-		<a href="register.php">Δημιουργία λογαρισμού</a>
+	<table>
+		<tr><a href="register.php">Δημιουργία λογαρισμού</a></tr>
+		<tr><a href="/manual/manual_workoffer.pdf">Οδηγίες χρήσης πλατφόρμας</a></tr>
+	</table>
 	</div>
 	</aside> 
 </div><!--/content--> 
