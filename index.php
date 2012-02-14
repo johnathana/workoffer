@@ -110,7 +110,7 @@ $login->processRequest();
 ?>
 	<div style="margin: 15px">
 	<table>
-		<tr><a href="register.php">Δημιουργία λογαρισμού</a></tr>
+		<tr><a href="register.php">Δημιουργία λογαριασμού</a></tr>
 		<tr><a href="/manual/manual_workoffer.pdf">Οδηγίες χρήσης πλατφόρμας</a></tr>
 	</table>
 	</div>
